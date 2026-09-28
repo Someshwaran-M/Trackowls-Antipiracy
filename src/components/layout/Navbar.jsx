@@ -11,6 +11,7 @@ import {
   X,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import ScrollToTop from "./ScrollToTop";
 
 const navItems = [
   { name: "Home", path: "/" },
@@ -406,6 +407,7 @@ export default function Navbar() {
               )}
             </button>
 
+              
             {/* =================================================
                 THEME SWITCH
             ================================================= */}
@@ -1021,6 +1023,7 @@ export default function Navbar() {
         </div>
       </header>
 
+             
       {/* =====================================================
           WHATSAPP
       ===================================================== */}
@@ -1035,6 +1038,8 @@ export default function Navbar() {
           sm:right-6
         "
       >
+        <ScrollToTop />
+        
         {whatsappOpen && (
           <div
             className={`

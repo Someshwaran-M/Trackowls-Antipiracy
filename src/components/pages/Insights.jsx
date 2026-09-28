@@ -80,91 +80,456 @@ function Insights() {
     "Online Monitoring",
   ];
 
+  const knowledgeAreas = [
+    {
+      icon: Shield,
+      title: "Anti-Piracy",
+      text: "Digital content protection and unauthorized distribution.",
+    },
+    {
+      icon: Radar,
+      title: "IP Intelligence",
+      text: "Visibility around intellectual property across digital environments.",
+    },
+    {
+      icon: Globe,
+      title: "Online Monitoring",
+      text: "Understanding changing digital environments and exposure.",
+    },
+    {
+      icon: LockKeyhole,
+      title: "Digital Security",
+      text: "Structured approaches to digital threats and protection.",
+    },
+  ];
+
+  const featuredPoints = [
+    "Understand your digital exposure",
+    "Identify relevant signals and threats",
+    "Organize intelligence into workflows",
+    "Create a consistent protection process",
+  ];
+
   return (
-    <div className="min-h-screen overflow-hidden bg-[#070A07] text-white">
-      {/* HERO */}
-      <section className="relative px-6 pb-24 pt-20 sm:px-10 lg:px-16">
+    <div
+      className="
+        min-h-screen
+        w-full
+        overflow-x-hidden
+        bg-[#F7FAF4]
+        text-[#152019]
+        transition-colors
+        duration-300
+        dark:bg-[#070A07]
+        dark:text-white
+      "
+    >
+      {/* =====================================================
+          HERO
+      ===================================================== */}
+
+      <section
+        className="
+          relative
+          overflow-hidden
+          border-b
+          border-[#1C281C]/10
+          px-4
+          pb-14
+          pt-12
+          dark:border-white/[0.06]
+          sm:px-7
+          sm:pb-20
+          sm:pt-18
+          md:px-10
+          md:pb-24
+          md:pt-22
+          lg:px-12
+          lg:pb-28
+          lg:pt-24
+        "
+      >
+        {/* Background Grid */}
+
         <div
-          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          className="
+            pointer-events-none
+            absolute
+            inset-0
+            opacity-[0.035]
+            dark:opacity-[0.06]
+          "
           style={{
             backgroundImage:
               "linear-gradient(rgba(173,209,50,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(173,209,50,0.5) 1px, transparent 1px)",
-            backgroundSize: "70px 70px",
+            backgroundSize: "60px 60px",
           }}
         />
 
-        <div className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[620px] -translate-x-1/2 rounded-full bg-[#ADD132]/10 blur-[140px]" />
+        {/* Main Glow */}
 
-        <div className="relative mx-auto max-w-7xl">
-          <div className="grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
-            {/* HERO CONTENT */}
+        <div
+          className="
+            pointer-events-none
+            absolute
+            left-1/2
+            top-[-80px]
+            h-[260px]
+            w-[300px]
+            -translate-x-1/2
+            rounded-full
+            bg-[#ADD132]/7
+            blur-[100px]
+            dark:bg-[#ADD132]/10
+            sm:h-[360px]
+            sm:w-[500px]
+            sm:blur-[120px]
+            md:h-[430px]
+            md:w-[600px]
+            lg:h-[500px]
+            lg:w-[700px]
+            lg:blur-[140px]
+          "
+        />
+
+        <div className="relative mx-auto max-w-[1500px]">
+          <div
+            className="
+              grid
+              items-center
+              gap-9
+              lg:grid-cols-[1.1fr_0.9fr]
+              lg:gap-12
+              xl:gap-16
+            "
+          >
+            {/* =================================================
+                HERO CONTENT
+            ================================================= */}
+
             <div>
-              <div className="mb-7 inline-flex items-center gap-3 rounded-full border border-[#ADD132]/25 bg-[#ADD132]/5 px-4 py-2">
-                <span className="h-2 w-2 rounded-full bg-[#ADD132] shadow-[0_0_12px_#ADD132]" />
-                <span className="text-xs font-semibold uppercase tracking-[0.22em] text-[#C7EB45]">
+              {/* Badge */}
+
+              <div
+                className="
+                  inline-flex
+                  items-center
+                  gap-2
+                  rounded-full
+                  border
+                  border-[#6F8D08]/20
+                  bg-[#ADD132]/10
+                  px-3
+                  py-1.5
+                  dark:border-[#ADD132]/25
+                  dark:bg-[#ADD132]/5
+                  sm:gap-2.5
+                  sm:px-4
+                  sm:py-2
+                "
+              >
+                <span
+                  className="
+                    h-1.5
+                    w-1.5
+                    rounded-full
+                    bg-[#ADD132]
+                    shadow-[0_0_12px_#ADD132]
+                    sm:h-2
+                    sm:w-2
+                  "
+                />
+
+                <span
+                  className="
+                    text-[8px]
+                    font-semibold
+                    uppercase
+                    tracking-[0.2em]
+                    text-[#6F8D08]
+                    dark:text-[#C7EB45]
+                    sm:text-[10px]
+                    sm:tracking-[0.22em]
+                    md:text-xs
+                  "
+                >
                   TrackOwls Insights
                 </span>
               </div>
 
-              <h1 className="max-w-4xl text-5xl font-semibold leading-[0.98] tracking-[-0.04em] sm:text-6xl lg:text-7xl">
+              {/* Heading */}
+
+              <h1
+                className="
+                  mt-5
+                  max-w-4xl
+                  text-[42px]
+                  font-black
+                  leading-[0.97]
+                  tracking-[-0.055em]
+                  text-[#152019]
+                  dark:text-white
+                  sm:mt-7
+                  sm:text-[54px]
+                  md:text-[66px]
+                  lg:text-[78px]
+                  xl:text-[88px]
+                "
+              >
                 Intelligence for a
-                <span className="block text-[#ADD132]">
+                <span className="block text-[#789900] dark:text-[#ADD132]">
                   changing digital world.
                 </span>
               </h1>
 
-              <p className="mt-8 max-w-2xl text-lg leading-8 text-slate-400">
+              {/* Description */}
+
+              <p
+                className="
+                  mt-5
+                  max-w-2xl
+                  text-[12px]
+                  leading-6
+                  text-[#687368]
+                  dark:text-slate-400
+                  sm:mt-7
+                  sm:text-[14px]
+                  sm:leading-7
+                  md:text-[15px]
+                  md:leading-8
+                "
+              >
                 Explore perspectives on anti-piracy, intellectual property,
                 digital monitoring, brand protection and the technologies
                 shaping digital security.
               </p>
 
-              <div className="mt-10 flex flex-wrap gap-4">
+              {/* Buttons */}
+
+              <div
+                className="
+                  mt-7
+                  flex
+                  flex-col
+                  gap-2.5
+                  sm:mt-9
+                  sm:flex-row
+                  sm:flex-wrap
+                  sm:gap-3
+                "
+              >
                 <a
                   href="#latest-insights"
-                  className="group inline-flex items-center gap-3 rounded-full bg-[#ADD132] px-6 py-3.5 font-semibold text-black transition-all duration-300 hover:bg-[#C7EB45] hover:shadow-[0_0_35px_rgba(173,209,50,0.2)]"
+                  className="
+                    group
+                    inline-flex
+                    w-full
+                    items-center
+                    justify-center
+                    gap-2.5
+                    rounded-full
+                    bg-[#ADD132]
+                    px-5
+                    py-3
+                    text-[10px]
+                    font-bold
+                    text-black
+                    transition-all
+                    duration-300
+                    hover:bg-[#C7EB45]
+                    hover:shadow-[0_0_35px_rgba(173,209,50,0.2)]
+                    sm:w-auto
+                    sm:px-6
+                    sm:py-3.5
+                    sm:text-xs
+                  "
                 >
                   Explore Insights
+
                   <ArrowRight
-                    size={18}
-                    className="transition-transform duration-300 group-hover:translate-x-1"
+                    size={14}
+                    className="
+                      transition-transform
+                      duration-300
+                      group-hover:translate-x-1
+                      sm:h-[18px]
+                      sm:w-[18px]
+                    "
                   />
                 </a>
 
                 <Link
                   to="/technology"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/10 px-6 py-3.5 font-medium text-white transition hover:border-[#ADD132]/40 hover:bg-white/[0.03]"
+                  className="
+                    inline-flex
+                    w-full
+                    items-center
+                    justify-center
+                    gap-2
+                    rounded-full
+                    border
+                    border-[#263226]/15
+                    bg-white/50
+                    px-5
+                    py-3
+                    text-[10px]
+                    font-medium
+                    text-[#344034]
+                    backdrop-blur-xl
+                    transition
+                    hover:border-[#ADD132]/40
+                    hover:bg-white
+                    hover:text-[#6F8D08]
+                    dark:border-white/10
+                    dark:bg-white/[0.02]
+                    dark:text-white
+                    dark:hover:bg-white/[0.04]
+                    dark:hover:text-[#ADD132]
+                    sm:w-auto
+                    sm:px-6
+                    sm:py-3.5
+                    sm:text-xs
+                  "
                 >
                   Our Technology
-                  <ArrowUpRight size={17} />
+                  <ArrowUpRight size={14} className="sm:h-[17px] sm:w-[17px]" />
                 </Link>
               </div>
             </div>
 
-            {/* HERO VISUAL */}
-            <div className="relative">
-              <div className="absolute inset-0 rounded-[2rem] bg-[#ADD132]/10 blur-3xl" />
+            {/* =================================================
+                HERO VISUAL
+            ================================================= */}
 
-              <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#0B100B] p-7 shadow-2xl">
-                <div className="flex items-center justify-between border-b border-white/[0.07] pb-6">
+            <div className="relative">
+              <div
+                className="
+                  pointer-events-none
+                  absolute
+                  inset-0
+                  rounded-[20px]
+                  bg-[#ADD132]/7
+                  blur-3xl
+                  dark:bg-[#ADD132]/10
+                  sm:rounded-[2rem]
+                "
+              />
+
+              <div
+                className="
+                  relative
+                  overflow-hidden
+                  rounded-[20px]
+                  border
+                  border-[#263226]/10
+                  bg-white/75
+                  p-4
+                  shadow-[0_20px_60px_rgba(30,50,20,0.05)]
+                  backdrop-blur-xl
+                  dark:border-white/10
+                  dark:bg-[#0B100B]
+                  dark:shadow-2xl
+                  sm:rounded-[2rem]
+                  sm:p-6
+                  md:p-7
+                "
+              >
+                {/* Header */}
+
+                <div
+                  className="
+                    flex
+                    items-center
+                    justify-between
+                    gap-4
+                    border-b
+                    border-[#263226]/10
+                    pb-4
+                    dark:border-white/[0.07]
+                    sm:pb-6
+                  "
+                >
                   <div>
-                    <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
+                    <p
+                      className="
+                        text-[7px]
+                        uppercase
+                        tracking-[0.18em]
+                        text-[#7D877D]
+                        dark:text-slate-500
+                        sm:text-xs
+                        sm:tracking-[0.2em]
+                      "
+                    >
                       Intelligence Hub
                     </p>
-                    <p className="mt-2 text-lg font-semibold">
+
+                    <p
+                      className="
+                        mt-1
+                        text-sm
+                        font-black
+                        text-[#172017]
+                        dark:text-white
+                        sm:mt-2
+                        sm:text-lg
+                      "
+                    >
                       Digital Protection Signals
                     </p>
                   </div>
 
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#ADD132]/20 bg-[#ADD132]/10">
-                    <Search size={21} className="text-[#ADD132]" />
+                  <div
+                    className="
+                      flex
+                      h-9
+                      w-9
+                      shrink-0
+                      items-center
+                      justify-center
+                      rounded-xl
+                      border
+                      border-[#6F8D08]/20
+                      bg-[#ADD132]/10
+                      dark:border-[#ADD132]/20
+                      sm:h-11
+                      sm:w-11
+                    "
+                  >
+                    <Search
+                      size={17}
+                      className="text-[#6F8D08] dark:text-[#ADD132] sm:h-[21px] sm:w-[21px]"
+                    />
                   </div>
                 </div>
 
-                {/* Intelligence visual */}
-                <div className="relative mt-7 h-[330px] overflow-hidden rounded-2xl border border-white/[0.06] bg-[#070A07]">
+                {/* Intelligence Visual */}
+
+                <div
+                  className="
+                    relative
+                    mt-5
+                    h-[250px]
+                    overflow-hidden
+                    rounded-xl
+                    border
+                    border-[#263226]/10
+                    bg-[#F3F7EF]
+                    dark:border-white/[0.06]
+                    dark:bg-[#070A07]
+                    sm:mt-7
+                    sm:h-[300px]
+                    sm:rounded-2xl
+                    md:h-[330px]
+                  "
+                >
                   <div
-                    className="absolute inset-0 opacity-40"
+                    className="
+                      absolute
+                      inset-0
+                      opacity-30
+                      dark:opacity-40
+                    "
                     style={{
                       backgroundImage:
                         "linear-gradient(rgba(173,209,50,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(173,209,50,0.12) 1px, transparent 1px)",
@@ -172,58 +537,142 @@ function Insights() {
                     }}
                   />
 
-                  <div className="absolute left-1/2 top-1/2 h-44 w-44 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#ADD132]/20">
-                    <div className="absolute inset-5 rounded-full border border-[#ADD132]/20" />
-                    <div className="absolute inset-10 rounded-full border border-[#ADD132]/25" />
+                  {/* Radar */}
 
-                    <div className="absolute left-1/2 top-0 h-1/2 w-px origin-bottom bg-gradient-to-t from-transparent to-[#ADD132]" />
+                  <div
+                    className="
+                      absolute
+                      left-1/2
+                      top-1/2
+                      h-40
+                      w-40
+                      -translate-x-1/2
+                      -translate-y-1/2
+                      rounded-full
+                      border
+                      border-[#6F8D08]/15
+                      dark:border-[#ADD132]/20
+                      sm:h-52
+                      sm:w-52
+                    "
+                  >
+                    <div
+                      className="
+                        absolute
+                        inset-5
+                        rounded-full
+                        border
+                        border-[#6F8D08]/15
+                        dark:border-[#ADD132]/20
+                        sm:inset-6
+                      "
+                    />
+
+                    <div
+                      className="
+                        absolute
+                        inset-10
+                        rounded-full
+                        border
+                        border-[#6F8D08]/20
+                        dark:border-[#ADD132]/25
+                        sm:inset-12
+                      "
+                    />
+
+                    <div
+                      className="
+                        absolute
+                        left-1/2
+                        top-0
+                        h-1/2
+                        w-px
+                        origin-bottom
+                        bg-gradient-to-t
+                        from-transparent
+                        to-[#ADD132]
+                      "
+                    />
+
+                    {/* Core */}
 
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-[#ADD132]/30 bg-[#ADD132]/10">
-                        <Radar size={28} className="text-[#ADD132]" />
+                      <div
+                        className="
+                          flex
+                          h-14
+                          w-14
+                          items-center
+                          justify-center
+                          rounded-xl
+                          border
+                          border-[#6F8D08]/25
+                          bg-[#ADD132]/10
+                          shadow-[0_0_30px_rgba(173,209,50,0.12)]
+                          dark:border-[#ADD132]/30
+                          sm:h-16
+                          sm:w-16
+                          sm:rounded-2xl
+                        "
+                      >
+                        <Radar
+                          size={25}
+                          className="text-[#6F8D08] dark:text-[#ADD132] sm:h-7 sm:w-7"
+                        />
                       </div>
                     </div>
                   </div>
 
-                  <div className="absolute left-6 top-7 rounded-xl border border-white/[0.07] bg-[#0B100B]/90 px-4 py-3">
-                    <div className="flex items-center gap-2">
-                      <span className="h-2 w-2 rounded-full bg-[#ADD132]" />
-                      <span className="text-xs text-slate-300">
-                        Content Signal
-                      </span>
-                    </div>
-                  </div>
+                  {/* Signal Cards */}
 
-                  <div className="absolute right-6 top-20 rounded-xl border border-white/[0.07] bg-[#0B100B]/90 px-4 py-3">
-                    <div className="flex items-center gap-2">
-                      <span className="h-2 w-2 rounded-full bg-[#ADD132]" />
-                      <span className="text-xs text-slate-300">
-                        Threat Signal
-                      </span>
-                    </div>
-                  </div>
+                  <SignalCard
+                    position="left-3 top-4"
+                    title="Content Signal"
+                  />
 
-                  <div className="absolute bottom-8 left-8 rounded-xl border border-white/[0.07] bg-[#0B100B]/90 px-4 py-3">
-                    <div className="flex items-center gap-2">
-                      <span className="h-2 w-2 rounded-full bg-[#ADD132]" />
-                      <span className="text-xs text-slate-300">
-                        IP Signal
-                      </span>
-                    </div>
-                  </div>
+                  <SignalCard
+                    position="right-3 top-12"
+                    title="Threat Signal"
+                  />
 
-                  <div className="absolute bottom-7 right-7 rounded-xl border border-white/[0.07] bg-[#0B100B]/90 px-4 py-3">
-                    <div className="flex items-center gap-2">
-                      <span className="h-2 w-2 rounded-full bg-[#ADD132]" />
-                      <span className="text-xs text-slate-300">
-                        Brand Signal
-                      </span>
-                    </div>
-                  </div>
+                  <SignalCard
+                    position="bottom-5 left-4"
+                    title="IP Signal"
+                  />
+
+                  <SignalCard
+                    position="bottom-5 right-4"
+                    title="Brand Signal"
+                  />
                 </div>
 
-                <div className="mt-5 flex items-center gap-3 text-xs text-slate-500">
-                  <span className="h-2 w-2 rounded-full bg-[#ADD132]" />
+                {/* Status */}
+
+                <div
+                  className="
+                    mt-4
+                    flex
+                    items-center
+                    gap-2
+                    text-[9px]
+                    text-[#7D877D]
+                    dark:text-slate-500
+                    sm:mt-5
+                    sm:text-xs
+                  "
+                >
+                  <span
+                    className="
+                      h-1.5
+                      w-1.5
+                      rounded-full
+                      bg-[#ADD132]
+                      shadow-[0_0_8px_#ADD132]
+                      sm:h-2
+                      sm:w-2
+                    "
+                  />
+
                   Digital intelligence environment
                 </div>
               </div>
@@ -232,19 +681,76 @@ function Insights() {
         </div>
       </section>
 
-      {/* TOPIC BAR */}
-      <section className="border-y border-white/[0.06] bg-[#080C08] px-6 py-6 sm:px-10 lg:px-16">
-        <div className="mx-auto flex max-w-7xl flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-          <p className="text-sm font-medium text-slate-500">
+      {/* =====================================================
+          TOPIC BAR
+      ===================================================== */}
+
+      <section
+        className="
+          border-y
+          border-[#1C281C]/10
+          bg-[#EEF3E9]
+          px-4
+          py-5
+          dark:border-white/[0.06]
+          dark:bg-[#080C08]
+          sm:px-7
+          sm:py-6
+          md:px-10
+          lg:px-12
+        "
+      >
+        <div
+          className="
+            mx-auto
+            flex
+            max-w-[1500px]
+            flex-col
+            gap-4
+            lg:flex-row
+            lg:items-center
+            lg:justify-between
+          "
+        >
+          <p
+            className="
+              text-[10px]
+              font-semibold
+              text-[#7B857B]
+              dark:text-slate-500
+              sm:text-sm
+            "
+          >
             Explore topics
           </p>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
             {topics.map((topic) => (
               <button
                 key={topic}
                 type="button"
-                className="rounded-full border border-white/[0.08] bg-white/[0.02] px-4 py-2 text-xs font-medium text-slate-300 transition hover:border-[#ADD132]/30 hover:bg-[#ADD132]/5 hover:text-[#C7EB45]"
+                className="
+                  rounded-full
+                  border
+                  border-[#263226]/10
+                  bg-white/60
+                  px-3
+                  py-1.5
+                  text-[8px]
+                  font-medium
+                  text-[#536053]
+                  transition
+                  hover:border-[#ADD132]/30
+                  hover:bg-[#ADD132]/10
+                  hover:text-[#6F8D08]
+                  dark:border-white/[0.08]
+                  dark:bg-white/[0.02]
+                  dark:text-slate-300
+                  dark:hover:text-[#C7EB45]
+                  sm:px-4
+                  sm:py-2
+                  sm:text-xs
+                "
               >
                 {topic}
               </button>
@@ -253,83 +759,294 @@ function Insights() {
         </div>
       </section>
 
-      {/* LATEST INSIGHTS */}
+      {/* =====================================================
+          LATEST INSIGHTS
+      ===================================================== */}
+
       <section
         id="latest-insights"
-        className="px-6 py-24 sm:px-10 lg:px-16"
+        className="
+          px-4
+          py-14
+          sm:px-7
+          sm:py-20
+          md:px-10
+          md:py-24
+          lg:px-12
+        "
       >
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <div className="mx-auto max-w-[1500px]">
+          {/* Header */}
+
+          <div
+            className="
+              mb-9
+              flex
+              flex-col
+              justify-between
+              gap-5
+              md:mb-12
+              md:flex-row
+              md:items-end
+            "
+          >
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#ADD132]">
+              <p
+                className="
+                  text-[8px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.2em]
+                  text-[#6F8D08]
+                  dark:text-[#ADD132]
+                  sm:text-sm
+                "
+              >
                 Latest Insights
               </p>
 
-              <h2 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">
+              <h2
+                className="
+                  mt-3
+                  max-w-3xl
+                  text-[30px]
+                  font-black
+                  leading-[1.04]
+                  tracking-[-0.045em]
+                  text-[#152019]
+                  dark:text-white
+                  sm:mt-4
+                  sm:text-4xl
+                  md:text-5xl
+                "
+              >
                 Ideas, perspectives and digital intelligence.
               </h2>
             </div>
 
-            <p className="max-w-md text-sm leading-7 text-slate-500">
+            <p
+              className="
+                max-w-md
+                text-[10px]
+                leading-5
+                text-[#7B857B]
+                dark:text-slate-500
+                sm:text-sm
+                sm:leading-7
+              "
+            >
               Practical perspectives on protecting content, brands and
               intellectual property in an evolving digital environment.
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {/* Insight Cards */}
+
+          <div
+            className="
+              grid
+              gap-3
+              sm:gap-4
+              md:grid-cols-2
+              lg:grid-cols-3
+              lg:gap-5
+            "
+          >
             {insights.map((item) => {
               const Icon = item.icon;
 
               return (
                 <article
                   key={item.number}
-                  className="group relative overflow-hidden rounded-[1.75rem] border border-white/[0.08] bg-[#0A0E0A] transition-all duration-500 hover:-translate-y-1 hover:border-[#ADD132]/25"
+                  className="
+                    group
+                    relative
+                    overflow-hidden
+                    rounded-[18px]
+                    border
+                    border-[#263226]/10
+                    bg-white/70
+                    shadow-[0_12px_35px_rgba(30,50,20,0.04)]
+                    transition-all
+                    duration-500
+                    hover:-translate-y-1
+                    hover:border-[#ADD132]/30
+                    dark:border-white/[0.08]
+                    dark:bg-[#0A0E0A]
+                    dark:shadow-none
+                    sm:rounded-[1.5rem]
+                  "
                 >
-                  <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-[#ADD132]/5 blur-3xl transition duration-500 group-hover:bg-[#ADD132]/10" />
+                  {/* Glow */}
 
-                  <div className="relative p-7">
+                  <div
+                    className="
+                      pointer-events-none
+                      absolute
+                      right-0
+                      top-0
+                      h-28
+                      w-28
+                      rounded-full
+                      bg-[#ADD132]/5
+                      blur-3xl
+                      transition
+                      duration-500
+                      group-hover:bg-[#ADD132]/10
+                      sm:h-40
+                      sm:w-40
+                    "
+                  />
+
+                  <div className="relative p-4 sm:p-6 md:p-7">
+                    {/* Top */}
+
                     <div className="flex items-center justify-between">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#ADD132]/20 bg-[#ADD132]/10">
+                      <div
+                        className="
+                          flex
+                          h-10
+                          w-10
+                          items-center
+                          justify-center
+                          rounded-xl
+                          border
+                          border-[#6F8D08]/20
+                          bg-[#ADD132]/10
+                          dark:border-[#ADD132]/20
+                          sm:h-12
+                          sm:w-12
+                        "
+                      >
                         <Icon
-                          size={22}
-                          className="text-[#ADD132]"
+                          size={19}
+                          className="text-[#6F8D08] dark:text-[#ADD132] sm:h-[22px] sm:w-[22px]"
                         />
                       </div>
 
-                      <span className="text-xs font-semibold tracking-[0.18em] text-slate-600">
+                      <span
+                        className="
+                          text-[9px]
+                          font-bold
+                          tracking-[0.18em]
+                          text-[#A1AAA1]
+                          dark:text-slate-600
+                          sm:text-xs
+                        "
+                      >
                         {item.number}
                       </span>
                     </div>
 
-                    <div className="mt-8 flex items-center gap-3">
-                      <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#ADD132]">
+                    {/* Meta */}
+
+                    <div className="mt-5 flex items-center gap-2 sm:mt-8 sm:gap-3">
+                      <span
+                        className="
+                          text-[8px]
+                          font-semibold
+                          uppercase
+                          tracking-[0.16em]
+                          text-[#6F8D08]
+                          dark:text-[#ADD132]
+                          sm:text-[11px]
+                          sm:tracking-[0.18em]
+                        "
+                      >
                         {item.category}
                       </span>
 
-                      <span className="h-1 w-1 rounded-full bg-slate-700" />
+                      <span className="h-1 w-1 rounded-full bg-[#9AA39A] dark:bg-slate-700" />
 
-                      <span className="text-xs text-slate-600">
+                      <span
+                        className="
+                          text-[8px]
+                          text-[#8A948A]
+                          dark:text-slate-600
+                          sm:text-xs
+                        "
+                      >
                         {item.readTime}
                       </span>
                     </div>
 
-                    <h3 className="mt-4 text-xl font-semibold leading-snug tracking-tight">
+                    {/* Title */}
+
+                    <h3
+                      className="
+                        mt-3
+                        text-base
+                        font-black
+                        leading-snug
+                        tracking-tight
+                        text-[#172017]
+                        dark:text-white
+                        sm:mt-4
+                        sm:text-xl
+                      "
+                    >
                       {item.title}
                     </h3>
 
-                    <p className="mt-4 text-sm leading-7 text-slate-500">
+                    {/* Description */}
+
+                    <p
+                      className="
+                        mt-3
+                        text-[10px]
+                        leading-5
+                        text-[#697369]
+                        dark:text-slate-500
+                        sm:mt-4
+                        sm:text-sm
+                        sm:leading-7
+                      "
+                    >
                       {item.description}
                     </p>
 
-                    <div className="mt-7 border-t border-white/[0.07] pt-6">
+                    {/* Read */}
+
+                    <div
+                      className="
+                        mt-5
+                        border-t
+                        border-[#263226]/10
+                        pt-4
+                        dark:border-white/[0.07]
+                        sm:mt-7
+                        sm:pt-6
+                      "
+                    >
                       <button
                         type="button"
-                        className="group/link inline-flex items-center gap-2 text-sm font-semibold text-white transition hover:text-[#ADD132]"
+                        className="
+                          group/link
+                          inline-flex
+                          items-center
+                          gap-2
+                          text-[10px]
+                          font-semibold
+                          text-[#344034]
+                          transition
+                          hover:text-[#6F8D08]
+                          dark:text-white
+                          dark:hover:text-[#ADD132]
+                          sm:text-sm
+                        "
                       >
                         Read insight
+
                         <ArrowUpRight
-                          size={16}
-                          className="transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
+                          size={13}
+                          className="
+                            transition-transform
+                            duration-300
+                            group-hover/link:-translate-y-0.5
+                            group-hover/link:translate-x-0.5
+                            sm:h-4
+                            sm:w-4
+                          "
                         />
                       </button>
                     </div>
@@ -341,91 +1058,326 @@ function Insights() {
         </div>
       </section>
 
-      {/* FEATURED INSIGHT */}
-      <section className="border-y border-white/[0.06] bg-[#080C08] px-6 py-24 sm:px-10 lg:px-16">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid overflow-hidden rounded-[2rem] border border-white/[0.08] bg-[#0A0E0A] lg:grid-cols-[0.9fr_1.1fr]">
+      {/* =====================================================
+          FEATURED INSIGHT
+      ===================================================== */}
+
+      <section
+        className="
+          border-y
+          border-[#1C281C]/10
+          bg-[#EEF3E9]
+          px-4
+          py-14
+          dark:border-white/[0.06]
+          dark:bg-[#080C08]
+          sm:px-7
+          sm:py-20
+          md:px-10
+          md:py-24
+          lg:px-12
+        "
+      >
+        <div className="mx-auto max-w-[1500px]">
+          <div
+            className="
+              grid
+              overflow-hidden
+              rounded-[20px]
+              border
+              border-[#263226]/10
+              bg-white/70
+              shadow-[0_20px_60px_rgba(30,50,20,0.04)]
+              dark:border-white/[0.08]
+              dark:bg-[#0A0E0A]
+              dark:shadow-none
+              lg:grid-cols-[0.9fr_1.1fr]
+              lg:rounded-[2rem]
+            "
+          >
             {/* Visual */}
-            <div className="relative min-h-[420px] overflow-hidden border-b border-white/[0.07] lg:border-b-0 lg:border-r">
+
+            <div
+              className="
+                relative
+                min-h-[280px]
+                overflow-hidden
+                border-b
+                border-[#263226]/10
+                dark:border-white/[0.07]
+                sm:min-h-[360px]
+                md:min-h-[420px]
+                lg:border-b-0
+                lg:border-r
+              "
+            >
               <div
-                className="absolute inset-0 opacity-30"
+                className="
+                  absolute
+                  inset-0
+                  opacity-25
+                  dark:opacity-30
+                "
                 style={{
                   backgroundImage:
                     "linear-gradient(rgba(173,209,50,0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(173,209,50,0.18) 1px, transparent 1px)",
-                  backgroundSize: "45px 45px",
+                  backgroundSize: "42px 42px",
                 }}
               />
 
-              <div className="absolute left-1/2 top-1/2 flex h-56 w-56 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#ADD132]/20">
-                <div className="absolute inset-8 rounded-full border border-[#ADD132]/20" />
-                <div className="absolute inset-16 rounded-full border border-[#ADD132]/30" />
+              <div
+                className="
+                  absolute
+                  left-1/2
+                  top-1/2
+                  flex
+                  h-40
+                  w-40
+                  -translate-x-1/2
+                  -translate-y-1/2
+                  items-center
+                  justify-center
+                  rounded-full
+                  border
+                  border-[#6F8D08]/15
+                  dark:border-[#ADD132]/20
+                  sm:h-48
+                  sm:w-48
+                  md:h-56
+                  md:w-56
+                "
+              >
+                <div
+                  className="
+                    absolute
+                    inset-6
+                    rounded-full
+                    border
+                    border-[#6F8D08]/15
+                    dark:border-[#ADD132]/20
+                    sm:inset-8
+                  "
+                />
 
-                <div className="flex h-20 w-20 items-center justify-center rounded-2xl border border-[#ADD132]/30 bg-[#ADD132]/10">
-                  <Shield size={36} className="text-[#ADD132]" />
+                <div
+                  className="
+                    absolute
+                    inset-12
+                    rounded-full
+                    border
+                    border-[#6F8D08]/20
+                    dark:border-[#ADD132]/30
+                    sm:inset-16
+                  "
+                />
+
+                <div
+                  className="
+                    flex
+                    h-16
+                    w-16
+                    items-center
+                    justify-center
+                    rounded-xl
+                    border
+                    border-[#6F8D08]/25
+                    bg-[#ADD132]/10
+                    dark:border-[#ADD132]/30
+                    sm:h-20
+                    sm:w-20
+                    sm:rounded-2xl
+                  "
+                >
+                  <Shield
+                    size={29}
+                    className="text-[#6F8D08] dark:text-[#ADD132] sm:h-9 sm:w-9"
+                  />
                 </div>
               </div>
 
-              <div className="absolute bottom-8 left-8 right-8 flex justify-between">
-                <span className="rounded-full border border-white/[0.08] bg-[#0A0E0A]/80 px-4 py-2 text-xs text-slate-400">
+              {/* Bottom labels */}
+
+              <div
+                className="
+                  absolute
+                  bottom-5
+                  left-4
+                  right-4
+                  flex
+                  flex-col
+                  gap-2
+                  sm:bottom-7
+                  sm:left-7
+                  sm:right-7
+                  sm:flex-row
+                  sm:items-center
+                  sm:justify-between
+                "
+              >
+                <span
+                  className="
+                    w-fit
+                    rounded-full
+                    border
+                    border-[#263226]/10
+                    bg-white/80
+                    px-3
+                    py-1.5
+                    text-[8px]
+                    text-[#687368]
+                    backdrop-blur-xl
+                    dark:border-white/[0.08]
+                    dark:bg-[#0A0E0A]/80
+                    dark:text-slate-400
+                    sm:px-4
+                    sm:py-2
+                    sm:text-xs
+                  "
+                >
                   Featured Insight
                 </span>
 
-                <span className="rounded-full border border-[#ADD132]/20 bg-[#ADD132]/5 px-4 py-2 text-xs text-[#ADD132]">
+                <span
+                  className="
+                    w-fit
+                    rounded-full
+                    border
+                    border-[#6F8D08]/20
+                    bg-[#ADD132]/10
+                    px-3
+                    py-1.5
+                    text-[8px]
+                    text-[#6F8D08]
+                    dark:border-[#ADD132]/20
+                    dark:text-[#ADD132]
+                    sm:px-4
+                    sm:py-2
+                    sm:text-xs
+                  "
+                >
                   Digital Protection
                 </span>
               </div>
             </div>
 
             {/* Content */}
-            <div className="p-8 sm:p-12 lg:p-14">
+
+            <div className="p-5 sm:p-8 md:p-12 lg:p-14">
               <div className="flex items-center gap-3">
-                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#ADD132]">
+                <span
+                  className="
+                    text-[8px]
+                    font-semibold
+                    uppercase
+                    tracking-[0.18em]
+                    text-[#6F8D08]
+                    dark:text-[#ADD132]
+                    sm:text-xs
+                    sm:tracking-[0.2em]
+                  "
+                >
                   Featured
                 </span>
 
-                <span className="h-px w-10 bg-[#ADD132]/30" />
+                <span className="h-px w-8 bg-[#ADD132]/30 sm:w-10" />
               </div>
 
-              <h2 className="mt-6 max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
+              <h2
+                className="
+                  mt-4
+                  max-w-2xl
+                  text-[28px]
+                  font-black
+                  leading-[1.05]
+                  tracking-[-0.04em]
+                  text-[#152019]
+                  dark:text-white
+                  sm:mt-6
+                  sm:text-4xl
+                "
+              >
                 Building digital resilience through better visibility.
               </h2>
 
-              <p className="mt-6 max-w-2xl leading-8 text-slate-400">
+              <p
+                className="
+                  mt-4
+                  max-w-2xl
+                  text-[11px]
+                  leading-6
+                  text-[#687368]
+                  dark:text-slate-400
+                  sm:mt-6
+                  sm:text-sm
+                  sm:leading-8
+                "
+              >
                 Digital protection is not limited to reacting after content
                 has been misused. A visibility-first approach helps
                 organizations understand their digital environment and
                 develop structured protection workflows.
               </p>
 
-              <div className="mt-8 space-y-4">
-                {[
-                  "Understand your digital exposure",
-                  "Identify relevant signals and threats",
-                  "Organize intelligence into workflows",
-                  "Create a consistent protection process",
-                ].map((point) => (
+              <div className="mt-6 space-y-3 sm:mt-8 sm:space-y-4">
+                {featuredPoints.map((point) => (
                   <div
                     key={point}
-                    className="flex items-center gap-3 text-sm text-slate-300"
+                    className="
+                      flex
+                      items-center
+                      gap-2.5
+                      text-[10px]
+                      text-[#536053]
+                      dark:text-slate-300
+                      sm:gap-3
+                      sm:text-sm
+                    "
                   >
                     <CheckCircle2
-                      size={17}
-                      className="shrink-0 text-[#ADD132]"
+                      size={15}
+                      className="shrink-0 text-[#6F8D08] dark:text-[#ADD132] sm:h-[17px] sm:w-[17px]"
                     />
+
                     {point}
                   </div>
                 ))}
               </div>
 
-              <div className="mt-10">
+              <div className="mt-7 sm:mt-10">
                 <Link
                   to="/solutions"
-                  className="group inline-flex items-center gap-3 rounded-full bg-[#ADD132] px-6 py-3.5 font-semibold text-black transition hover:bg-[#C7EB45]"
+                  className="
+                    group
+                    inline-flex
+                    w-full
+                    items-center
+                    justify-center
+                    gap-2.5
+                    rounded-full
+                    bg-[#ADD132]
+                    px-5
+                    py-3
+                    text-[10px]
+                    font-bold
+                    text-black
+                    transition
+                    hover:bg-[#C7EB45]
+                    sm:w-auto
+                    sm:px-6
+                    sm:py-3.5
+                    sm:text-sm
+                  "
                 >
                   Explore Protection Solutions
+
                   <ArrowRight
-                    size={18}
-                    className="transition-transform group-hover:translate-x-1"
+                    size={15}
+                    className="
+                      transition-transform
+                      group-hover:translate-x-1
+                      sm:h-[18px]
+                      sm:w-[18px]
+                    "
                   />
                 </Link>
               </div>
@@ -434,65 +1386,146 @@ function Insights() {
         </div>
       </section>
 
-      {/* KNOWLEDGE AREAS */}
-      <section className="px-6 py-24 sm:px-10 lg:px-16">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+      {/* =====================================================
+          KNOWLEDGE AREAS
+      ===================================================== */}
+
+      <section
+        className="
+          px-4
+          py-14
+          sm:px-7
+          sm:py-20
+          md:px-10
+          md:py-24
+          lg:px-12
+        "
+      >
+        <div className="mx-auto max-w-[1500px]">
+          <div
+            className="
+              grid
+              gap-9
+              lg:grid-cols-[0.8fr_1.2fr]
+              lg:gap-12
+            "
+          >
+            {/* Intro */}
+
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#ADD132]">
+              <p
+                className="
+                  text-[8px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.2em]
+                  text-[#6F8D08]
+                  dark:text-[#ADD132]
+                  sm:text-sm
+                "
+              >
                 Knowledge Areas
               </p>
 
-              <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+              <h2
+                className="
+                  mt-3
+                  text-[30px]
+                  font-black
+                  leading-[1.04]
+                  tracking-[-0.045em]
+                  text-[#152019]
+                  dark:text-white
+                  sm:mt-4
+                  sm:text-4xl
+                  md:text-5xl
+                "
+              >
                 Stay informed about the digital landscape.
               </h2>
 
-              <p className="mt-6 leading-8 text-slate-400">
+              <p
+                className="
+                  mt-4
+                  text-[11px]
+                  leading-6
+                  text-[#687368]
+                  dark:text-slate-400
+                  sm:mt-6
+                  sm:text-sm
+                  sm:leading-8
+                "
+              >
                 Our insights focus on the technologies, workflows and
                 challenges shaping modern digital protection.
               </p>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
-              {[
-                {
-                  icon: Shield,
-                  title: "Anti-Piracy",
-                  text: "Digital content protection and unauthorized distribution.",
-                },
-                {
-                  icon: Radar,
-                  title: "IP Intelligence",
-                  text: "Visibility around intellectual property across digital environments.",
-                },
-                {
-                  icon: Globe,
-                  title: "Online Monitoring",
-                  text: "Understanding changing digital environments and exposure.",
-                },
-                {
-                  icon: LockKeyhole,
-                  title: "Digital Security",
-                  text: "Structured approaches to digital threats and protection.",
-                },
-              ].map((item) => {
+            {/* Knowledge Cards */}
+
+            <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
+              {knowledgeAreas.map((item) => {
                 const Icon = item.icon;
 
                 return (
                   <div
                     key={item.title}
-                    className="group rounded-2xl border border-white/[0.07] bg-[#0A0E0A] p-6 transition hover:border-[#ADD132]/25"
+                    className="
+                      group
+                      rounded-2xl
+                      border
+                      border-[#263226]/10
+                      bg-white/70
+                      p-4
+                      shadow-[0_10px_30px_rgba(30,50,20,0.03)]
+                      transition
+                      hover:-translate-y-0.5
+                      hover:border-[#ADD132]/25
+                      dark:border-white/[0.07]
+                      dark:bg-[#0A0E0A]
+                      dark:shadow-none
+                      sm:p-6
+                    "
                   >
                     <Icon
-                      size={24}
-                      className="text-[#ADD132] transition-transform duration-300 group-hover:scale-110"
+                      size={21}
+                      className="
+                        text-[#6F8D08]
+                        transition-transform
+                        duration-300
+                        group-hover:scale-110
+                        dark:text-[#ADD132]
+                        sm:h-6
+                        sm:w-6
+                      "
                     />
 
-                    <h3 className="mt-5 font-semibold">
+                    <h3
+                      className="
+                        mt-4
+                        text-sm
+                        font-bold
+                        text-[#172017]
+                        dark:text-white
+                        sm:mt-5
+                        sm:text-base
+                      "
+                    >
                       {item.title}
                     </h3>
 
-                    <p className="mt-2 text-sm leading-6 text-slate-500">
+                    <p
+                      className="
+                        mt-1.5
+                        text-[10px]
+                        leading-5
+                        text-[#697369]
+                        dark:text-slate-500
+                        sm:mt-2
+                        sm:text-sm
+                        sm:leading-6
+                      "
+                    >
                       {item.text}
                     </p>
                   </div>
@@ -503,22 +1536,112 @@ function Insights() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="px-6 pb-24 sm:px-10 lg:px-16">
-        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] border border-[#ADD132]/20 bg-[#ADD132] px-8 py-14 text-black sm:px-12 lg:px-16">
-          <div className="absolute -right-24 -top-32 h-80 w-80 rounded-full bg-white/20 blur-3xl" />
+      {/* =====================================================
+          CTA
+      ===================================================== */}
 
-          <div className="relative flex flex-col justify-between gap-10 lg:flex-row lg:items-center">
+      <section
+        className="
+          px-4
+          pb-14
+          sm:px-7
+          sm:pb-20
+          md:px-10
+          md:pb-24
+          lg:px-12
+        "
+      >
+        <div
+          className="
+            relative
+            mx-auto
+            max-w-[1500px]
+            overflow-hidden
+            rounded-[20px]
+            border
+            border-[#ADD132]/20
+            bg-[#ADD132]
+            px-5
+            py-9
+            text-black
+            sm:rounded-[2rem]
+            sm:px-8
+            sm:py-12
+            md:px-12
+            md:py-14
+            lg:px-16
+          "
+        >
+          <div
+            className="
+              pointer-events-none
+              absolute
+              -right-24
+              -top-28
+              h-64
+              w-64
+              rounded-full
+              bg-white/20
+              blur-3xl
+              sm:h-80
+              sm:w-80
+            "
+          />
+
+          <div
+            className="
+              relative
+              flex
+              flex-col
+              justify-between
+              gap-7
+              lg:flex-row
+              lg:items-center
+              lg:gap-10
+            "
+          >
             <div className="max-w-3xl">
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-black/60">
+              <p
+                className="
+                  text-[8px]
+                  font-bold
+                  uppercase
+                  tracking-[0.2em]
+                  text-black/60
+                  sm:text-sm
+                "
+              >
                 Go deeper
               </p>
 
-              <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+              <h2
+                className="
+                  mt-3
+                  text-[29px]
+                  font-black
+                  leading-[1.05]
+                  tracking-[-0.04em]
+                  sm:mt-4
+                  sm:text-4xl
+                  md:text-5xl
+                "
+              >
                 Have a digital protection challenge?
               </h2>
 
-              <p className="mt-5 max-w-2xl text-lg leading-7 text-black/65">
+              <p
+                className="
+                  mt-4
+                  max-w-2xl
+                  text-[11px]
+                  leading-6
+                  text-black/65
+                  sm:mt-5
+                  sm:text-sm
+                  sm:leading-7
+                  md:text-base
+                "
+              >
                 Connect with TrackOwls to discuss your content, brand or
                 intellectual property protection requirements.
               </p>
@@ -526,17 +1649,99 @@ function Insights() {
 
             <Link
               to="/contact"
-              className="group inline-flex shrink-0 items-center justify-center gap-3 rounded-full bg-black px-7 py-4 font-semibold text-white transition hover:bg-[#101410]"
+              className="
+                group
+                inline-flex
+                w-full
+                shrink-0
+                items-center
+                justify-center
+                gap-2.5
+                rounded-full
+                bg-black
+                px-6
+                py-3.5
+                text-[10px]
+                font-bold
+                text-white
+                transition
+                hover:bg-[#101410]
+                sm:w-auto
+                sm:px-7
+                sm:py-4
+                sm:text-sm
+              "
             >
               Talk to TrackOwls
+
               <ArrowUpRight
-                size={19}
-                className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                size={16}
+                className="
+                  transition-transform
+                  duration-300
+                  group-hover:translate-x-1
+                  group-hover:-translate-y-1
+                  sm:h-[19px]
+                  sm:w-[19px]
+                "
               />
             </Link>
           </div>
         </div>
       </section>
+    </div>
+  );
+}
+
+/* =========================================================
+   SIGNAL CARD
+========================================================= */
+
+function SignalCard({ position, title }) {
+  return (
+    <div
+      className={`
+        absolute
+        ${position}
+        rounded-lg
+        border
+        border-[#263226]/10
+        bg-white/80
+        px-2.5
+        py-2
+        shadow-lg
+        backdrop-blur-xl
+        dark:border-white/[0.07]
+        dark:bg-[#0B100B]/90
+        sm:rounded-xl
+        sm:px-4
+        sm:py-3
+      `}
+    >
+      <div className="flex items-center gap-1.5 sm:gap-2">
+        <span
+          className="
+            h-1.5
+            w-1.5
+            rounded-full
+            bg-[#ADD132]
+            shadow-[0_0_10px_#ADD132]
+            sm:h-2
+            sm:w-2
+          "
+        />
+
+        <span
+          className="
+            text-[7px]
+            text-[#536053]
+            dark:text-slate-300
+            sm:text-xs
+          "
+        >
+          {title}
+        </span>
+      </div>
     </div>
   );
 }
