@@ -1,1224 +1,1220 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
+import React, { useEffect, useState } from "react";
 import {
-  FiSearch,
-  FiMenu,
-  FiX,
-  FiArrowRight,
-  FiPhone,
-  FiMail,
-} from "react-icons/fi";
+  ArrowRight,
+  ArrowUpRight,
+  Check,
+  Menu,
+  MessageCircle,
+  Moon,
+  Search,
+  Sun,
+  X,
+} from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
-import {
-  FaFacebookF,
-  FaLinkedinIn,
-  FaTwitter,
-  FaInstagram,
-} from "react-icons/fa";
+const navItems = [
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Solutions", path: "/solutions" },
+  { name: "Industries", path: "/industries" },
+  { name: "Technology", path: "/technology" },
+  { name: "Case Studies", path: "/case-studies" },
+  { name: "Insights", path: "/insights" },
+  { name: "Contact", path: "/contact" },
+];
 
-import Navigation from "./navigation/Navigation.jsx";
+const WHATSAPP_NUMBER = "91XXXXXXXXXX";
 
-const Navbar = () => {
-  const navigate = useNavigate();
+export default function Navbar() {
+  const location = useLocation();
 
-  const [mobileMenu, setMobileMenu] = useState(false);
-  const [openMenu, setOpenMenu] = useState(null);
+  const [darkMode, setDarkMode] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const [scrolled, setScrolled] = useState(false);
+  const [whatsappOpen, setWhatsappOpen] = useState(false);
 
-  /* =========================================================
-     SEARCH STATE
-  ========================================================= */
+  /* =====================================================
+     THEME INITIALIZATION
+  ===================================================== */
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const [showSearchResults, setShowSearchResults] = useState(false);
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("trackowls-theme");
 
-  /* =========================================================
-     SEARCH DATA
-  ========================================================= */
+    const isDark = savedTheme
+      ? savedTheme === "dark"
+      : true;
 
-  const searchItems = [
-    /* HOME */
+    setDarkMode(isDark);
 
-    {
-      title: "Home",
-      category: "Website",
-      description: "EPSILORA Technology home page",
-      path: "/",
-      keywords: "home epsilora technology",
-    },
+    document.documentElement.classList.toggle("dark", isDark);
+  }, []);
 
-    /* CONTACT */
+  /* =====================================================
+     THEME CHANGE
+  ===================================================== */
 
-    {
-      title: "Contact Us",
-      category: "Contact",
-      description: "Connect with EPSILORA Technology",
-      path: "/contact",
-      keywords: "contact us enquiry phone email location",
-    },
+  const changeTheme = (dark) => {
+    setDarkMode(dark);
 
-    /* =====================================================
-       HARDWARE
-    ===================================================== */
+    document.documentElement.classList.toggle("dark", dark);
 
-    {
-      title: "Data Storage",
-      category: "Hardware",
-      description: "Storage devices and enterprise storage solutions",
-      path: "/technology/hardware/datastorage",
-      keywords:
-        "data storage storage hard disk hdd ssd nas flash drive tape",
-    },
-
-    {
-      title: "PC & Server",
-      category: "Hardware",
-      description: "Computer and server hardware components",
-      path: "/technology/hardware/pc-server",
-      keywords:
-        "pc server processor cpu ram motherboard gpu sound card video card",
-    },
-
-    {
-      title: "Server & Server Management",
-      category: "Hardware",
-      description: "Server infrastructure and management solutions",
-      path: "/technology/hardware/server-server-management",
-      keywords:
-        "server server management rack cabinet kvm processors ram",
-    },
-
-    /* =====================================================
-       SERVICES
-    ===================================================== */
-
-    {
-      title: "Consulting & Professional Services",
-      category: "Services",
-      description: "Professional technology consulting and services",
-      path: "/technology/services/consulting-professional",
-      keywords:
-        "consulting professional services technology infrastructure migration security",
-    },
-
-    /* =====================================================
-       SOLUTIONS
-    ===================================================== */
-
-    {
-      title: "Cloud Solutions",
-      category: "Solutions",
-      description: "Cloud infrastructure, migration and security solutions",
-      path: "/technology/solutions/cloud",
-      keywords:
-        "cloud cloud computing cloud migration cloud infrastructure cloud security hybrid multi cloud",
-    },
-
-    {
-      title: "Data Center Solutions",
-      category: "Solutions",
-      description: "Enterprise data center infrastructure solutions",
-      path: "/technology/solutions/datacenter",
-      keywords:
-        "data center datacenter infrastructure networking servers storage security",
-    },
-
-    {
-      title: "Emerging Technology",
-      category: "Solutions",
-      description: "AI, automation, analytics and IoT solutions",
-      path: "/technology/solutions/emerging",
-      keywords:
-        "ai artificial intelligence machine learning automation robotics analytics iot smart technology",
-    },
-
-    {
-      title: "Information & Cyber Security",
-      category: "Solutions",
-      description: "Cybersecurity and information protection solutions",
-      path: "/technology/solutions/information-cyber",
-      keywords:
-        "cyber security cybersecurity information security firewall network security identity access cloud data security",
-    },
-
-    /* =====================================================
-       PARTNERS
-    ===================================================== */
-
-    {
-      title: "Technology Partners",
-      category: "Partners",
-      description: "Explore our technology partner ecosystem",
-      path: "/technology/partners",
-      keywords:
-        "partners brand partners aws azure microsoft google cisco dell hpe vmware",
-    },
-
-    {
-      title: "AWS",
-      category: "Technology Partner",
-      description: "AWS cloud technology ecosystem",
-      path: "/technology/partners",
-      keywords: "aws amazon cloud",
-    },
-
-    {
-      title: "Microsoft Azure",
-      category: "Technology Partner",
-      description: "Microsoft Azure cloud platform",
-      path: "/technology/partners",
-      keywords: "microsoft azure cloud",
-    },
-
-    {
-      title: "Google Cloud",
-      category: "Technology Partner",
-      description: "Google Cloud Platform",
-      path: "/technology/partners",
-      keywords: "google cloud gcp",
-    },
-
-    {
-      title: "Cisco",
-      category: "Technology Partner",
-      description: "Enterprise networking technology",
-      path: "/technology/partners",
-      keywords: "cisco networking network",
-    },
-
-    {
-      title: "Dell Technologies",
-      category: "Technology Partner",
-      description: "Enterprise hardware and infrastructure",
-      path: "/technology/partners",
-      keywords: "dell hardware server storage",
-    },
-
-    {
-      title: "HPE",
-      category: "Technology Partner",
-      description: "Enterprise infrastructure technology",
-      path: "/technology/partners",
-      keywords: "hpe server storage infrastructure",
-    },
-
-    {
-      title: "VMware",
-      category: "Technology Partner",
-      description: "Virtualization and cloud technology",
-      path: "/technology/partners",
-      keywords: "vmware virtualization cloud",
-    },
-
-    {
-      title: "NVIDIA",
-      category: "Technology Partner",
-      description: "AI and accelerated computing technology",
-      path: "/technology/partners",
-      keywords: "nvidia ai gpu graphics computing",
-    },
-  ];
-
-  /* =========================================================
-     MENU CONTROL
-  ========================================================= */
-
-  const handleMenu = (menu) => {
-    setOpenMenu((currentMenu) =>
-      currentMenu === menu ? null : menu
+    localStorage.setItem(
+      "trackowls-theme",
+      dark ? "dark" : "light"
     );
   };
 
-  /* =========================================================
-     CLOSE MOBILE NAVIGATION
-  ========================================================= */
+  /* =====================================================
+     SCROLL
+  ===================================================== */
 
-  const closeMobileNavigation = () => {
-    setMobileMenu(false);
-    setOpenMenu(null);
-    setShowSearchResults(false);
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 25);
+    };
 
-  /* =========================================================
-     CLOSE MOBILE MENU
-  ========================================================= */
+    window.addEventListener("scroll", handleScroll);
 
-  const closeMobileMenu = () => {
-    setMobileMenu(false);
-    setOpenMenu(null);
-    setShowSearchResults(false);
-  };
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
-  /* =========================================================
-     CLOSE DESKTOP DROPDOWN
-  ========================================================= */
+  /* =====================================================
+     ROUTE CHANGE
+  ===================================================== */
 
-  const closeDropdown = () => {
-    setOpenMenu(null);
-  };
+  useEffect(() => {
+    setMenuOpen(false);
+    setSearchOpen(false);
+    setSearchValue("");
+  }, [location.pathname]);
 
-  /* =========================================================
-     SEARCH FILTER
-  ========================================================= */
+  /* =====================================================
+     ACTIVE LINK
+  ===================================================== */
 
-  const filteredResults =
-    searchQuery.trim().length > 0
-      ? searchItems
-          .filter((item) => {
-            const searchText = `
-              ${item.title}
-              ${item.category}
-              ${item.description}
-              ${item.keywords}
-            `.toLowerCase();
-
-            return searchText.includes(
-              searchQuery.trim().toLowerCase()
-            );
-          })
-          .slice(0, 8)
-      : [];
-
-  /* =========================================================
-     SEARCH SUBMIT
-  ========================================================= */
-
-  const handleSearch = (e) => {
-    e?.preventDefault();
-
-    const query = searchQuery.trim().toLowerCase();
-
-    if (!query) {
-      setShowSearchResults(false);
-      return;
+  const isActive = (path) => {
+    if (path === "/") {
+      return location.pathname === "/";
     }
 
-    const exactMatch = searchItems.find((item) => {
-      return (
-        item.title.toLowerCase() === query ||
-        item.keywords
-          .toLowerCase()
-          .split(" ")
-          .includes(query)
-      );
-    });
-
-    const firstMatch = exactMatch || filteredResults[0];
-
-    if (firstMatch) {
-      navigate(firstMatch.path);
-
-      setSearchQuery("");
-      setShowSearchResults(false);
-      closeMobileMenu();
-    }
+    return location.pathname.startsWith(path);
   };
 
-  /* =========================================================
-     SEARCH RESULT CLICK
-  ========================================================= */
-
-  const handleSearchResult = (path) => {
-    navigate(path);
-
-    setSearchQuery("");
-    setShowSearchResults(false);
-
-    closeMobileMenu();
+  const closeMenu = () => {
+    setMenuOpen(false);
   };
-
-  /* =========================================================
-     SEARCH BOX
-  ========================================================= */
-
-  const SearchBox = ({ mobile = false }) => {
-    return (
-      <div className="relative w-full">
-
-        <form onSubmit={handleSearch}>
-
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => {
-              setSearchQuery(e.target.value);
-
-              setShowSearchResults(
-                e.target.value.trim().length > 0
-              );
-            }}
-            onFocus={() => {
-              if (searchQuery.trim()) {
-                setShowSearchResults(true);
-              }
-            }}
-            placeholder="Search products, solutions, or services..."
-            autoComplete="off"
-            className={`
-              w-full
-              h-11
-              border
-              border-gray-300
-              bg-white
-              text-sm
-              text-black
-              placeholder:text-gray-400
-              pl-4
-              pr-12
-              outline-none
-              focus:border-[#9B5B35]
-              transition
-              ${
-                mobile
-                  ? "focus:shadow-[0_0_0_3px_rgba(155,91,53,0.08)]"
-                  : ""
-              }
-            `}
-          />
-
-          <button
-            type="submit"
-            aria-label="Search"
-            className="
-              absolute
-              right-0
-              top-0
-              h-11
-              w-12
-              flex
-              items-center
-              justify-center
-              bg-[#062B49]
-              text-white
-              hover:bg-[#9B5B35]
-              transition
-            "
-          >
-            <FiSearch size={19} />
-          </button>
-
-        </form>
-
-        {/* ===================================================
-            SEARCH RESULTS
-        =================================================== */}
-
-        {showSearchResults && searchQuery.trim() && (
-          <div
-            className="
-              absolute
-              top-[calc(100%+8px)]
-              left-0
-              right-0
-              z-[99999]
-              bg-white
-              border
-              border-gray-200
-              shadow-2xl
-              overflow-hidden
-            "
-          >
-
-            {filteredResults.length > 0 ? (
-
-              <div className="max-h-[420px] overflow-y-auto">
-
-                {filteredResults.map((item) => (
-
-                  <button
-                    key={`${item.category}-${item.title}`}
-                    type="button"
-                    onClick={() =>
-                      handleSearchResult(item.path)
-                    }
-                    className="
-                      group
-                      w-full
-                      text-left
-                      px-4
-                      py-3.5
-                      border-b
-                      border-gray-100
-                      hover:bg-[#f8f6f4]
-                      transition-all
-                      duration-200
-                    "
-                  >
-
-                    <div className="flex items-start gap-3">
-
-                      <div
-                        className="
-                          shrink-0
-                          w-9
-                          h-9
-                          flex
-                          items-center
-                          justify-center
-                          bg-[#062B49]
-                          text-white
-                          group-hover:bg-[#9B5B35]
-                          transition-colors
-                        "
-                      >
-                        <FiSearch size={15} />
-                      </div>
-
-                      <div className="min-w-0 flex-1">
-
-                        <div
-                          className="
-                            flex
-                            items-center
-                            justify-between
-                            gap-3
-                          "
-                        >
-
-                          <h4
-                            className="
-                              text-sm
-                              font-semibold
-                              text-[#062B49]
-                              group-hover:text-[#9B5B35]
-                              transition-colors
-                            "
-                          >
-                            {item.title}
-                          </h4>
-
-                          <FiArrowRight
-                            size={14}
-                            className="
-                              shrink-0
-                              text-gray-300
-                              group-hover:text-[#9B5B35]
-                              transition
-                            "
-                          />
-
-                        </div>
-
-                        <p
-                          className="
-                            mt-0.5
-                            text-[10px]
-                            uppercase
-                            tracking-wider
-                            font-semibold
-                            text-[#9B5B35]
-                          "
-                        >
-                          {item.category}
-                        </p>
-
-                        <p
-                          className="
-                            mt-1
-                            text-xs
-                            text-gray-500
-                            line-clamp-1
-                          "
-                        >
-                          {item.description}
-                        </p>
-
-                      </div>
-
-                    </div>
-
-                  </button>
-
-                ))}
-
-              </div>
-
-            ) : (
-
-              <div className="px-5 py-8 text-center">
-
-                <div
-                  className="
-                    mx-auto
-                    w-11
-                    h-11
-                    flex
-                    items-center
-                    justify-center
-                    bg-gray-100
-                    text-gray-400
-                  "
-                >
-                  <FiSearch size={19} />
-                </div>
-
-                <h4
-                  className="
-                    mt-3
-                    text-sm
-                    font-semibold
-                    text-[#062B49]
-                  "
-                >
-                  No results found
-                </h4>
-
-                <p className="mt-1 text-xs text-gray-500">
-                  Try searching for hardware, cloud,
-                  security, services or partners.
-                </p>
-
-              </div>
-
-            )}
-
-          </div>
-        )}
-
-      </div>
-    );
-  };
-
-  /* =========================================================
-     RENDER
-  ========================================================= */
 
   return (
-    <header className="w-full bg-white relative z-50">
-
+    <>
       {/* =====================================================
-          MOBILE NAVIGATION STYLE
+          NAVBAR
       ===================================================== */}
 
-      <style>{`
-        @media (max-width: 767px) {
+      <header
+        className={`
+          fixed left-0 right-0 top-0 z-[1000]
+          px-2.5 pt-3 transition-all duration-500
+          sm:px-4 sm:pt-4
+          lg:px-6
+          xl:px-8
+        `}
+      >
+        <div
+          className={`
+            relative mx-auto flex h-[64px] w-full max-w-[1480px]
+            items-center justify-between gap-2
+            rounded-[20px] px-2
+            backdrop-blur-2xl
+            transition-all duration-500
 
-          .epsilora-mobile-navigation nav {
-            display: block !important;
-            background: #ffffff !important;
-            width: 100%;
-          }
+            sm:h-[70px]
+            sm:rounded-[22px]
+            sm:px-3
 
-          .epsilora-mobile-navigation nav > div {
-            width: 100%;
-            padding: 0 !important;
-          }
+            lg:h-[74px]
+            lg:rounded-[24px]
+            lg:px-3.5
 
-          .epsilora-mobile-navigation nav > div > div {
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: stretch !important;
-            justify-content: flex-start !important;
-            width: 100%;
-          }
-
-          .epsilora-mobile-navigation nav > div > div > a,
-          .epsilora-mobile-navigation nav > div > div > div > button {
-            width: 100% !important;
-            min-height: 48px;
-            padding: 14px 16px !important;
-            display: flex !important;
-            align-items: center;
-            justify-content: space-between;
-            background: #ffffff;
-            color: #062B49 !important;
-            border-bottom: 1px solid #eeeeee;
-            text-align: left;
-            font-size: 14px;
-          }
-
-          .epsilora-mobile-navigation nav > div > div > a {
-            justify-content: center !important;
-            text-align: center;
-          }
-
-          .epsilora-mobile-navigation nav > div > div > div {
-            width: 100%;
-          }
-
-          .epsilora-mobile-navigation nav > div > div > div > div {
-            position: static !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            max-height: none !important;
-            overflow: visible !important;
-            padding: 8px !important;
-            background: #f8f6f4 !important;
-            box-shadow: none !important;
-            border-top: 2px solid #9B5B35 !important;
-          }
-
-          .epsilora-mobile-navigation nav > div > div > div > div > div {
-            margin-bottom: 6px !important;
-          }
-
-          .epsilora-mobile-navigation nav > div > div > div > div a {
-            width: 100% !important;
-            min-height: 44px;
-            padding: 11px 12px !important;
-            background: #ffffff !important;
-            font-size: 13px !important;
-          }
-
-          .epsilora-mobile-navigation nav > div > div > div > div > div.grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-          }
-
-          .epsilora-mobile-navigation nav > div > div > div > div > div.grid a {
-            height: 65px !important;
-            padding: 8px !important;
-          }
-
-          .epsilora-mobile-navigation nav > div > div > div > div > div.grid img {
-            max-height: 28px !important;
-          }
-
-          .epsilora-mobile-navigation nav > div > div > a:hover,
-          .epsilora-mobile-navigation nav > div > div > div > button:hover {
-            background: #f8f6f4 !important;
-            color: #9B5B35 !important;
-          }
-        }
-      `}</style>
-
-
-      {/* =====================================================
-          TOP HEADER
-      ===================================================== */}
-
-      <div className="border-b border-gray-200 bg-white">
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            ${
+              darkMode
+                ? `
+                  border border-white/[0.08]
+                  bg-[#0B100D]/95
+                  shadow-[0_18px_60px_rgba(0,0,0,0.45)]
+                `
+                : `
+                  border border-black/[0.08]
+                  bg-white/95
+                  shadow-[0_12px_45px_rgba(30,60,35,0.12)]
+                `
+            }
+          `}
+        >
+          {/* TOP GREEN LINE */}
 
           <div
             className="
-              min-h-[68px]
-              sm:min-h-[78px]
-              lg:min-h-[82px]
+              pointer-events-none
+              absolute
+              left-[10%]
+              right-[10%]
+              top-0
+              h-px
+              bg-gradient-to-r
+              from-transparent
+              via-[#ADD132]/60
+              to-transparent
+            "
+          />
+
+          {/* =================================================
+              BRAND
+          ================================================= */}
+
+          <Link
+            to="/"
+            onClick={closeMenu}
+            className="
+              group
+              relative
+              z-10
               flex
+              shrink-0
               items-center
-              justify-between
-              gap-3
-              sm:gap-5
+              gap-2
+              rounded-xl
+              px-1
+              transition-all
+              duration-300
+              sm:gap-2.5
             "
           >
-
             {/* LOGO */}
 
-            <a
-              href="/"
-              onClick={closeMobileMenu}
+            <div
               className="
                 flex
+                h-[42px]
+                w-[42px]
+                shrink-0
                 items-center
-                flex-shrink-0
+                justify-center
+                overflow-hidden
+                rounded-[12px]
+                bg-[#ADD132]
+                p-[3px]
+                shadow-[0_0_20px_rgba(173,209,50,0.16)]
+                transition-all
+                duration-300
+                group-hover:scale-105
+                group-hover:shadow-[0_0_30px_rgba(173,209,50,0.32)]
+
+                sm:h-[46px]
+                sm:w-[46px]
+
+                lg:h-[48px]
+                lg:w-[48px]
               "
             >
-
-              <img
-                src="/logo.jpeg"
-                alt="EPSILORA Technology Private Limited"
-                className="
-                  w-[120px]
-                  sm:w-[155px]
-                  lg:w-[175px]
-                  h-auto
-                  max-h-[50px]
-                  sm:max-h-[55px]
-                  object-contain
-                "
+              <video
+                src="/logo-video.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                className="h-full w-full object-contain"
               />
-
-            </a>
-
-
-            {/* DESKTOP SEARCH */}
-
-            <div
-              className="
-                hidden
-                xl:flex
-                flex-1
-                max-w-[430px]
-                mx-4
-                2xl:mx-8
-              "
-            >
-              <SearchBox />
             </div>
 
-
-            {/* TABLET CONTACT */}
+            {/* BRAND NAME */}
 
             <div
-              className="
-                hidden
-                md:flex
-                xl:hidden
-                flex-col
-                items-end
-                ml-auto
-              "
+              className={`
+                whitespace-nowrap
+                text-[16px]
+                font-black
+                leading-none
+                tracking-[-0.6px]
+                transition-colors
+                duration-300
+
+                sm:text-[18px]
+
+                lg:text-[20px]
+
+                ${
+                  darkMode
+                    ? "text-white"
+                    : "text-[#152019]"
+                }
+              `}
             >
+              TRACK<span className="text-[#ADD132]">OWLS</span>
+            </div>
+          </Link>
 
-              <div className="flex items-center gap-4 text-[#062B49]">
+          {/* =================================================
+              DESKTOP NAVIGATION
+          ================================================= */}
 
-                <a
-                  href="#"
-                  aria-label="Facebook"
-                  className="hover:text-[#9B5B35] transition"
-                >
-                  <FaFacebookF size={14} />
-                </a>
+          <nav
+            className="
+              hidden
+              flex-1
+              items-center
+              justify-center
+              gap-0.5
+              xl:flex
+            "
+          >
+            {navItems.map((item) => {
+              const active = isActive(item.path);
 
-                <a
-                  href="#"
-                  aria-label="Instagram"
-                  className="hover:text-[#9B5B35] transition"
-                >
-                  <FaInstagram size={16} />
-                </a>
-
-                <a
-                  href="#"
-                  aria-label="LinkedIn"
-                  className="hover:text-[#9B5B35] transition"
-                >
-                  <FaLinkedinIn size={15} />
-                </a>
-
-                <a
-                  href="#"
-                  aria-label="Twitter"
-                  className="hover:text-[#9B5B35] transition"
-                >
-                  <FaTwitter size={14} />
-                </a>
-
-              </div>
-
-              <div
-                className="
-                  flex
-                  items-center
-                  gap-2
-                  mt-2
-                  text-[10px]
-                  text-gray-600
-                "
-              >
-
-                <a
-                  href="tel:+910000000000"
-                  className="
-                    hover:text-[#9B5B35]
-                    transition
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`
+                    relative
+                    flex
+                    h-[46px]
+                    items-center
+                    justify-center
+                    rounded-[13px]
+                    px-2.5
+                    text-[12px]
+                    font-semibold
                     whitespace-nowrap
-                  "
+                    transition-all
+                    duration-300
+
+                    2xl:px-3
+
+                    ${
+                      active
+                        ? darkMode
+                          ? `
+                            bg-[#ADD132]/10
+                            text-[#DFFF72]
+                          `
+                          : `
+                            bg-[#ADD132]/15
+                            text-[#294300]
+                          `
+                        : darkMode
+                          ? `
+                            text-white/60
+                            hover:bg-white/[0.05]
+                            hover:text-white
+                          `
+                          : `
+                            text-[#59665E]
+                            hover:bg-[#ADD132]/10
+                            hover:text-[#182219]
+                          `
+                    }
+                  `}
                 >
-                  +91 00000 00000
-                </a>
+                  {item.name}
 
-                <span className="text-gray-300">
-                  |
-                </span>
-
-                <a
-                  href="mailto:info@epsilora.com"
-                  className="
-                    hover:text-[#9B5B35]
-                    transition
-                    whitespace-nowrap
-                  "
-                >
-                  info@epsilora.com
-                </a>
-
-              </div>
-
-            </div>
-
-
-            {/* DESKTOP RIGHT SIDE */}
-
-            <div
-              className="
-                hidden
-                xl:flex
-                items-center
-                gap-5
-                2xl:gap-7
-              "
-            >
-
-              <div className="flex flex-col items-end">
-
-                <div className="flex items-center gap-4 text-[#062B49]">
-
-                  <a
-                    href="#"
-                    aria-label="Facebook"
-                    className="
-                      hover:text-[#9B5B35]
-                      transition-all
-                      duration-300
-                    "
-                  >
-                    <FaFacebookF size={14} />
-                  </a>
-
-                  <a
-                    href="#"
-                    aria-label="Instagram"
-                    className="
-                      hover:text-[#9B5B35]
-                      transition-all
-                      duration-300
-                    "
-                  >
-                    <FaInstagram size={17} />
-                  </a>
-
-                  <a
-                    href="#"
-                    aria-label="LinkedIn"
-                    className="
-                      hover:text-[#9B5B35]
-                      transition-all
-                      duration-300
-                    "
-                  >
-                    <FaLinkedinIn size={15} />
-                  </a>
-
-                  <a
-                    href="#"
-                    aria-label="Twitter"
-                    className="
-                      hover:text-[#9B5B35]
-                      transition-all
-                      duration-300
-                    "
-                  >
-                    <FaTwitter size={14} />
-                  </a>
-
-                </div>
-
-
-                <div className="flex items-start gap-4 mt-2 text-xs">
-
-                  <a
-                    href="tel:+910000000000"
-                    className="
-                      group
-                      flex
-                      items-start
-                      gap-1.5
-                      font-semibold
-                      text-[#062B49]
-                      hover:text-[#9B5B35]
-                      transition
-                    "
-                  >
-
-                    <FiPhone
-                      size={16}
-                      className="mt-0.5 flex-shrink-0"
+                  {active && (
+                    <span
+                      className="
+                        absolute
+                        bottom-[5px]
+                        left-1/2
+                        h-1
+                        w-1
+                        -translate-x-1/2
+                        rounded-full
+                        bg-[#ADD132]
+                        shadow-[0_0_10px_rgba(173,209,50,0.9)]
+                      "
                     />
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
 
-                    <div className="flex flex-col">
+          {/* =================================================
+              ACTIONS
+          ================================================= */}
 
-                      <span>
-                        +91 00000 00000
-                      </span>
-
-                      <p
-                        className="
-                          max-h-0
-                          opacity-0
-                          overflow-hidden
-                          text-[10px]
-                          font-normal
-                          text-gray-500
-                          transition-all
-                          duration-300
-                          group-hover:max-h-6
-                          group-hover:opacity-100
-                          group-hover:mt-1
-                        "
-                      >
-                        Talk to our experts
-                      </p>
-
-                    </div>
-
-                  </a>
-
-
-                  <span className="text-gray-300">
-                    |
-                  </span>
-
-
-                  <a
-                    href="mailto:info@epsilora.com"
-                    className="
-                      group
-                      flex
-                      items-start
-                      gap-1.5
-                      text-gray-600
-                      hover:text-[#9B5B35]
-                      transition
-                    "
-                  >
-
-                    <FiMail
-                      size={16}
-                      className="mt-0.5 flex-shrink-0"
-                    />
-
-                    <div className="flex flex-col">
-
-                      <span>
-                        info@epsilora.com
-                      </span>
-
-                      <p
-                        className="
-                          max-h-0
-                          opacity-0
-                          overflow-hidden
-                          text-[10px]
-                          font-normal
-                          text-gray-500
-                          transition-all
-                          duration-300
-                          group-hover:max-h-6
-                          group-hover:opacity-100
-                          group-hover:mt-1
-                        "
-                      >
-                        Drop us an Email
-                      </p>
-
-                    </div>
-
-                  </a>
-
-                </div>
-
-              </div>
-
-            </div>
-
-
-            {/* =====================================================
-                MOBILE MENU BUTTON
-            ===================================================== */}
+          <div
+            className="
+              relative
+              z-10
+              flex
+              shrink-0
+              items-center
+              gap-1
+              sm:gap-1.5
+            "
+          >
+            {/* SEARCH */}
 
             <button
               type="button"
-              onClick={() => {
-                setMobileMenu((current) => !current);
-                setOpenMenu(null);
-                setShowSearchResults(false);
-              }}
-              className="
-                md:hidden
-                flex
+              onClick={() => setSearchOpen(!searchOpen)}
+              aria-label="Search"
+              className={`
+                hidden
+                h-[43px]
+                w-[43px]
                 items-center
                 justify-center
-                flex-shrink-0
-                w-10
-                h-10
+                rounded-full
                 border
-                border-gray-200
-                bg-white
-                text-[#062B49]
-                hover:border-[#9B5B35]
-                hover:text-[#9B5B35]
-                transition
-                duration-200
-                focus:outline-none
-              "
-              aria-label="Toggle menu"
-              aria-expanded={mobileMenu}
+                transition-all
+                duration-300
+                md:flex
+
+                ${
+                  darkMode
+                    ? `
+                      border-white/10
+                      bg-white/[0.04]
+                      text-white
+                      hover:border-[#ADD132]
+                      hover:bg-[#ADD132]
+                      hover:text-black
+                    `
+                    : `
+                      border-black/10
+                      bg-black/[0.025]
+                      text-[#172119]
+                      hover:border-[#ADD132]
+                      hover:bg-[#ADD132]
+                      hover:text-black
+                    `
+                }
+              `}
             >
-
-              {mobileMenu ? (
-                <FiX size={23} />
+              {searchOpen ? (
+                <X size={18} />
               ) : (
-                <FiMenu size={23} />
+                <Search
+                  size={18}
+                  strokeWidth={1.8}
+                />
               )}
-
             </button>
 
+            {/* =================================================
+                THEME SWITCH
+            ================================================= */}
+
+            <div
+              className={`
+                flex
+                h-[45px]
+                items-center
+                gap-1
+                rounded-full
+                border
+                p-1
+                transition-all
+                duration-300
+
+                ${
+                  darkMode
+                    ? `
+                      border-white/10
+                      bg-[#111812]
+                    `
+                    : `
+                      border-black/[0.10]
+                      bg-[#F1F3EF]
+                    `
+                }
+              `}
+            >
+              {/* LIGHT */}
+
+              <button
+                type="button"
+                onClick={() => changeTheme(false)}
+                aria-label="Switch to light mode"
+                aria-pressed={!darkMode}
+                className={`
+                  flex
+                  h-[37px]
+                  w-[37px]
+                  items-center
+                  justify-center
+                  rounded-full
+                  transition-all
+                  duration-300
+
+                  ${
+                    !darkMode
+                      ? `
+                        bg-[#ADD132]
+                        text-[#101800]
+                        shadow-[0_3px_15px_rgba(173,209,50,0.38)]
+                        scale-100
+                      `
+                      : `
+                        bg-transparent
+                        text-white/40
+                        hover:bg-white/[0.07]
+                        hover:text-white/80
+                      `
+                  }
+                `}
+              >
+                <Sun
+                  size={18}
+                  strokeWidth={2}
+                />
+              </button>
+
+              {/* DARK */}
+
+              <button
+                type="button"
+                onClick={() => changeTheme(true)}
+                aria-label="Switch to dark mode"
+                aria-pressed={darkMode}
+                className={`
+                  flex
+                  h-[37px]
+                  w-[37px]
+                  items-center
+                  justify-center
+                  rounded-full
+                  transition-all
+                  duration-300
+
+                  ${
+                    darkMode
+                      ? `
+                        bg-[#ADD132]
+                        text-[#101800]
+                        shadow-[0_3px_15px_rgba(173,209,50,0.38)]
+                        scale-100
+                      `
+                      : `
+                        bg-transparent
+                        text-[#6B756E]
+                        hover:bg-black/[0.05]
+                        hover:text-[#182219]
+                      `
+                  }
+                `}
+              >
+                <Moon
+                  size={18}
+                  strokeWidth={2}
+                />
+              </button>
+            </div>
+
+            {/* =================================================
+                REQUEST DEMO
+            ================================================= */}
+
+            <Link
+              to="/request-demo"
+              onClick={closeMenu}
+              className="
+                group
+                hidden
+                h-[45px]
+                items-center
+                gap-2
+                rounded-full
+                bg-gradient-to-r
+                from-[#C7EB45]
+                to-[#ADD132]
+                pl-4
+                pr-1
+                text-[12px]
+                font-extrabold
+                text-[#101800]
+                shadow-[0_7px_25px_rgba(173,209,50,0.16)]
+                transition-all
+                duration-300
+                hover:-translate-y-0.5
+                hover:shadow-[0_10px_32px_rgba(173,209,50,0.34)]
+                lg:flex
+              "
+            >
+              <span>Request a Demo</span>
+
+              <span
+                className="
+                  flex
+                  h-[37px]
+                  w-[37px]
+                  items-center
+                  justify-center
+                  rounded-full
+                  bg-[#071006]
+                  text-white
+                  transition-transform
+                  duration-300
+                  group-hover:-rotate-[35deg]
+                "
+              >
+                <ArrowUpRight size={17} />
+              </span>
+            </Link>
+
+            {/* MOBILE MENU */}
+
+            <button
+              type="button"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Menu"
+              aria-expanded={menuOpen}
+              className={`
+                flex
+                h-[41px]
+                w-[41px]
+                items-center
+                justify-center
+                rounded-full
+                border
+                transition-all
+                duration-300
+                xl:hidden
+
+                ${
+                  darkMode
+                    ? `
+                      border-white/10
+                      bg-white/[0.04]
+                      text-white
+                      hover:border-[#ADD132]
+                      hover:bg-[#ADD132]
+                      hover:text-black
+                    `
+                    : `
+                      border-black/10
+                      bg-black/[0.025]
+                      text-[#172119]
+                      hover:border-[#ADD132]
+                      hover:bg-[#ADD132]
+                      hover:text-black
+                    `
+                }
+              `}
+            >
+              {menuOpen ? (
+                <X size={20} />
+              ) : (
+                <Menu size={20} />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* =====================================================
+            SEARCH PANEL
+        ===================================================== */}
+
+        <div
+          className={`
+            mx-auto
+            mt-2
+            w-full
+            max-w-[1480px]
+            overflow-hidden
+            rounded-[20px]
+            border
+            p-2
+            backdrop-blur-2xl
+            transition-all
+            duration-300
+
+            ${
+              darkMode
+                ? `
+                  border-[#ADD132]/15
+                  bg-[#070D09]/96
+                  shadow-[0_18px_55px_rgba(0,0,0,0.45)]
+                `
+                : `
+                  border-black/10
+                  bg-white/96
+                  shadow-[0_18px_50px_rgba(30,60,35,0.12)]
+                `
+            }
+
+            ${
+              searchOpen
+                ? "max-h-[150px] opacity-100"
+                : "pointer-events-none max-h-0 !p-0 opacity-0"
+            }
+          `}
+        >
+          <div
+            className={`
+              flex
+              h-[50px]
+              items-center
+              gap-3
+              rounded-[14px]
+              px-4
+
+              ${
+                darkMode
+                  ? `
+                    bg-white/[0.045]
+                    text-[#ADD132]
+                  `
+                  : `
+                    bg-[#ADD132]/[0.07]
+                    text-[#657168]
+                  `
+              }
+            `}
+          >
+            <Search size={18} />
+
+            <input
+              type="text"
+              value={searchValue}
+              onChange={(e) =>
+                setSearchValue(e.target.value)
+              }
+              placeholder="Search TrackOwls..."
+              className={`
+                min-w-0
+                flex-1
+                border-0
+                bg-transparent
+                text-sm
+                outline-none
+
+                ${
+                  darkMode
+                    ? `
+                      text-white
+                      placeholder:text-white/40
+                    `
+                    : `
+                      text-[#182219]
+                      placeholder:text-[#7B877F]
+                    `
+                }
+              `}
+            />
+
+            {searchValue && (
+              <button
+                type="button"
+                onClick={() => setSearchValue("")}
+                className={`
+                  transition-colors
+
+                  ${
+                    darkMode
+                      ? "text-white/45 hover:text-white"
+                      : "text-[#6B776F] hover:text-black"
+                  }
+                `}
+              >
+                <X size={17} />
+              </button>
+            )}
           </div>
 
+          {searchValue && (
+            <div
+              className={`
+                flex
+                gap-1.5
+                px-2
+                pt-2
+                text-[11px]
 
-          {/* =====================================================
-              MOBILE MENU
-          ===================================================== */}
+                ${
+                  darkMode
+                    ? "text-white/50"
+                    : "text-[#657168]"
+                }
+              `}
+            >
+              <span>Searching for</span>
 
-          {mobileMenu && (
+              <strong
+                className={
+                  darkMode
+                    ? "text-white"
+                    : "text-[#182219]"
+                }
+              >
+                {searchValue}
+              </strong>
+            </div>
+          )}
+        </div>
 
-            <div className="md:hidden">
+        {/* =====================================================
+            MOBILE / TABLET MENU
+        ===================================================== */}
 
-              {/* SEARCH */}
+        <div
+          className={`
+            mx-auto
+            mt-2
+            w-full
+            max-w-[1480px]
+            overflow-hidden
+            rounded-[22px]
+            border
+            backdrop-blur-2xl
+            transition-all
+            duration-500
+            xl:hidden
 
-              <div className="border-t border-gray-200 px-1 pt-5">
+            ${
+              darkMode
+                ? `
+                  border-[#ADD132]/15
+                  bg-[#070D09]/97
+                  shadow-[0_20px_60px_rgba(0,0,0,0.5)]
+                `
+                : `
+                  border-black/10
+                  bg-white/97
+                  shadow-[0_20px_55px_rgba(30,60,35,0.13)]
+                `
+            }
 
-                <SearchBox mobile />
+            ${
+              menuOpen
+                ? "max-h-[800px] opacity-100"
+                : "pointer-events-none max-h-0 opacity-0"
+            }
+          `}
+        >
+          <div className="p-3 sm:p-4">
+            {/* MOBILE BRAND */}
 
-              </div>
+            <div
+              className={`
+                mb-2
+                flex
+                items-center
+                gap-3
+                border-b
+                px-1
+                pb-3
 
-
-              {/* NAVIGATION */}
-
-              <div className="epsilora-mobile-navigation mt-5">
-
-                <Navigation
-                  openMenu={openMenu}
-                  handleMenu={handleMenu}
-                  setOpenMenu={setOpenMenu}
-                  closeMobileNavigation={closeMobileNavigation}
-                />
-
-              </div>
-
-
-              {/* SOCIAL ICONS */}
-
+                ${
+                  darkMode
+                    ? "border-white/[0.08]"
+                    : "border-black/[0.07]"
+                }
+              `}
+            >
               <div
                 className="
                   flex
+                  h-[43px]
+                  w-[43px]
+                  shrink-0
                   items-center
                   justify-center
-                  gap-7
-                  mt-6
-                  pt-5
-                  border-t
-                  border-gray-200
-                  text-[#062B49]
+                  overflow-hidden
+                  rounded-[12px]
+                  bg-[#ADD132]
+                  p-[3px]
                 "
               >
-
-                <a
-                  href="#"
-                  aria-label="Facebook"
-                  className="hover:text-[#9B5B35] transition"
-                >
-                  <FaFacebookF size={16} />
-                </a>
-
-                <a
-                  href="#"
-                  aria-label="Instagram"
-                  className="hover:text-[#9B5B35] transition"
-                >
-                  <FaInstagram size={18} />
-                </a>
-
-                <a
-                  href="#"
-                  aria-label="LinkedIn"
-                  className="hover:text-[#9B5B35] transition"
-                >
-                  <FaLinkedinIn size={17} />
-                </a>
-
-                <a
-                  href="#"
-                  aria-label="Twitter"
-                  className="hover:text-[#9B5B35] transition"
-                >
-                  <FaTwitter size={16} />
-                </a>
-
+                <video
+                  src="/logo-video.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="h-full w-full object-contain"
+                />
               </div>
 
+              <div>
+                <div
+                  className={`
+                    text-[17px]
+                    font-black
+                    tracking-[-0.5px]
 
-              {/* PHONE */}
+                    ${
+                      darkMode
+                        ? "text-white"
+                        : "text-[#172119]"
+                    }
+                  `}
+                >
+                  TRAK<span className="text-[#ADD132]">
+                    OWLS
+                  </span>
+                </div>
 
-              <a
-                href="tel:+910000000000"
-                className="
-                  flex
-                  items-center
-                  justify-center
-                  gap-2
-                  mt-5
-                  text-sm
-                  font-semibold
-                  text-[#062B49]
-                  hover:text-[#9B5B35]
-                  transition
-                "
-              >
+                <p
+                  className={`
+                    mt-0.5
+                    text-[10px]
 
-                <FiPhone size={16} />
-
-                <span>
-                  +91 00000 00000
-                </span>
-
-              </a>
-
-
-              {/* EMAIL */}
-
-              <a
-                href="mailto:info@epsilora.com"
-                className="
-                  flex
-                  items-center
-                  justify-center
-                  gap-2
-                  mt-3
-                  mb-5
-                  text-sm
-                  text-gray-600
-                  hover:text-[#9B5B35]
-                  transition
-                "
-              >
-
-                <FiMail size={16} />
-
-                <span>
-                  info@epsilora.com
-                </span>
-
-              </a>
-
+                    ${
+                      darkMode
+                        ? "text-white/45"
+                        : "text-[#69756D]"
+                    }
+                  `}
+                >
+                  Digital Protection Intelligence
+                </p>
+              </div>
             </div>
 
-          )}
+            {/* MOBILE LINKS */}
 
+            <div className="grid gap-1 sm:grid-cols-2 sm:gap-1.5">
+              {navItems.map((item, index) => {
+                const active = isActive(item.path);
+
+                return (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={closeMenu}
+                    className={`
+                      group
+                      grid
+                      min-h-[48px]
+                      grid-cols-[28px_1fr_auto]
+                      items-center
+                      gap-2
+                      rounded-[13px]
+                      px-3
+                      text-[13px]
+                      font-semibold
+                      transition-all
+                      duration-300
+
+                      ${
+                        active
+                          ? darkMode
+                            ? `
+                              bg-[#ADD132]/10
+                              text-[#DFFF72]
+                              shadow-[inset_3px_0_0_#ADD132]
+                            `
+                            : `
+                              bg-[#ADD132]/15
+                              text-[#294300]
+                              shadow-[inset_3px_0_0_#ADD132]
+                            `
+                          : darkMode
+                            ? `
+                              text-white/65
+                              hover:bg-white/[0.04]
+                              hover:text-white
+                            `
+                            : `
+                              text-[#59665E]
+                              hover:bg-[#ADD132]/10
+                              hover:text-[#172119]
+                            `
+                      }
+                    `}
+                  >
+                    <span
+                      className={`
+                        text-[9px]
+                        font-black
+
+                        ${
+                          active
+                            ? "text-[#769C0B]"
+                            : darkMode
+                              ? "text-white/25"
+                              : "text-[#8B958F]"
+                        }
+                      `}
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+
+                    <span>{item.name}</span>
+
+                    {active ? (
+                      <Check
+                        size={16}
+                        className="text-[#ADD132]"
+                      />
+                    ) : (
+                      <ArrowRight
+                        size={16}
+                        className={`
+                          transition-transform
+                          duration-300
+                          group-hover:translate-x-1
+
+                          ${
+                            darkMode
+                              ? "text-white/30"
+                              : "text-[#8B958F]"
+                          }
+                        `}
+                      />
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+
+            {/* MOBILE DEMO */}
+
+            <Link
+              to="/request-demo"
+              onClick={closeMenu}
+              className="
+                group
+                mt-2
+                flex
+                min-h-[54px]
+                items-center
+                justify-between
+                rounded-full
+                bg-gradient-to-r
+                from-[#C7EB45]
+                to-[#ADD132]
+                pl-5
+                pr-1.5
+                text-[13px]
+                font-extrabold
+                text-[#101800]
+              "
+            >
+              <span>Request a Demo</span>
+
+              <span
+                className="
+                  flex
+                  h-[43px]
+                  w-[43px]
+                  items-center
+                  justify-center
+                  rounded-full
+                  bg-[#071006]
+                  text-white
+                  transition-transform
+                  duration-300
+                  group-hover:-rotate-[35deg]
+                "
+              >
+                <ArrowUpRight size={19} />
+              </span>
+            </Link>
+          </div>
         </div>
-
-      </div>
-
+      </header>
 
       {/* =====================================================
-          DESKTOP / TABLET NAVIGATION
+          WHATSAPP
       ===================================================== */}
 
-      <div className="hidden md:block">
+      <div
+        className="
+          fixed
+          bottom-5
+          right-4
+          z-[1100]
+          sm:bottom-6
+          sm:right-6
+        "
+      >
+        {whatsappOpen && (
+          <div
+            className={`
+              absolute
+              bottom-[72px]
+              right-0
+              w-[285px]
+              rounded-[20px]
+              border
+              p-4
+              backdrop-blur-2xl
+              sm:w-[300px]
 
-        <Navigation
-          openMenu={openMenu}
-          handleMenu={handleMenu}
-          setOpenMenu={setOpenMenu}
-          closeMobileNavigation={closeMobileNavigation}
-        />
+              ${
+                darkMode
+                  ? `
+                    border-[#ADD132]/15
+                    bg-[#070D09]/97
+                    shadow-[0_20px_60px_rgba(0,0,0,0.5)]
+                  `
+                  : `
+                    border-black/10
+                    bg-white/97
+                    shadow-[0_20px_60px_rgba(20,50,25,0.16)]
+                  `
+              }
+            `}
+          >
+            <button
+              type="button"
+              onClick={() => setWhatsappOpen(false)}
+              className={`
+                absolute
+                right-3
+                top-3
+                flex
+                h-6
+                w-6
+                items-center
+                justify-center
+                rounded-full
 
+                ${
+                  darkMode
+                    ? "text-white/45 hover:bg-white/10 hover:text-white"
+                    : "text-[#6B776F] hover:bg-black/5 hover:text-black"
+                }
+              `}
+            >
+              <X size={14} />
+            </button>
+
+            <div className="flex gap-3">
+              <div
+                className="
+                  flex
+                  h-[44px]
+                  w-[44px]
+                  shrink-0
+                  items-center
+                  justify-center
+                  rounded-[13px]
+                  bg-gradient-to-br
+                  from-[#35E879]
+                  to-[#18B957]
+                  text-white
+                  shadow-[0_8px_20px_rgba(37,211,102,0.25)]
+                "
+              >
+                <MessageCircle size={22} />
+              </div>
+
+              <div className="pr-4">
+                <h4
+                  className={`
+                    text-[13px]
+                    font-extrabold
+                    ${
+                      darkMode
+                        ? "text-white"
+                        : "text-[#172119]"
+                    }
+                  `}
+                >
+                  TrackOwls Support
+                </h4>
+
+                <p
+                  className={`
+                    mt-1
+                    text-[11px]
+                    leading-relaxed
+                    ${
+                      darkMode
+                        ? "text-white/50"
+                        : "text-[#68746C]"
+                    }
+                  `}
+                >
+                  Need help with digital protection?
+                </p>
+
+                <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hello%20TrackOwls,%20I%20would%20like%20to%20know%20more.`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="
+                    mt-2
+                    inline-flex
+                    items-center
+                    gap-1
+                    text-[11px]
+                    font-extrabold
+                    text-[#6B9408]
+                    hover:text-[#3F5D00]
+                  "
+                >
+                  Start a conversation
+                  <ArrowUpRight size={13} />
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <button
+          type="button"
+          onClick={() => setWhatsappOpen(!whatsappOpen)}
+          aria-label="WhatsApp"
+          className="
+            group
+            relative
+            flex
+            h-[56px]
+            w-[56px]
+            items-center
+            justify-center
+            rounded-full
+            bg-gradient-to-br
+            from-[#35E879]
+            to-[#18B957]
+            text-white
+            shadow-[0_10px_32px_rgba(37,211,102,0.30)]
+            transition-all
+            duration-300
+            hover:-translate-y-1
+            hover:scale-105
+          "
+        >
+          <span
+            className="
+              absolute
+              -inset-1
+              animate-ping
+              rounded-full
+              border
+              border-[#25D366]/40
+            "
+          />
+
+          <MessageCircle
+            size={27}
+            strokeWidth={2.1}
+          />
+
+          <span
+            className="
+              absolute
+              right-1
+              top-1
+              h-3
+              w-3
+              rounded-full
+              border-2
+              border-white
+              bg-[#C7EB45]
+            "
+          />
+        </button>
       </div>
-
-    </header>
+    </>
   );
-};
-
-export default Navbar;
+}

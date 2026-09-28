@@ -1,0 +1,1363 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Shield,
+  Search,
+  Radar,
+  Globe,
+  LockKeyhole,
+  ScanSearch,
+  CheckCircle2,
+  Play,
+} from "lucide-react";
+
+function Home() {
+  return (
+    <div className="min-h-screen overflow-hidden bg-[#070A07] text-white">
+
+      {/* =====================================================
+          HERO SECTION
+      ===================================================== */}
+      <section className="relative min-h-[calc(100vh-90px)] overflow-hidden">
+
+        {/* Background Grid */}
+        <div
+          className="
+            pointer-events-none
+            absolute
+            inset-0
+            opacity-[0.07]
+          "
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(173,209,50,0.5) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(173,209,50,0.5) 1px, transparent 1px)
+            `,
+            backgroundSize: "70px 70px",
+          }}
+        />
+
+        {/* Main Glow */}
+        <div
+          className="
+            pointer-events-none
+            absolute
+            left-1/2
+            top-[20%]
+            h-[500px]
+            w-[500px]
+            -translate-x-1/2
+            rounded-full
+            bg-[#ADD132]/10
+            blur-[150px]
+          "
+        />
+
+        {/* Left Glow */}
+        <div
+          className="
+            pointer-events-none
+            absolute
+            -left-40
+            top-40
+            h-96
+            w-96
+            rounded-full
+            bg-[#ADD132]/5
+            blur-[120px]
+          "
+        />
+
+        {/* Right Glow */}
+        <div
+          className="
+            pointer-events-none
+            absolute
+            -right-40
+            bottom-0
+            h-[450px]
+            w-[450px]
+            rounded-full
+            bg-[#ADD132]/5
+            blur-[130px]
+          "
+        />
+
+        <div
+          className="
+            relative
+            z-10
+            mx-auto
+            flex
+            min-h-[calc(100vh-90px)]
+            max-w-[1500px]
+            items-center
+            px-5
+            py-20
+            sm:px-8
+            lg:px-12
+          "
+        >
+
+          <div className="grid w-full grid-cols-1 items-center gap-16 lg:grid-cols-2">
+
+            {/* ================= LEFT CONTENT ================= */}
+            <div className="max-w-3xl">
+
+              {/* Badge */}
+              <div
+                className="
+                  mb-7
+                  inline-flex
+                  items-center
+                  gap-3
+                  rounded-full
+                  border
+                  border-[#ADD132]/20
+                  bg-[#ADD132]/[0.05]
+                  px-4
+                  py-2
+                "
+              >
+                <span
+                  className="
+                    relative
+                    flex
+                    h-2
+                    w-2
+                  "
+                >
+                  <span
+                    className="
+                      absolute
+                      inline-flex
+                      h-full
+                      w-full
+                      animate-ping
+                      rounded-full
+                      bg-[#ADD132]
+                      opacity-75
+                    "
+                  />
+
+                  <span
+                    className="
+                      relative
+                      inline-flex
+                      h-2
+                      w-2
+                      rounded-full
+                      bg-[#ADD132]
+                    "
+                  />
+                </span>
+
+                <span
+                  className="
+                    text-[10px]
+                    font-semibold
+                    uppercase
+                    tracking-[0.25em]
+                    text-[#ADD132]
+                    sm:text-xs
+                  "
+                >
+                  Digital Protection • 2026
+                </span>
+              </div>
+
+              {/* Heading */}
+              <h1
+                className="
+                  text-5xl
+                  font-semibold
+                  leading-[1.02]
+                  tracking-[-0.04em]
+                  text-white
+                  sm:text-6xl
+                  lg:text-7xl
+                  xl:text-[82px]
+                "
+              >
+                Protecting
+                <br />
+
+                <span className="text-[#ADD132]">
+                  Digital Content.
+                </span>
+              </h1>
+
+              <p
+                className="
+                  mt-7
+                  max-w-2xl
+                  text-base
+                  leading-7
+                  text-slate-400
+                  sm:text-lg
+                  sm:leading-8
+                "
+              >
+                TrackOwls helps businesses discover, monitor
+                and protect their digital content and
+                intellectual property from online piracy,
+                unauthorized distribution and digital threats.
+              </p>
+
+              {/* Buttons */}
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+
+                <Link
+                  to="/request-demo"
+                  className="
+                    group
+                    inline-flex
+                    items-center
+                    justify-center
+                    gap-3
+                    rounded-full
+                    bg-[#ADD132]
+                    px-7
+                    py-4
+                    text-sm
+                    font-bold
+                    text-black
+                    transition-all
+                    duration-300
+                    hover:-translate-y-1
+                    hover:bg-[#C7EB45]
+                    hover:shadow-2xl
+                    hover:shadow-[#ADD132]/20
+                  "
+                >
+                  Request a Demo
+
+                  <span
+                    className="
+                      flex
+                      h-7
+                      w-7
+                      items-center
+                      justify-center
+                      rounded-full
+                      bg-black/10
+                      transition
+                      duration-300
+                      group-hover:rotate-45
+                    "
+                  >
+                    <ArrowUpRight size={16} />
+                  </span>
+                </Link>
+
+                <Link
+                  to="/solutions"
+                  className="
+                    inline-flex
+                    items-center
+                    justify-center
+                    gap-3
+                    rounded-full
+                    border
+                    border-white/10
+                    bg-white/[0.03]
+                    px-7
+                    py-4
+                    text-sm
+                    font-semibold
+                    text-white
+                    transition-all
+                    duration-300
+                    hover:border-[#ADD132]/30
+                    hover:bg-[#ADD132]/5
+                    hover:text-[#ADD132]
+                  "
+                >
+                  Explore Solutions
+                  <ArrowRight size={16} />
+                </Link>
+
+              </div>
+
+              {/* Trust Points */}
+              <div
+                className="
+                  mt-10
+                  flex
+                  flex-wrap
+                  gap-x-6
+                  gap-y-3
+                "
+              >
+
+                {[
+                  "Real-time Monitoring",
+                  "Digital Intelligence",
+                  "IP Protection",
+                ].map((item) => (
+                  <div
+                    key={item}
+                    className="
+                      flex
+                      items-center
+                      gap-2
+                      text-xs
+                      text-slate-500
+                    "
+                  >
+                    <CheckCircle2
+                      size={14}
+                      className="text-[#ADD132]"
+                    />
+
+                    {item}
+                  </div>
+                ))}
+
+              </div>
+
+            </div>
+
+            {/* ================= RIGHT VISUAL ================= */}
+            <div className="relative mx-auto w-full max-w-[600px]">
+
+              {/* Outer Rings */}
+              <div
+                className="
+                  absolute
+                  left-1/2
+                  top-1/2
+                  h-[430px]
+                  w-[430px]
+                  -translate-x-1/2
+                  -translate-y-1/2
+                  rounded-full
+                  border
+                  border-[#ADD132]/10
+                  sm:h-[520px]
+                  sm:w-[520px]
+                "
+              />
+
+              <div
+                className="
+                  absolute
+                  left-1/2
+                  top-1/2
+                  h-[340px]
+                  w-[340px]
+                  -translate-x-1/2
+                  -translate-y-1/2
+                  rounded-full
+                  border
+                  border-[#ADD132]/10
+                  sm:h-[420px]
+                  sm:w-[420px]
+                "
+              />
+
+              {/* Radar */}
+              <div
+                className="
+                  relative
+                  mx-auto
+                  flex
+                  aspect-square
+                  w-[300px]
+                  items-center
+                  justify-center
+                  rounded-full
+                  border
+                  border-[#ADD132]/20
+                  bg-[#ADD132]/[0.025]
+                  shadow-[0_0_100px_rgba(173,209,50,0.08)]
+                  sm:w-[390px]
+                  lg:w-[430px]
+                "
+              >
+
+                {/* Radar Lines */}
+                <div
+                  className="
+                    absolute
+                    inset-[12%]
+                    rounded-full
+                    border
+                    border-[#ADD132]/10
+                  "
+                />
+
+                <div
+                  className="
+                    absolute
+                    inset-[25%]
+                    rounded-full
+                    border
+                    border-[#ADD132]/10
+                  "
+                />
+
+                {/* Cross */}
+                <div
+                  className="
+                    absolute
+                    left-1/2
+                    top-0
+                    h-full
+                    w-px
+                    -translate-x-1/2
+                    bg-[#ADD132]/10
+                  "
+                />
+
+                <div
+                  className="
+                    absolute
+                    left-0
+                    top-1/2
+                    h-px
+                    w-full
+                    -translate-y-1/2
+                    bg-[#ADD132]/10
+                  "
+                />
+
+                {/* Radar Sweep */}
+                <div
+                  className="
+                    absolute
+                    left-1/2
+                    top-1/2
+                    h-1/2
+                    w-px
+                    origin-bottom
+                    -translate-x-1/2
+                    -translate-y-full
+                    rotate-45
+                    bg-gradient-to-t
+                    from-transparent
+                    via-[#ADD132]
+                    to-transparent
+                    opacity-60
+                  "
+                />
+
+                {/* Center Shield */}
+                <div
+                  className="
+                    relative
+                    z-10
+                    flex
+                    h-28
+                    w-28
+                    items-center
+                    justify-center
+                    rounded-3xl
+                    border
+                    border-[#ADD132]/30
+                    bg-[#0D120B]
+                    shadow-[0_0_50px_rgba(173,209,50,0.15)]
+                    sm:h-32
+                    sm:w-32
+                  "
+                >
+                  <Shield
+                    size={58}
+                    strokeWidth={1.3}
+                    className="text-[#ADD132]"
+                  />
+
+                  <div
+                    className="
+                      absolute
+                      inset-3
+                      rounded-2xl
+                      border
+                      border-[#ADD132]/10
+                    "
+                  />
+                </div>
+
+                {/* Detection Points */}
+                <span
+                  className="
+                    absolute
+                    left-[20%]
+                    top-[32%]
+                    h-2
+                    w-2
+                    rounded-full
+                    bg-[#ADD132]
+                    shadow-[0_0_15px_#ADD132]
+                  "
+                />
+
+                <span
+                  className="
+                    absolute
+                    right-[22%]
+                    top-[25%]
+                    h-2
+                    w-2
+                    rounded-full
+                    bg-[#ADD132]
+                    shadow-[0_0_15px_#ADD132]
+                  "
+                />
+
+                <span
+                  className="
+                    absolute
+                    bottom-[24%]
+                    right-[28%]
+                    h-2
+                    w-2
+                    rounded-full
+                    bg-[#ADD132]
+                    shadow-[0_0_15px_#ADD132]
+                  "
+                />
+
+                <span
+                  className="
+                    absolute
+                    bottom-[30%]
+                    left-[24%]
+                    h-1.5
+                    w-1.5
+                    rounded-full
+                    bg-[#ADD132]
+                    shadow-[0_0_12px_#ADD132]
+                  "
+                />
+
+              </div>
+
+              {/* Floating Detection Card */}
+              <div
+                className="
+                  absolute
+                  -left-2
+                  top-[18%]
+                  rounded-2xl
+                  border
+                  border-white/10
+                  bg-[#0A0D0A]/90
+                  p-4
+                  shadow-2xl
+                  backdrop-blur-xl
+                  sm:-left-4
+                "
+              >
+                <div className="flex items-center gap-3">
+
+                  <div
+                    className="
+                      flex
+                      h-9
+                      w-9
+                      items-center
+                      justify-center
+                      rounded-xl
+                      bg-[#ADD132]/10
+                      text-[#ADD132]
+                    "
+                  >
+                    <Radar size={18} />
+                  </div>
+
+                  <div>
+                    <p className="text-[10px] text-slate-500">
+                      MONITORING
+                    </p>
+
+                    <p className="mt-0.5 text-sm font-semibold text-white">
+                      Active
+                    </p>
+                  </div>
+
+                </div>
+              </div>
+
+              {/* Threat Card */}
+              <div
+                className="
+                  absolute
+                  -bottom-3
+                  right-0
+                  rounded-2xl
+                  border
+                  border-white/10
+                  bg-[#0A0D0A]/90
+                  p-4
+                  shadow-2xl
+                  backdrop-blur-xl
+                  sm:-right-5
+                "
+              >
+                <div className="flex items-center gap-3">
+
+                  <div
+                    className="
+                      flex
+                      h-9
+                      w-9
+                      items-center
+                      justify-center
+                      rounded-xl
+                      bg-[#ADD132]/10
+                      text-[#ADD132]
+                    "
+                  >
+                    <ScanSearch size={18} />
+                  </div>
+
+                  <div>
+                    <p className="text-[10px] text-slate-500">
+                      THREATS DETECTED
+                    </p>
+
+                    <p className="mt-0.5 text-sm font-semibold text-[#ADD132]">
+                      Real-time
+                    </p>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* Scroll Indicator */}
+        <div
+          className="
+            absolute
+            bottom-7
+            left-1/2
+            hidden
+            -translate-x-1/2
+            flex-col
+            items-center
+            gap-2
+            text-[9px]
+            uppercase
+            tracking-[0.3em]
+            text-slate-600
+            lg:flex
+          "
+        >
+          Scroll to explore
+
+          <div
+            className="
+              h-8
+              w-px
+              bg-gradient-to-b
+              from-[#ADD132]
+              to-transparent
+            "
+          />
+        </div>
+
+      </section>
+
+      {/* =====================================================
+          STATS
+      ===================================================== */}
+      <section className="border-y border-white/[0.06] bg-white/[0.015]">
+
+        <div
+          className="
+            mx-auto
+            grid
+            max-w-[1500px]
+            grid-cols-2
+            divide-x
+            divide-white/[0.06]
+            px-5
+            sm:px-8
+            lg:grid-cols-4
+            lg:px-12
+          "
+        >
+
+          {[
+            ["24/7", "Digital Monitoring"],
+            ["Real-Time", "Threat Detection"],
+            ["Global", "Digital Visibility"],
+            ["2026", "TrackOwls Founded"],
+          ].map(([number, label]) => (
+            <div
+              key={label}
+              className="
+                px-4
+                py-8
+                text-center
+                sm:px-8
+                lg:py-10
+              "
+            >
+              <p
+                className="
+                  text-2xl
+                  font-semibold
+                  tracking-tight
+                  text-[#ADD132]
+                  sm:text-3xl
+                "
+              >
+                {number}
+              </p>
+
+              <p className="mt-2 text-xs text-slate-500 sm:text-sm">
+                {label}
+              </p>
+            </div>
+          ))}
+
+        </div>
+
+      </section>
+
+      {/* =====================================================
+          INTRO SECTION
+      ===================================================== */}
+      <section className="relative py-24 sm:py-28 lg:py-32">
+
+        <div
+          className="
+            mx-auto
+            max-w-[1500px]
+            px-5
+            sm:px-8
+            lg:px-12
+          "
+        >
+
+          <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
+
+            <div>
+
+              <p
+                className="
+                  text-xs
+                  font-semibold
+                  uppercase
+                  tracking-[0.3em]
+                  text-[#ADD132]
+                "
+              >
+                Why TrackOwls
+              </p>
+
+              <h2
+                className="
+                  mt-5
+                  max-w-xl
+                  text-3xl
+                  font-semibold
+                  leading-tight
+                  tracking-tight
+                  sm:text-4xl
+                  lg:text-5xl
+                "
+              >
+                Your digital world
+                <br />
+                deserves protection.
+              </h2>
+
+            </div>
+
+            <div>
+
+              <p
+                className="
+                  text-base
+                  leading-8
+                  text-slate-400
+                  sm:text-lg
+                "
+              >
+                Digital content can spread across the internet
+                within seconds. TrackOwls brings monitoring,
+                detection and protection together to help
+                organizations understand where their content
+                appears online and respond to unauthorized use.
+              </p>
+
+              <Link
+                to="/about"
+                className="
+                  group
+                  mt-7
+                  inline-flex
+                  items-center
+                  gap-2
+                  text-sm
+                  font-semibold
+                  text-[#ADD132]
+                "
+              >
+                Discover TrackOwls
+
+                <ArrowRight
+                  size={16}
+                  className="
+                    transition
+                    duration-300
+                    group-hover:translate-x-1
+                  "
+                />
+              </Link>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* =====================================================
+          SOLUTIONS
+      ===================================================== */}
+      <section className="relative border-y border-white/[0.06] py-24 sm:py-28 lg:py-32">
+
+        <div
+          className="
+            mx-auto
+            max-w-[1500px]
+            px-5
+            sm:px-8
+            lg:px-12
+          "
+        >
+
+          <div className="max-w-2xl">
+
+            <p
+              className="
+                text-xs
+                font-semibold
+                uppercase
+                tracking-[0.3em]
+                text-[#ADD132]
+              "
+            >
+              Our Capabilities
+            </p>
+
+            <h2
+              className="
+                mt-5
+                text-3xl
+                font-semibold
+                tracking-tight
+                sm:text-4xl
+                lg:text-5xl
+              "
+            >
+              Intelligence that helps
+              <span className="text-[#ADD132]">
+                {" "}protect your content.
+              </span>
+            </h2>
+
+          </div>
+
+          <div
+            className="
+              mt-14
+              grid
+              gap-px
+              overflow-hidden
+              rounded-3xl
+              border
+              border-white/[0.07]
+              bg-white/[0.07]
+              md:grid-cols-2
+              lg:grid-cols-4
+            "
+          >
+
+            {[
+              {
+                icon: Search,
+                title: "Content Discovery",
+                text: "Identify where your digital content appears across online platforms and sources.",
+              },
+              {
+                icon: Radar,
+                title: "Online Monitoring",
+                text: "Continuously monitor digital channels to identify unauthorized distribution.",
+              },
+              {
+                icon: ScanSearch,
+                title: "Threat Detection",
+                text: "Discover suspicious activity and potential threats affecting your digital assets.",
+              },
+              {
+                icon: LockKeyhole,
+                title: "IP Protection",
+                text: "Support your intellectual property protection strategy with actionable intelligence.",
+              },
+            ].map((item) => {
+
+              const Icon = item.icon;
+
+              return (
+                <div
+                  key={item.title}
+                  className="
+                    group
+                    relative
+                    bg-[#080B08]
+                    p-7
+                    transition
+                    duration-500
+                    hover:bg-[#ADD132]/[0.04]
+                    sm:p-9
+                  "
+                >
+
+                  <div
+                    className="
+                      flex
+                      h-12
+                      w-12
+                      items-center
+                      justify-center
+                      rounded-2xl
+                      border
+                      border-[#ADD132]/15
+                      bg-[#ADD132]/[0.05]
+                      text-[#ADD132]
+                      transition
+                      duration-500
+                      group-hover:border-[#ADD132]/30
+                      group-hover:bg-[#ADD132]/10
+                    "
+                  >
+                    <Icon size={21} />
+                  </div>
+
+                  <h3 className="mt-7 text-lg font-semibold text-white">
+                    {item.title}
+                  </h3>
+
+                  <p className="mt-3 text-sm leading-6 text-slate-500">
+                    {item.text}
+                  </p>
+
+                  <div
+                    className="
+                      mt-7
+                      flex
+                      items-center
+                      gap-2
+                      text-xs
+                      font-semibold
+                      text-[#ADD132]
+                      opacity-0
+                      transition
+                      duration-300
+                      group-hover:opacity-100
+                    "
+                  >
+                    Explore
+                    <ArrowUpRight size={14} />
+                  </div>
+
+                </div>
+              );
+            })}
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* =====================================================
+          TECHNOLOGY SECTION
+      ===================================================== */}
+      <section className="relative py-24 sm:py-28 lg:py-32">
+
+        <div
+          className="
+            mx-auto
+            max-w-[1500px]
+            px-5
+            sm:px-8
+            lg:px-12
+          "
+        >
+
+          <div
+            className="
+              relative
+              overflow-hidden
+              rounded-[2rem]
+              border
+              border-[#ADD132]/10
+              bg-[#ADD132]/[0.025]
+              p-7
+              sm:p-10
+              lg:p-16
+            "
+          >
+
+            <div
+              className="
+                pointer-events-none
+                absolute
+                -right-32
+                -top-32
+                h-96
+                w-96
+                rounded-full
+                bg-[#ADD132]/5
+                blur-[100px]
+              "
+            />
+
+            <div className="relative grid gap-14 lg:grid-cols-2 lg:items-center">
+
+              <div>
+
+                <div
+                  className="
+                    inline-flex
+                    h-12
+                    w-12
+                    items-center
+                    justify-center
+                    rounded-2xl
+                    border
+                    border-[#ADD132]/20
+                    bg-[#ADD132]/10
+                    text-[#ADD132]
+                  "
+                >
+                  <Globe size={22} />
+                </div>
+
+                <p
+                  className="
+                    mt-7
+                    text-xs
+                    font-semibold
+                    uppercase
+                    tracking-[0.3em]
+                    text-[#ADD132]
+                  "
+                >
+                  Built for the Digital Era
+                </p>
+
+                <h2
+                  className="
+                    mt-4
+                    text-3xl
+                    font-semibold
+                    leading-tight
+                    sm:text-4xl
+                    lg:text-5xl
+                  "
+                >
+                  See the digital landscape
+                  <span className="text-[#ADD132]">
+                    {" "}differently.
+                  </span>
+                </h2>
+
+                <p
+                  className="
+                    mt-6
+                    max-w-xl
+                    text-sm
+                    leading-7
+                    text-slate-400
+                    sm:text-base
+                  "
+                >
+                  TrackOwls combines digital monitoring,
+                  intelligence and investigation capabilities
+                  to give organizations greater visibility
+                  across the online environment.
+                </p>
+
+                <Link
+                  to="/technology"
+                  className="
+                    group
+                    mt-8
+                    inline-flex
+                    items-center
+                    gap-3
+                    rounded-full
+                    border
+                    border-white/10
+                    px-6
+                    py-3.5
+                    text-sm
+                    font-semibold
+                    text-white
+                    transition
+                    duration-300
+                    hover:border-[#ADD132]/30
+                    hover:text-[#ADD132]
+                  "
+                >
+                  Explore Technology
+
+                  <ArrowRight
+                    size={16}
+                    className="
+                      transition
+                      duration-300
+                      group-hover:translate-x-1
+                    "
+                  />
+                </Link>
+
+              </div>
+
+              {/* Visual */}
+              <div className="relative">
+
+                <div
+                  className="
+                    relative
+                    aspect-square
+                    overflow-hidden
+                    rounded-3xl
+                    border
+                    border-white/[0.07]
+                    bg-[#060806]
+                  "
+                >
+
+                  {/* Grid */}
+                  <div
+                    className="absolute inset-0 opacity-[0.08]"
+                    style={{
+                      backgroundImage: `
+                        linear-gradient(rgba(173,209,50,0.5) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(173,209,50,0.5) 1px, transparent 1px)
+                      `,
+                      backgroundSize: "45px 45px",
+                    }}
+                  />
+
+                  <div
+                    className="
+                      absolute
+                      left-1/2
+                      top-1/2
+                      flex
+                      h-28
+                      w-28
+                      -translate-x-1/2
+                      -translate-y-1/2
+                      items-center
+                      justify-center
+                      rounded-full
+                      border
+                      border-[#ADD132]/30
+                      bg-[#ADD132]/10
+                      text-[#ADD132]
+                      shadow-[0_0_80px_rgba(173,209,50,0.15)]
+                    "
+                  >
+                    <Shield size={50} strokeWidth={1.2} />
+                  </div>
+
+                  {/* Nodes */}
+                  {[
+                    "left-[15%] top-[25%]",
+                    "right-[15%] top-[30%]",
+                    "left-[20%] bottom-[22%]",
+                    "right-[18%] bottom-[18%]",
+                  ].map((position, index) => (
+                    <div
+                      key={index}
+                      className={`absolute ${position}`}
+                    >
+                      <div
+                        className="
+                          h-3
+                          w-3
+                          rounded-full
+                          bg-[#ADD132]
+                          shadow-[0_0_20px_#ADD132]
+                        "
+                      />
+                    </div>
+                  ))}
+
+                  {/* Connecting lines */}
+                  <div className="absolute left-[18%] top-[27%] h-px w-[32%] rotate-[25deg] bg-[#ADD132]/20" />
+                  <div className="absolute right-[18%] top-[31%] h-px w-[30%] -rotate-[20deg] bg-[#ADD132]/20" />
+                  <div className="absolute bottom-[25%] left-[20%] h-px w-[30%] -rotate-[20deg] bg-[#ADD132]/20" />
+                  <div className="absolute bottom-[22%] right-[20%] h-px w-[30%] rotate-[25deg] bg-[#ADD132]/20" />
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* =====================================================
+          FINAL CTA
+      ===================================================== */}
+      <section className="border-t border-white/[0.06] py-24 sm:py-28">
+
+        <div
+          className="
+            mx-auto
+            max-w-4xl
+            px-5
+            text-center
+            sm:px-8
+          "
+        >
+
+          <div
+            className="
+              mx-auto
+              flex
+              h-14
+              w-14
+              items-center
+              justify-center
+              rounded-2xl
+              border
+              border-[#ADD132]/20
+              bg-[#ADD132]/10
+              text-[#ADD132]
+            "
+          >
+            <Shield size={26} />
+          </div>
+
+          <p
+            className="
+              mt-7
+              text-xs
+              font-semibold
+              uppercase
+              tracking-[0.3em]
+              text-[#ADD132]
+            "
+          >
+            Start Protecting
+          </p>
+
+          <h2
+            className="
+              mt-4
+              text-3xl
+              font-semibold
+              tracking-tight
+              sm:text-4xl
+              lg:text-5xl
+            "
+          >
+            Ready to protect your
+            <br />
+            digital assets?
+          </h2>
+
+          <p
+            className="
+              mx-auto
+              mt-5
+              max-w-xl
+              text-sm
+              leading-7
+              text-slate-500
+              sm:text-base
+            "
+          >
+            Connect with the TrackOwls team to understand
+            how digital monitoring and protection can support
+            your organization.
+          </p>
+
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+
+            <Link
+              to="/request-demo"
+              className="
+                inline-flex
+                items-center
+                justify-center
+                gap-3
+                rounded-full
+                bg-[#ADD132]
+                px-7
+                py-4
+                text-sm
+                font-bold
+                text-black
+                transition
+                duration-300
+                hover:-translate-y-1
+                hover:bg-[#C7EB45]
+                hover:shadow-xl
+                hover:shadow-[#ADD132]/20
+              "
+            >
+              Request a Demo
+              <ArrowUpRight size={17} />
+            </Link>
+
+            <Link
+              to="/contact"
+              className="
+                inline-flex
+                items-center
+                justify-center
+                gap-3
+                rounded-full
+                border
+                border-white/10
+                px-7
+                py-4
+                text-sm
+                font-semibold
+                text-white
+                transition
+                duration-300
+                hover:border-[#ADD132]/30
+                hover:text-[#ADD132]
+              "
+            >
+              Contact Us
+              <ArrowRight size={16} />
+            </Link>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+  );
+}
+
+export default Home;

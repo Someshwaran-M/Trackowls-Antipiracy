@@ -1,706 +1,771 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
-  FiMapPin,
-  FiPhone,
-  FiMail,
-  FiArrowRight,
-  FiArrowUp,
-  FiExternalLink,
-} from "react-icons/fi";
+  ArrowUpRight,
+  Mail,
+  Phone,
+  MapPin,
+  ShieldCheck,
+  ChevronRight,
+} from "lucide-react";
 
-import {
-  FaLinkedinIn,
-  FaFacebookF,
-  FaInstagram,
-  FaYoutube,
-} from "react-icons/fa";
-
-const Footer = () => {
+function Footer() {
   const currentYear = new Date().getFullYear();
 
-  // Back to top
-  const goToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  // Company Links
-  const quickLinks = [
-    ["Home", "/"],
-    ["Services", "/technology/services/consulting-professional"],
-    ["Contact Us", "/contact"],
-    ["Brand Partners", "/technology/partners"],
-  ];
-
-  // Hardware Links
-  const hardwareLinks = [
-    ["Data Storage", "/technology/hardware/datastorage"],
-    ["PC & Server", "/technology/hardware/pc-server"],
-    [
-      "Server & Server Management",
-      "/technology/hardware/server-server-management",
-    ],
-  ];
-
-  // Solutions Links
-  const solutionLinks = [
-    ["Cloud Solutions", "/technology/solutions/cloud"],
-    ["Data Center Solutions", "/technology/solutions/datacenter"],
-    ["Emerging Technology", "/technology/solutions/emerging"],
-    [
-      "Information & Cyber Security",
-      "/technology/solutions/information-cyber",
-    ],
-  ];
-
-  // Social Links
-  const socialLinks = [
-    {
-      icon: <FaLinkedinIn />,
-      name: "LinkedIn",
-      href: "#",
-    },
-    {
-      icon: <FaFacebookF />,
-      name: "Facebook",
-      href: "#",
-    },
-    {
-      icon: <FaInstagram />,
-      name: "Instagram",
-      href: "#",
-    },
-    {
-      icon: <FaYoutube />,
-      name: "YouTube",
-      href: "#",
-    },
-  ];
-
-  // Reusable Footer Link
-  const FooterLink = ({ name, path }) => (
-    <a
-      href={path}
+  return (
+    <footer
       className="
-        group
-        inline-flex
-        items-center
-        gap-2
-        text-[13px]
-        text-white/50
-        hover:text-[#C18A61]
-        transition-all
+        relative
+        overflow-hidden
+        bg-white
+        text-[#152019]
+        transition-colors
         duration-300
+        dark:bg-[#070A07]
+        dark:text-white
       "
     >
-      <span
-        className="
-          w-0
-          h-px
-          bg-[#9B5B35]
-          group-hover:w-3
-          transition-all
-          duration-300
-        "
-      />
+      {/* =====================================================
+          BACKGROUND GLOW
+      ===================================================== */}
 
-      {name}
-    </a>
-  );
-
-  return (
-    <footer className="relative overflow-hidden bg-[#062B49] text-white">
-
-      {/* ================= BACKGROUND GLOW ================= */}
       <div
         className="
+          pointer-events-none
           absolute
           -top-40
-          -right-40
-          w-80
+          left-1/2
           h-80
+          w-80
+          -translate-x-1/2
           rounded-full
-          bg-[#9B5B35]/10
-          blur-3xl
-          pointer-events-none
+          bg-[#ADD132]/[0.08]
+          blur-[120px]
+          dark:bg-[#ADD132]/[0.06]
         "
       />
 
-      {/* ================= CTA ================= */}
-      <section className="relative border-b border-white/10">
+      {/* =====================================================
+          MAIN FOOTER
+      ===================================================== */}
+
+      <div
+        className="
+          relative
+          mx-auto
+          max-w-[1500px]
+          px-5
+          py-14
+          sm:px-8
+          lg:px-12
+          lg:py-16
+        "
+      >
         <div
           className="
-            max-w-7xl
-            mx-auto
-            px-5
-            sm:px-8
-            lg:px-12
-            py-9
-            sm:py-10
+            grid
+            grid-cols-1
+            gap-12
+            md:grid-cols-2
+            lg:grid-cols-12
+            lg:gap-8
           "
         >
-          <div
-            className="
-              flex
-              flex-col
-              sm:flex-row
-              sm:items-center
-              sm:justify-between
-              gap-5
-            "
-          >
-            {/* CTA CONTENT */}
-            <div>
+          {/* =================================================
+              COMPANY
+          ================================================= */}
+
+          <div className="lg:col-span-4">
+            {/* LOGO */}
+
+            <Link
+              to="/"
+              className="
+                inline-flex
+                items-center
+                transition
+                duration-300
+                hover:opacity-90
+              "
+            >
               <div
                 className="
                   flex
+                  h-14
+                  w-[210px]
                   items-center
-                  gap-2
-                  text-[10px]
-                  uppercase
-                  tracking-[0.2em]
-                  font-bold
-                  text-[#C18A61]
+                  justify-center
+                  overflow-hidden
+                  rounded-xl
+                  bg-[#ADD132]
+                  p-1
                 "
               >
-                <span className="w-6 h-px bg-[#9B5B35]" />
-
-                Let's Build Together
+                <video
+                  src="/logo-video.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  className="h-full w-full object-contain"
+                />
               </div>
+            </Link>
 
-              <h2
-                className="
-                  mt-2
-                  text-2xl
-                  sm:text-3xl
-                  font-bold
-                  leading-tight
-                "
-              >
-                Build a smarter
-                <span className="text-[#C18A61]">
-                  {" "}
-                  technology future.
-                </span>
-              </h2>
+            {/* DESCRIPTION */}
 
-              <p className="mt-2 text-xs sm:text-sm text-white/45">
-                Reliable technology solutions for modern businesses.
-              </p>
+            <p
+              className="
+                mt-6
+                max-w-sm
+                text-sm
+                leading-6
+                text-[#68746C]
+                dark:text-white/50
+              "
+            >
+              TrackOwls Anti-Piracy Private Limited helps
+              businesses protect their digital content,
+              intellectual property and brands through
+              intelligent monitoring and protection.
+            </p>
+
+            {/* TAGLINE */}
+
+            <div
+              className="
+                mt-6
+                flex
+                flex-wrap
+                items-center
+                gap-2
+                text-xs
+                font-medium
+                text-[#ADD132]
+              "
+            >
+              <span>Scan</span>
+
+              <span className="text-[#A0AAA3] dark:text-white/20">
+                |
+              </span>
+
+              <span>Detect</span>
+
+              <span className="text-[#A0AAA3] dark:text-white/20">
+                |
+              </span>
+
+              <span>Remove</span>
+
+              <span className="text-[#A0AAA3] dark:text-white/20">
+                |
+              </span>
+
+              <span>Protect</span>
             </div>
 
-            {/* CTA BUTTON */}
-            <a
-              href="/contact"
+            {/* SOCIAL */}
+
+            <div className="mt-7 flex items-center gap-2">
+              {[
+                {
+                  label: "LinkedIn",
+                  icon: "in",
+                },
+                {
+                  label: "Instagram",
+                  icon: "◎",
+                },
+                {
+                  label: "X",
+                  icon: "X",
+                },
+                {
+                  label: "Facebook",
+                  icon: "f",
+                },
+              ].map((social) => (
+                <a
+                  key={social.label}
+                  href="#"
+                  aria-label={social.label}
+                  className="
+                    flex
+                    h-9
+                    w-9
+                    items-center
+                    justify-center
+                    rounded-lg
+                    border
+                    border-black/[0.08]
+                    bg-black/[0.025]
+                    text-xs
+                    font-bold
+                    text-[#68746C]
+                    transition-all
+                    duration-300
+                    hover:border-[#ADD132]/30
+                    hover:bg-[#ADD132]/10
+                    hover:text-[#6D900B]
+                    dark:border-white/10
+                    dark:bg-white/[0.03]
+                    dark:text-white/45
+                    dark:hover:text-[#ADD132]
+                  "
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* =================================================
+              QUICK LINKS
+          ================================================= */}
+
+          <div className="lg:col-span-2">
+            <h3
               className="
-                group
-                shrink-0
-                inline-flex
-                items-center
-                justify-center
-                gap-2
-                px-5
-                py-3
-                bg-[#9B5B35]
-                hover:bg-[#C18A61]
-                text-white
                 text-xs
                 font-semibold
-                transition-all
-                duration-300
+                uppercase
+                tracking-[0.2em]
+                text-[#152019]
+                dark:text-white
+              "
+            >
+              Quick Links
+            </h3>
+
+            <div className="mt-5 space-y-3">
+              {[
+                ["Home", "/"],
+                ["About Us", "/about"],
+                ["Solutions", "/solutions"],
+                ["Industries", "/industries"],
+                ["Technology", "/technology"],
+                ["Case Studies", "/case-studies"],
+              ].map(([label, path]) => (
+                <Link
+                  key={label}
+                  to={path}
+                  className="
+                    group
+                    flex
+                    items-center
+                    gap-2
+                    text-sm
+                    text-[#68746C]
+                    transition
+                    duration-300
+                    hover:text-[#6D900B]
+                    dark:text-white/45
+                    dark:hover:text-[#ADD132]
+                  "
+                >
+                  <ChevronRight
+                    size={13}
+                    className="
+                      -translate-x-2
+                      text-[#ADD132]
+                      opacity-0
+                      transition
+                      duration-300
+                      group-hover:translate-x-0
+                      group-hover:opacity-100
+                    "
+                  />
+
+                  {label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* =================================================
+              SOLUTIONS
+          ================================================= */}
+
+          <div className="lg:col-span-2">
+            <h3
+              className="
+                text-xs
+                font-semibold
+                uppercase
+                tracking-[0.2em]
+                text-[#152019]
+                dark:text-white
+              "
+            >
+              Solutions
+            </h3>
+
+            <div className="mt-5 space-y-3">
+              {[
+                "Anti-Piracy",
+                "IP Protection",
+                "Brand Protection",
+                "Cybersecurity",
+                "Online Monitoring",
+                "Digital Investigation",
+                "Threat Detection",
+              ].map((item) => (
+                <Link
+                  key={item}
+                  to="/solutions"
+                  className="
+                    group
+                    flex
+                    items-center
+                    gap-2
+                    text-sm
+                    text-[#68746C]
+                    transition
+                    duration-300
+                    hover:text-[#6D900B]
+                    dark:text-white/45
+                    dark:hover:text-[#ADD132]
+                  "
+                >
+                  <ChevronRight
+                    size={13}
+                    className="
+                      -translate-x-2
+                      text-[#ADD132]
+                      opacity-0
+                      transition
+                      duration-300
+                      group-hover:translate-x-0
+                      group-hover:opacity-100
+                    "
+                  />
+
+                  {item}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* =================================================
+              CONTACT
+          ================================================= */}
+
+          <div className="lg:col-span-4">
+            <h3
+              className="
+                text-xs
+                font-semibold
+                uppercase
+                tracking-[0.2em]
+                text-[#152019]
+                dark:text-white
               "
             >
               Contact Us
+            </h3>
 
-              <FiArrowRight
-                size={15}
-                className="
-                  group-hover:translate-x-1
-                  transition-transform
-                "
-              />
-            </a>
-          </div>
-        </div>
-      </section>
+            <div className="mt-5 space-y-4">
+              {/* ADDRESS */}
 
-      {/* ================= MAIN FOOTER ================= */}
-      <section className="relative">
-        <div
-          className="
-            max-w-7xl
-            mx-auto
-            px-5
-            sm:px-8
-            lg:px-12
-            py-9
-            sm:py-11
-          "
-        >
-          <div
-            className="
-              flex
-              flex-col
-              lg:flex-row
-              gap-9
-              lg:gap-14
-            "
-          >
-
-            {/* ================= COMPANY INFO ================= */}
-            <div className="lg:w-[32%] shrink-0">
-
-              {/* LOGO */}
-              <a href="/" className="inline-block">
-                <img
-                  src="/logo.jpeg"
-                  alt="EPSILORA Technology Private Limited"
+              <div className="flex items-start gap-3">
+                <div
                   className="
-                    w-[155px]
-                    sm:w-[170px]
-                    h-auto
-                    max-h-[55px]
-                    object-contain
-                    object-left
+                    flex
+                    h-9
+                    w-9
+                    shrink-0
+                    items-center
+                    justify-center
+                    rounded-lg
+                    border
+                    border-[#ADD132]/20
+                    bg-[#ADD132]/[0.06]
+                    text-[#ADD132]
                   "
-                />
-              </a>
+                >
+                  <MapPin size={16} />
+                </div>
 
-              {/* DESCRIPTION */}
-              <p
-                className="
-                  mt-4
-                  max-w-md
-                  text-xs
-                  sm:text-sm
-                  leading-6
-                  text-white/45
-                "
-              >
-                EPSILORA Technology Private Limited provides hardware,
-                infrastructure, cloud, cybersecurity and professional
-                technology solutions.
-              </p>
-
-              {/* SOCIAL */}
-              <div className="flex gap-2 mt-5">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.href}
-                    aria-label={social.name}
+                <div>
+                  <p
                     className="
-                      w-8
-                      h-8
-                      flex
-                      items-center
-                      justify-center
-                      border
-                      border-white/10
-                      text-white/45
-                      hover:bg-[#9B5B35]
-                      hover:border-[#9B5B35]
-                      hover:text-white
-                      transition-all
-                      duration-300
+                      text-xs
+                      font-medium
+                      text-[#8A948E]
+                      dark:text-white/35
                     "
                   >
-                    {social.icon}
-                  </a>
-                ))}
+                    Office
+                  </p>
+
+                  <p
+                    className="
+                      mt-1
+                      text-sm
+                      leading-5
+                      text-[#4F5C54]
+                      dark:text-white/65
+                    "
+                  >
+                    201, First Floor,
+                    <br />
+                    Paradise Garden,
+                    <br />
+                    Coimbatore, Tamil Nadu
+                  </p>
+                </div>
               </div>
-            </div>
-
-            {/* ================= FOOTER LINKS ================= */}
-            <div
-              className="
-                flex-1
-                flex
-                flex-wrap
-                gap-x-10
-                sm:gap-x-14
-                gap-y-7
-              "
-            >
-
-              {/* ================= COMPANY ================= */}
-              <div className="min-w-[120px]">
-
-                <p
-                  className="
-                    text-[10px]
-                    uppercase
-                    tracking-[0.18em]
-                    font-bold
-                    text-[#C18A61]
-                  "
-                >
-                  Company
-                </p>
-
-                <ul className="mt-3 space-y-2.5">
-                  {quickLinks.map(([name, path]) => (
-                    <li key={name}>
-                      <FooterLink
-                        name={name}
-                        path={path}
-                      />
-                    </li>
-                  ))}
-                </ul>
-
-              </div>
-
-              {/* ================= HARDWARE ================= */}
-              <div className="min-w-[145px]">
-
-                <p
-                  className="
-                    text-[10px]
-                    uppercase
-                    tracking-[0.18em]
-                    font-bold
-                    text-[#C18A61]
-                  "
-                >
-                  Hardware
-                </p>
-
-                <ul className="mt-3 space-y-2.5">
-                  {hardwareLinks.map(([name, path]) => (
-                    <li key={name}>
-                      <FooterLink
-                        name={name}
-                        path={path}
-                      />
-                    </li>
-                  ))}
-                </ul>
-
-              </div>
-
-              {/* ================= SOLUTIONS ================= */}
-              <div className="min-w-[175px]">
-
-                <p
-                  className="
-                    text-[10px]
-                    uppercase
-                    tracking-[0.18em]
-                    font-bold
-                    text-[#C18A61]
-                  "
-                >
-                  Solutions
-                </p>
-
-                <ul className="mt-3 space-y-2.5">
-                  {solutionLinks.map(([name, path]) => (
-                    <li key={name}>
-                      <FooterLink
-                        name={name}
-                        path={path}
-                      />
-                    </li>
-                  ))}
-                </ul>
-
-              </div>
-
-            </div>
-          </div>
-
-          {/* ================= CONTACT ================= */}
-          <div
-            className="
-              mt-8
-              pt-7
-              border-t
-              border-white/10
-              flex
-              flex-col
-              md:flex-row
-              md:items-center
-              md:justify-between
-              gap-6
-            "
-          >
-
-            {/* ================= LOCATION ================= */}
-            <div className="flex items-start gap-3">
-
-              <FiMapPin
-                size={17}
-                className="shrink-0 mt-0.5 text-[#C18A61]"
-              />
-
-              <div>
-
-                <p
-                  className="
-                    text-[10px]
-                    uppercase
-                    tracking-wider
-                    text-[#C18A61]
-                    font-bold
-                  "
-                >
-                  Chennai Office
-                </p>
-
-                <p
-                  className="
-                    mt-1
-                    text-xs
-                    leading-5
-                    text-white/45
-                  "
-                >
-                  No. 378, Sudhiksha Apartment,
-                  Second Floor, S1,
-                  Sivaprakasam Nagar 2nd Main Road,
-                  Surapet,
-                  Chennai - 600066
-                </p>
-
-                <a
-                  href="https://www.google.com/maps/search/?api=1&query=No.+378,+Sudhiksha+Apartment,+Second+Floor,+S1,+Sivaprakasam+Nagar+2nd+Main+Road,+Surapet,+Chennai+-+600066"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="
-                    mt-1
-                    inline-flex
-                    items-center
-                    gap-1.5
-                    text-[11px]
-                    font-semibold
-                    text-[#C18A61]
-                    hover:text-white
-                    transition
-                  "
-                >
-                  View Location
-
-                  <FiExternalLink size={11} />
-                </a>
-
-              </div>
-            </div>
-
-            {/* ================= PHONE + EMAIL ================= */}
-            <div
-              className="
-                flex
-                flex-col
-                sm:flex-row
-                gap-4
-                sm:gap-7
-              "
-            >
-
-              {/* PHONE */}
-              <a
-                href="tel:+910000000000"
-                className="
-                  flex
-                  items-center
-                  gap-2
-                  text-xs
-                  text-white/55
-                  hover:text-[#C18A61]
-                  transition
-                "
-              >
-                <FiPhone
-                  size={15}
-                  className="text-[#C18A61]"
-                />
-
-                +91 00000 00000
-              </a>
 
               {/* EMAIL */}
-              <a
-                href="mailto:info@epsilora.in"
-                className="
-                  flex
-                  items-center
-                  gap-2
-                  text-xs
-                  text-white/55
-                  hover:text-[#C18A61]
-                  transition
-                "
-              >
-                <FiMail
-                  size={15}
-                  className="text-[#C18A61]"
-                />
 
-                info@epsilora.in
+              <a
+                href="mailto:contact@trackowls.com"
+                className="group flex items-center gap-3"
+              >
+                <div
+                  className="
+                    flex
+                    h-9
+                    w-9
+                    shrink-0
+                    items-center
+                    justify-center
+                    rounded-lg
+                    border
+                    border-[#ADD132]/20
+                    bg-[#ADD132]/[0.06]
+                    text-[#ADD132]
+                  "
+                >
+                  <Mail size={16} />
+                </div>
+
+                <div>
+                  <p
+                    className="
+                      text-xs
+                      font-medium
+                      text-[#8A948E]
+                      dark:text-white/35
+                    "
+                  >
+                    Email
+                  </p>
+
+                  <p
+                    className="
+                      mt-1
+                      text-sm
+                      text-[#4F5C54]
+                      transition
+                      group-hover:text-[#6D900B]
+                      dark:text-white/65
+                      dark:group-hover:text-[#ADD132]
+                    "
+                  >
+                    contact@trackowls.com
+                  </p>
+                </div>
               </a>
 
+              {/* PHONE */}
+
+              <a
+                href="tel:+919XXXXXXXXX"
+                className="group flex items-center gap-3"
+              >
+                <div
+                  className="
+                    flex
+                    h-9
+                    w-9
+                    shrink-0
+                    items-center
+                    justify-center
+                    rounded-lg
+                    border
+                    border-[#ADD132]/20
+                    bg-[#ADD132]/[0.06]
+                    text-[#ADD132]
+                  "
+                >
+                  <Phone size={16} />
+                </div>
+
+                <div>
+                  <p
+                    className="
+                      text-xs
+                      font-medium
+                      text-[#8A948E]
+                      dark:text-white/35
+                    "
+                  >
+                    Phone
+                  </p>
+
+                  <p
+                    className="
+                      mt-1
+                      text-sm
+                      text-[#4F5C54]
+                      transition
+                      group-hover:text-[#6D900B]
+                      dark:text-white/65
+                      dark:group-hover:text-[#ADD132]
+                    "
+                  >
+                    +91 XXXXX XXXXX
+                  </p>
+                </div>
+              </a>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* ================= BOTTOM BAR ================= */}
-      <section className="border-t border-white/10">
+        {/* =================================================
+            NEWSLETTER
+        ================================================= */}
 
         <div
           className="
-            max-w-7xl
-            mx-auto
-            px-5
-            sm:px-8
-            lg:px-12
-            py-4
+            mt-14
+            rounded-2xl
+            border
+            border-black/[0.07]
+            bg-black/[0.025]
+            p-5
+            sm:p-6
+            dark:border-white/[0.07]
+            dark:bg-white/[0.02]
           "
         >
-
-          {/* COPYRIGHT + LEGAL */}
           <div
             className="
               flex
               flex-col
+              gap-5
               lg:flex-row
               lg:items-center
               lg:justify-between
-              gap-3
             "
           >
+            <div>
+              <div className="flex items-center gap-2">
+                <ShieldCheck
+                  size={18}
+                  className="text-[#ADD132]"
+                />
 
-            {/* COPYRIGHT */}
-            <p
+                <h3
+                  className="
+                    text-sm
+                    font-semibold
+                    text-[#152019]
+                    dark:text-white
+                  "
+                >
+                  Stay informed
+                </h3>
+              </div>
+
+              <p
+                className="
+                  mt-1.5
+                  text-xs
+                  text-[#7B877F]
+                  dark:text-white/35
+                "
+              >
+                Get the latest insights on digital protection
+                and online threats.
+              </p>
+            </div>
+
+            <form
+              onSubmit={(e) => e.preventDefault()}
               className="
-                text-[11px]
-                sm:text-xs
-                text-white/40
-                leading-relaxed
+                flex
+                w-full
+                max-w-xl
+                flex-col
+                gap-2
+                sm:flex-row
               "
             >
-              © {currentYear} EPSILORA Technology Private Limited.
-              All Rights Reserved.
-            </p>
+              <input
+                type="email"
+                placeholder="Enter your email address"
+                className="
+                  h-12
+                  flex-1
+                  rounded-xl
+                  border
+                  border-black/[0.08]
+                  bg-white
+                  px-4
+                  text-sm
+                  text-[#152019]
+                  outline-none
+                  placeholder:text-[#9AA49E]
+                  transition
+                  focus:border-[#ADD132]/50
+                  focus:ring-2
+                  focus:ring-[#ADD132]/10
+                  dark:border-white/10
+                  dark:bg-[#0B100D]
+                  dark:text-white
+                  dark:placeholder:text-white/25
+                "
+              />
 
-            {/* CIN + LEGAL LINKS */}
+              <button
+                type="submit"
+                className="
+                  inline-flex
+                  h-12
+                  items-center
+                  justify-center
+                  gap-2
+                  rounded-xl
+                  bg-[#ADD132]
+                  px-5
+                  text-sm
+                  font-bold
+                  text-black
+                  transition
+                  duration-300
+                  hover:bg-[#C7EB45]
+                "
+              >
+                Subscribe
+
+                <ArrowUpRight size={16} />
+              </button>
+            </form>
+          </div>
+        </div>
+
+        {/* =================================================
+            BOTTOM
+        ================================================= */}
+
+        <div
+          className="
+            mt-10
+            border-t
+            border-black/[0.07]
+            pt-6
+            dark:border-white/[0.07]
+          "
+        >
+          <div
+            className="
+              flex
+              flex-col
+              gap-5
+              text-xs
+              sm:flex-row
+              sm:items-center
+              sm:justify-between
+            "
+          >
+            {/* COPYRIGHT */}
+
+            <div className="space-y-2">
+              <p
+                className="
+                  text-[#7B877F]
+                  dark:text-white/35
+                "
+              >
+                © {currentYear} TrackOwls Anti-Piracy
+                Private Limited. All rights reserved.
+              </p>
+
+              {/* POWERED BY */}
+
+              <p
+                className="
+                  text-[11px]
+                  font-medium
+                  tracking-wide
+                  text-[#8A948E]
+                  dark:text-white/30
+                "
+              >
+                Powered by{" "}
+                <span
+                  className="
+                    font-bold
+                    text-[#6D900B]
+                    transition-colors
+                    duration-300
+                    dark:text-[#ADD132]
+                  "
+                >
+                  MK Dynamic Technology
+                </span>
+              </p>
+            </div>
+
+            {/* LEGAL LINKS */}
+
             <div
               className="
                 flex
                 flex-wrap
                 items-center
-                gap-x-3
-                gap-y-1.5
-                text-[10px]
-                sm:text-[12px]
-                text-white/35
+                gap-x-5
+                gap-y-2
               "
             >
-
-              <span>
-                CIN: U62099TN2026PTC191846
-              </span>
-
-              <span className="text-white/15">
-                |
-              </span>
-
-              <a
-                href="/privacy-policy"
+              <Link
+                to="/privacy-policy"
                 className="
-                  hover:text-[#C18A61]
-                  transition-colors
-                  duration-300
+                  text-[#7B877F]
+                  transition
+                  hover:text-[#6D900B]
+                  dark:text-white/35
+                  dark:hover:text-[#ADD132]
                 "
               >
-                Privacy
-              </a>
+                Privacy Policy
+              </Link>
 
-              <span className="text-white/15">
-                |
-              </span>
-
-              <a
-                href="/terms"
+              <Link
+                to="/terms"
                 className="
-                  hover:text-[#C18A61]
-                  transition-colors
-                  duration-300
+                  text-[#7B877F]
+                  transition
+                  hover:text-[#6D900B]
+                  dark:text-white/35
+                  dark:hover:text-[#ADD132]
                 "
               >
-                Terms
-              </a>
+                Terms & Conditions
+              </Link>
 
+              <Link
+                to="/sitemap"
+                className="
+                  text-[#7B877F]
+                  transition
+                  hover:text-[#6D900B]
+                  dark:text-white/35
+                  dark:hover:text-[#ADD132]
+                "
+              >
+                Sitemap
+              </Link>
             </div>
           </div>
-
-          {/* POWERED BY */}
-          <div
-            className="
-              mt-3
-              pt-3
-              border-t
-              border-white/5
-              text-center
-            "
-          >
-            <p
-              className="
-                text-xs
-                sm:text-sm
-                text-white/40
-                tracking-wide
-              "
-            >
-              Powered By{" "}
-              <span
-                className="
-                  font-semibold
-                  text-[#C18A61]
-                  hover:text-white
-                  transition-colors
-                  duration-300
-                "
-              >
-                MK Dynamic Technology
-              </span>
-            </p>
-          </div>
-
         </div>
-      </section>
-
-      {/* ================= BACK TO TOP ================= */}
-      <button
-        type="button"
-        onClick={goToTop}
-        aria-label="Back to top"
-        className="
-          fixed
-          right-4
-          bottom-4
-          z-40
-          w-9
-          h-9
-          flex
-          items-center
-          justify-center
-          bg-[#9B5B35]
-          hover:bg-[#C18A61]
-          text-white
-          shadow-lg
-          transition-all
-          duration-300
-        "
-      >
-        <FiArrowUp size={15} />
-      </button>
-
+      </div>
     </footer>
   );
-};
+}
 
 export default Footer;

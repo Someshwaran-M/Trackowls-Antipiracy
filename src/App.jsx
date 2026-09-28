@@ -1,191 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 
+// Layout
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
-import Loader from "./components/common/Loader";
 
-import Home from "./pages/Home";
-import Contact from "./pages/Contact";
-
-/* =========================================================
-   HARDWARE PAGES
-========================================================= */
-
-import Datastorage from "./technology/hardware/Datastorage";
-import PcServer from "./technology/hardware/PcServer";
-import ServerServer from "./technology/hardware/ServerServer";
-
-/* =========================================================
-   SERVICES PAGES
-========================================================= */
-
-import ConsultingProfessional from "./technology/services/ConsultingProfessional";
-
-/* =========================================================
-   SOLUTIONS PAGES
-========================================================= */
-
-import Cloud from "./technology/solutions/Cloud";
-import DataCenter from "./technology/solutions/DataCenter";
-import Emerging from "./technology/solutions/Emerging";
-import InformationCyber from "./technology/solutions/InformationCyber";
-
-/* =========================================================
-   PARTNERS PAGE
-========================================================= */
-
-import Partners from "./technology/partners/Partners";
-
-
+// Pages
+import Home from "./components/pages/Home";
+import About from "./components/pages/About";
+import Solutions from "./components/pages/Solutions";
+import Industries from "./components/pages/Industries";
+import Technology from "./components/pages/Technology";
+import CaseStudies from "./components/pages/CaseStudies";
+import Insights from "./components/pages/Insights";
+import Contact from "./components/pages/Contact";
+import RequestDemo from "./components/pages/RequestDemo";
 function App() {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1500);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  /* =========================================================
-     LOADER
-  ========================================================= */
-
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
-    <>
-      {/* =====================================================
-          NAVBAR
-      ===================================================== */}
+    <div className="min-h-screen bg-white text-[#152019] dark:bg-[#070A07] dark:text-white">
 
+      {/* ================= NAVBAR ================= */}
       <Navbar />
 
+      {/* ================= MAIN CONTENT ================= */}
+      <main className="pt-[90px]">
+        <Routes>
 
-      {/* =====================================================
-          ROUTES
-      ===================================================== */}
+          {/* Home */}
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/solutions" element={<Solutions />} />
+          <Route path="/industries" element={<Industries />} />
+          <Route path="/technology" element={<Technology />} />
+          <Route path="/case-studies" element={<CaseStudies />} />
+          <Route path="/insights" element={<Insights />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/request-demo" element={<RequestDemo />} />
+        </Routes>
+      </main>
 
-      <Routes>
-
-        {/* ===================================================
-            HOME
-        =================================================== */}
-
-        <Route
-          path="/"
-          element={<Home />}
-        />
-
-
-        {/* ===================================================
-            CONTACT
-        =================================================== */}
-
-        <Route
-          path="/contact"
-          element={<Contact />}
-        />
-
-
-        {/* ===================================================
-            HARDWARE
-        =================================================== */}
-
-        {/* Data Storage */}
-
-        <Route
-          path="/technology/hardware/datastorage"
-          element={<Datastorage />}
-        />
-
-
-        {/* PC & Server */}
-
-        <Route
-          path="/technology/hardware/pc-server"
-          element={<PcServer />}
-        />
-
-
-        {/* Server & Server Management */}
-
-        <Route
-          path="/technology/hardware/server-server-management"
-          element={<ServerServer />}
-        />
-
-
-        {/* ===================================================
-            SERVICES
-        =================================================== */}
-
-        {/* Consulting & Professional Services */}
-
-        <Route
-          path="/technology/services/consulting-professional"
-          element={<ConsultingProfessional />}
-        />
-
-
-        {/* ===================================================
-            SOLUTIONS
-        =================================================== */}
-
-        {/* Cloud */}
-
-        <Route
-          path="/technology/solutions/cloud"
-          element={<Cloud />}
-        />
-
-
-        {/* Data Center */}
-
-        <Route
-          path="/technology/solutions/datacenter"
-          element={<DataCenter />}
-        />
-
-
-        {/* Emerging Technology */}
-
-        <Route
-          path="/technology/solutions/emerging"
-          element={<Emerging />}
-        />
-
-
-        {/* Information & Cyber Security */}
-
-        <Route
-          path="/technology/solutions/information-cyber"
-          element={<InformationCyber />}
-        />
-
-
-        {/* ===================================================
-            BRAND PARTNERS
-        =================================================== */}
-
-        <Route
-          path="/technology/partners"
-          element={<Partners />}
-        />
-
-      </Routes>
-
-
-      {/* =====================================================
-          FOOTER
-      ===================================================== */}
-
+      {/* ================= FOOTER ================= */}
       <Footer />
-    </>
+
+    </div>
   );
 }
 
