@@ -19,7 +19,7 @@ import Faq from "./Faq";
 import ProductionFlow from "./ProtectionFlow";
 
 import AntiPiracyAnimation from "../animations/AntiPiracyAnimation";
-import HomeTech from "./Hometech";
+import HomeTech from "./HomeTech";
 import Plan from "./Plan";
 
 /* =========================================================
