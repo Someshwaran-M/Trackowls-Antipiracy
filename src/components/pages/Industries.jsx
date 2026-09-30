@@ -261,19 +261,12 @@ function Industries() {
 
             <h1
               className="
+                track-section-heading
                 mt-5
                 max-w-5xl
-                text-[42px]
-                font-black
-                leading-[0.97]
-                tracking-[-0.055em]
                 text-[#152019]
                 dark:text-white
                 sm:mt-7
-                sm:text-[54px]
-                md:text-[66px]
-                lg:text-[78px]
-                xl:text-[88px]
               "
             >
               Protection for

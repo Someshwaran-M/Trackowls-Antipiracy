@@ -1392,7 +1392,7 @@ function RequestDemo() {
                       type="tel"
                       value={formData.phone}
                       onChange={handleChange}
-                      placeholder="+91 XXXXX XXXXX"
+                      placeholder="+91 00000 00000"
                       className={formInputClass}
                     />
                   </div>

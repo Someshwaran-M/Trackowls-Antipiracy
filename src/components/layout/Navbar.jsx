@@ -29,32 +29,23 @@ const WHATSAPP_NUMBER = "91XXXXXXXXXX";
 export default function Navbar() {
   const location = useLocation();
 
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem("trackowls-theme");
+    return savedTheme ? savedTheme === "dark" : true;
+  });
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-  const [scrolled, setScrolled] = useState(false);
   const [whatsappOpen, setWhatsappOpen] = useState(false);
-
-  /* =====================================================
-     THEME INITIALIZATION
-  ===================================================== */
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("trackowls-theme");
-
-    const isDark = savedTheme
-      ? savedTheme === "dark"
-      : true;
-
-    setDarkMode(isDark);
-
-    document.documentElement.classList.toggle("dark", isDark);
-  }, []);
 
   /* =====================================================
      THEME CHANGE
   ===================================================== */
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", darkMode);
+    localStorage.setItem("trackowls-theme", darkMode ? "dark" : "light");
+  }, [darkMode]);
 
   const changeTheme = (dark) => {
     setDarkMode(dark);
@@ -66,32 +57,6 @@ export default function Navbar() {
       dark ? "dark" : "light"
     );
   };
-
-  /* =====================================================
-     SCROLL
-  ===================================================== */
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 25);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  /* =====================================================
-     ROUTE CHANGE
-  ===================================================== */
-
-  useEffect(() => {
-    setMenuOpen(false);
-    setSearchOpen(false);
-    setSearchValue("");
-  }, [location.pathname]);
 
   /* =====================================================
      ACTIVE LINK

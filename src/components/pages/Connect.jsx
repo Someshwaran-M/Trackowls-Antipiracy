@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   ShieldCheck,
   Globe2,
@@ -8,6 +9,23 @@ import {
 } from "lucide-react";
 
 function Connect() {
+  const signalPaths = {
+    discovery:
+      "M120 120 C350 80 420 280 600 325",
+
+    detection:
+      "M1100 110 C900 100 850 270 600 325",
+
+    identity:
+      "M150 510 C350 500 430 390 600 325",
+
+    protection:
+      "M1060 520 C850 510 790 400 600 325",
+
+    global:
+      "M600 70 C600 170 600 230 600 325",
+  };
+
   return (
     <section
       className="
@@ -15,7 +33,9 @@ function Connect() {
         overflow-hidden
         bg-[#F5F8F0]
         py-12
+        text-[#152019]
         dark:bg-[#050705]
+        dark:text-white
         sm:py-16
         md:py-20
         lg:py-24
@@ -51,6 +71,24 @@ function Connect() {
 
       <div
         className="
+          pointer-events-none
+          absolute
+          inset-x-0
+          top-0
+          h-px
+          bg-gradient-to-r
+          from-transparent
+          via-[#ADD132]/30
+          to-transparent
+        "
+      />
+
+      {/* =====================================================
+          MAIN CONTAINER
+      ===================================================== */}
+
+      <div
+        className="
           relative
           mx-auto
           w-full
@@ -62,9 +100,9 @@ function Connect() {
           xl:px-16
         "
       >
-        {/* =====================================================
+        {/* ===================================================
             HEADER
-        ===================================================== */}
+        =================================================== */}
 
         <div
           className="
@@ -78,8 +116,11 @@ function Connect() {
             md:gap-10
           "
         >
+          {/* LEFT */}
+
           <div className="min-w-0">
             {/* Label */}
+
             <div className="mb-4 flex items-center gap-2.5 sm:mb-5 sm:gap-3">
               <span
                 className="
@@ -101,9 +142,9 @@ function Connect() {
                   text-[#6D900B]
                   dark:text-[#ADD132]
                   sm:text-[9px]
-                  sm:tracking-[0.3em]
+                  sm:tracking-[0.28em]
                   md:text-[10px]
-                  md:tracking-[0.35em]
+                  md:tracking-[0.3em]
                 "
               >
                 Digital Intelligence
@@ -111,20 +152,20 @@ function Connect() {
             </div>
 
             {/* Heading */}
+
             <h2
               className="
                 max-w-4xl
-                text-[40px]
+                text-[34px]
                 font-black
-                leading-[0.92]
-                tracking-[-0.055em]
+                leading-[0.98]
+                tracking-[-0.045em]
                 text-[#152019]
                 dark:text-white
-                sm:text-[50px]
-                sm:leading-[0.88]
-                md:text-[62px]
-                lg:text-[76px]
-                xl:text-[88px]
+                sm:text-[38px]
+                md:text-[46px]
+                lg:text-[56px]
+                xl:text-[64px]
               "
             >
               Every signal
@@ -135,7 +176,8 @@ function Connect() {
             </h2>
           </div>
 
-          {/* Description */}
+          {/* DESCRIPTION */}
+
           <p
             className="
               max-w-sm
@@ -146,7 +188,7 @@ function Connect() {
               sm:text-[13px]
               sm:leading-6
               md:text-[14px]
-              md:leading-7
+              md:leading-6
               lg:pb-1
             "
           >
@@ -155,9 +197,9 @@ function Connect() {
           </p>
         </div>
 
-        {/* =====================================================
+        {/* ===================================================
             NETWORK
-        ===================================================== */}
+        =================================================== */}
 
         <div
           className="
@@ -173,9 +215,9 @@ function Connect() {
             lg:min-h-[650px]
           "
         >
-          {/* ===================================================
-              CONNECTION LINES
-          =================================================== */}
+          {/* =================================================
+              CONNECTION LINES + MOVING SIGNALS
+          ================================================= */}
 
           <svg
             className="
@@ -187,77 +229,178 @@ function Connect() {
             "
             viewBox="0 0 1200 650"
             preserveAspectRatio="none"
+            aria-hidden="true"
           >
+            {/* Discovery */}
+
             <path
-              d="M120 120 C350 80 420 280 600 325"
+              id="connect-discovery"
+              d={signalPaths.discovery}
               fill="none"
               stroke="currentColor"
               strokeWidth="1"
               className="text-[#ADD132]/20"
             />
 
+            {/* Detection */}
+
             <path
-              d="M1100 110 C900 100 850 270 600 325"
+              id="connect-detection"
+              d={signalPaths.detection}
               fill="none"
               stroke="currentColor"
               strokeWidth="1"
               className="text-[#ADD132]/20"
             />
 
+            {/* Identity */}
+
             <path
-              d="M150 510 C350 500 430 390 600 325"
+              id="connect-identity"
+              d={signalPaths.identity}
               fill="none"
               stroke="currentColor"
               strokeWidth="1"
               className="text-[#ADD132]/20"
             />
 
+            {/* Protection */}
+
             <path
-              d="M1060 520 C850 510 790 400 600 325"
+              id="connect-protection"
+              d={signalPaths.protection}
               fill="none"
               stroke="currentColor"
               strokeWidth="1"
               className="text-[#ADD132]/20"
             />
 
+            {/* Global Web */}
+
             <path
-              d="M600 70 C600 170 600 230 600 325"
+              id="connect-global"
+              d={signalPaths.global}
               fill="none"
               stroke="currentColor"
               strokeWidth="1"
               className="text-[#ADD132]/20"
             />
 
-            {/* Moving signals */}
+            {/* =================================================
+                MOVING SIGNAL — DISCOVERY
+            ================================================= */}
 
-            <circle r="3.5" fill="#ADD132">
+            <circle
+              r="3.5"
+              fill="#ADD132"
+              filter="url(#signalGlow)"
+            >
               <animateMotion
-                dur="4s"
+                dur="3.8s"
                 repeatCount="indefinite"
-                path="M120 120 C350 80 420 280 600 325"
+                rotate="auto"
+                path={signalPaths.discovery}
               />
             </circle>
 
-            <circle r="3.5" fill="#ADD132">
+            {/* =================================================
+                MOVING SIGNAL — DETECTION
+            ================================================= */}
+
+            <circle
+              r="3.5"
+              fill="#ADD132"
+              filter="url(#signalGlow)"
+            >
               <animateMotion
-                dur="5s"
+                dur="4.4s"
+                begin="-1.6s"
                 repeatCount="indefinite"
-                path="M1100 110 C900 100 850 270 600 325"
+                rotate="auto"
+                path={signalPaths.detection}
               />
             </circle>
 
-            <circle r="3.5" fill="#ADD132">
+            {/* =================================================
+                MOVING SIGNAL — IDENTITY
+            ================================================= */}
+
+            <circle
+              r="3.5"
+              fill="#ADD132"
+              filter="url(#signalGlow)"
+            >
               <animateMotion
-                dur="4.5s"
+                dur="4.1s"
+                begin="-2s"
                 repeatCount="indefinite"
-                path="M150 510 C350 500 430 390 600 325"
+                rotate="auto"
+                path={signalPaths.identity}
               />
             </circle>
+
+            {/* =================================================
+                MOVING SIGNAL — PROTECTION
+            ================================================= */}
+
+            <circle
+              r="3.5"
+              fill="#ADD132"
+              filter="url(#signalGlow)"
+            >
+              <animateMotion
+                dur="4.7s"
+                begin="-2.4s"
+                repeatCount="indefinite"
+                rotate="auto"
+                path={signalPaths.protection}
+              />
+            </circle>
+
+            {/* =================================================
+                MOVING SIGNAL — GLOBAL WEB
+            ================================================= */}
+
+            <circle
+              r="3.5"
+              fill="#ADD132"
+              filter="url(#signalGlow)"
+            >
+              <animateMotion
+                dur="3.5s"
+                begin="-1s"
+                repeatCount="indefinite"
+                rotate="auto"
+                path={signalPaths.global}
+              />
+            </circle>
+
+            {/* Glow filter */}
+
+            <defs>
+              <filter
+                id="signalGlow"
+                x="-200%"
+                y="-200%"
+                width="400%"
+                height="400%"
+              >
+                <feGaussianBlur
+                  stdDeviation="3"
+                  result="blur"
+                />
+
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
           </svg>
 
-          {/* ===================================================
+          {/* =================================================
               CENTRAL INTELLIGENCE POINT
-          =================================================== */}
+          ================================================= */}
 
           <div
             className="
@@ -268,6 +411,8 @@ function Connect() {
               -translate-y-1/2
             "
           >
+            {/* Glow */}
+
             <div
               className="
                 absolute
@@ -280,6 +425,8 @@ function Connect() {
                 md:-inset-20
               "
             />
+
+            {/* Core */}
 
             <div
               className="
@@ -304,6 +451,8 @@ function Connect() {
                 lg:w-40
               "
             >
+              {/* Rotating ring */}
+
               <div
                 className="
                   absolute
@@ -317,6 +466,8 @@ function Connect() {
                   md:inset-5
                 "
               />
+
+              {/* Inner ring */}
 
               <div
                 className="
@@ -348,6 +499,7 @@ function Connect() {
             </div>
 
             {/* Core label */}
+
             <div
               className="
                 absolute
@@ -370,9 +522,9 @@ function Connect() {
                   text-[#152019]
                   dark:text-white
                   sm:text-[9px]
-                  sm:tracking-[0.26em]
+                  sm:tracking-[0.25em]
                   md:text-[10px]
-                  md:tracking-[0.3em]
+                  md:tracking-[0.28em]
                 "
               >
                 TrackOwls Core
@@ -387,9 +539,9 @@ function Connect() {
                   text-[#89938B]
                   dark:text-white/25
                   sm:text-[8px]
-                  sm:tracking-[0.18em]
+                  sm:tracking-[0.17em]
                   md:text-[9px]
-                  md:tracking-[0.2em]
+                  md:tracking-[0.19em]
                 "
               >
                 Intelligence Layer
@@ -397,9 +549,9 @@ function Connect() {
             </div>
           </div>
 
-          {/* ===================================================
-              TOP NODE
-          =================================================== */}
+          {/* =================================================
+              GLOBAL WEB
+          ================================================= */}
 
           <div
             className="
@@ -433,7 +585,16 @@ function Connect() {
                 md:w-10
               "
             >
-              <Globe2 className="h-3.5 w-3.5 text-[#6D900B] dark:text-[#ADD132] sm:h-4 sm:w-4" />
+              <Globe2
+                className="
+                  h-3.5
+                  w-3.5
+                  text-[#6D900B]
+                  dark:text-[#ADD132]
+                  sm:h-4
+                  sm:w-4
+                "
+              />
             </div>
 
             <p
@@ -446,17 +607,17 @@ function Connect() {
                 dark:text-white
                 sm:text-[8px]
                 sm:tracking-[0.2em]
-                md:text-[10px]
-                md:tracking-[0.25em]
+                md:text-[9px]
+                md:tracking-[0.22em]
               "
             >
               Global Web
             </p>
           </div>
 
-          {/* ===================================================
-              LEFT TOP NODE
-          =================================================== */}
+          {/* =================================================
+              DISCOVERY
+          ================================================= */}
 
           <div
             className="
@@ -487,7 +648,16 @@ function Connect() {
                 md:w-10
               "
             >
-              <Search className="h-3.5 w-3.5 text-[#6D900B] dark:text-[#ADD132] sm:h-4 sm:w-4" />
+              <Search
+                className="
+                  h-3.5
+                  w-3.5
+                  text-[#6D900B]
+                  dark:text-[#ADD132]
+                  sm:h-4
+                  sm:w-4
+                "
+              />
             </div>
 
             <p
@@ -500,8 +670,8 @@ function Connect() {
                 dark:text-white
                 sm:text-[8px]
                 sm:tracking-[0.2em]
-                md:text-[10px]
-                md:tracking-[0.25em]
+                md:text-[9px]
+                md:tracking-[0.22em]
               "
             >
               Discovery
@@ -521,9 +691,9 @@ function Connect() {
             </p>
           </div>
 
-          {/* ===================================================
-              RIGHT TOP NODE
-          =================================================== */}
+          {/* =================================================
+              DETECTION
+          ================================================= */}
 
           <div
             className="
@@ -556,7 +726,16 @@ function Connect() {
                 md:w-10
               "
             >
-              <ScanSearch className="h-3.5 w-3.5 text-[#6D900B] dark:text-[#ADD132] sm:h-4 sm:w-4" />
+              <ScanSearch
+                className="
+                  h-3.5
+                  w-3.5
+                  text-[#6D900B]
+                  dark:text-[#ADD132]
+                  sm:h-4
+                  sm:w-4
+                "
+              />
             </div>
 
             <p
@@ -569,8 +748,8 @@ function Connect() {
                 dark:text-white
                 sm:text-[8px]
                 sm:tracking-[0.2em]
-                md:text-[10px]
-                md:tracking-[0.25em]
+                md:text-[9px]
+                md:tracking-[0.22em]
               "
             >
               Detection
@@ -590,9 +769,9 @@ function Connect() {
             </p>
           </div>
 
-          {/* ===================================================
-              LEFT BOTTOM NODE
-          =================================================== */}
+          {/* =================================================
+              IDENTITY
+          ================================================= */}
 
           <div
             className="
@@ -625,7 +804,16 @@ function Connect() {
                 md:w-10
               "
             >
-              <Fingerprint className="h-3.5 w-3.5 text-[#6D900B] dark:text-[#ADD132] sm:h-4 sm:w-4" />
+              <Fingerprint
+                className="
+                  h-3.5
+                  w-3.5
+                  text-[#6D900B]
+                  dark:text-[#ADD132]
+                  sm:h-4
+                  sm:w-4
+                "
+              />
             </div>
 
             <p
@@ -638,8 +826,8 @@ function Connect() {
                 dark:text-white
                 sm:text-[8px]
                 sm:tracking-[0.2em]
-                md:text-[10px]
-                md:tracking-[0.25em]
+                md:text-[9px]
+                md:tracking-[0.22em]
               "
             >
               Identity
@@ -659,9 +847,9 @@ function Connect() {
             </p>
           </div>
 
-          {/* ===================================================
-              RIGHT BOTTOM NODE
-          =================================================== */}
+          {/* =================================================
+              PROTECTION
+          ================================================= */}
 
           <div
             className="
@@ -696,7 +884,16 @@ function Connect() {
                 md:w-10
               "
             >
-              <ShieldCheck className="h-3.5 w-3.5 text-[#6D900B] dark:text-[#ADD132] sm:h-4 sm:w-4" />
+              <ShieldCheck
+                className="
+                  h-3.5
+                  w-3.5
+                  text-[#6D900B]
+                  dark:text-[#ADD132]
+                  sm:h-4
+                  sm:w-4
+                "
+              />
             </div>
 
             <p
@@ -709,8 +906,8 @@ function Connect() {
                 dark:text-white
                 sm:text-[8px]
                 sm:tracking-[0.2em]
-                md:text-[10px]
-                md:tracking-[0.25em]
+                md:text-[9px]
+                md:tracking-[0.22em]
               "
             >
               Protection
@@ -766,14 +963,22 @@ function Connect() {
                 text-[#7E8981]
                 dark:text-white/25
                 sm:text-[9px]
-                sm:tracking-[0.25em]
+                sm:tracking-[0.22em]
               "
             >
               Many signals. One intelligence layer.
             </p>
 
             <div className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#ADD132]" />
+              <span
+                className="
+                  h-1.5
+                  w-1.5
+                  animate-pulse
+                  rounded-full
+                  bg-[#ADD132]
+                "
+              />
 
               <span
                 className="
@@ -793,6 +998,20 @@ function Connect() {
           </div>
         </div>
       </div>
+
+      {/* =====================================================
+          REDUCED MOTION
+      ===================================================== */}
+
+      <style>{`
+        @media (prefers-reduced-motion: reduce) {
+          * {
+            animation-duration: 0.001ms !important;
+            animation-iteration-count: 1 !important;
+            scroll-behavior: auto !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

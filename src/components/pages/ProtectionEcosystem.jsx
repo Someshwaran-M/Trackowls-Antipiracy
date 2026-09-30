@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   ArrowUpRight,
@@ -10,6 +10,8 @@ import {
   Image as ImageIcon,
   ScanSearch,
   Activity,
+  ShieldCheck,
+  Fingerprint,
 } from "lucide-react";
 
 const protectionSurfaces = [
@@ -51,714 +53,726 @@ const protectionSurfaces = [
   },
 ];
 
-const ProtectionEcosystem = () => {
+const antiPiracyItems = [
+  "Piracy monitoring across pirate sites, Telegram, social media and search",
+  "Takedown management followed up until resolved",
+  "Search de-indexing on Google and Bing",
+  "Repeat offender tracking for mirrors and re-uploads",
+  "Evidence reports ready for legal use",
+  "Legal escalation through our legal partners",
+];
+
+const brandProtectionItems = [
+  "Fake website takedowns via hosts and registrars",
+  "Impersonation removal for fake pages and accounts",
+  "Counterfeit listing removal on marketplaces",
+  "Look-alike domain monitoring",
+  "Trademark watch (coming soon)",
+  "Legal escalation through licensed attorneys",
+];
+
+function ProtectionEcosystem() {
+  const [activeSurface, setActiveSurface] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveSurface((current) => (current + 1) % protectionSurfaces.length);
+    }, 3500);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section
       className="
         relative
         overflow-hidden
-        bg-white
-        py-12
-        dark:bg-black
-        sm:py-16
+        bg-[#F7F9F4]
+        py-14
+        font-['Roboto',sans-serif]
+        text-[#152019]
+        dark:bg-[#070A07]
+        dark:text-white
+        sm:py-18
         md:py-20
         lg:py-24
       "
     >
-      {/* =====================================================
-          AMBIENT LIGHT
-      ====================================================== */}
+      {/* =========================================================
+          BACKGROUND
+      ========================================================= */}
 
-      <div
-        className="
-          pointer-events-none
-          absolute
-          left-[-180px]
-          top-[20%]
-          h-[360px]
-          w-[360px]
-          rounded-full
-          bg-[#ADD132]/10
-          blur-[110px]
-          sm:left-[-220px]
-          sm:h-[480px]
-          sm:w-[480px]
-          sm:blur-[140px]
-          lg:left-[-250px]
-          lg:h-[600px]
-          lg:w-[600px]
-          lg:blur-[170px]
-        "
-      />
-
-      <div
-        className="
-          pointer-events-none
-          absolute
-          right-[-180px]
-          bottom-[-120px]
-          h-[380px]
-          w-[380px]
-          rounded-full
-          bg-[#ADD132]/10
-          blur-[120px]
-          sm:right-[-220px]
-          sm:h-[500px]
-          sm:w-[500px]
-          sm:blur-[150px]
-          lg:right-[-250px]
-          lg:bottom-[-200px]
-          lg:h-[600px]
-          lg:w-[600px]
-          lg:blur-[180px]
-        "
-      />
-
-      <div
-        className="
-          trackowls-container
-          relative
-          mx-auto
-          w-full
-          max-w-[1500px]
-          px-4
-          sm:px-7
-          md:px-10
-          lg:px-14
-          xl:px-16
-        "
-      >
-        {/* =====================================================
-            HEADER
-        ====================================================== */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="
+            absolute
+            -left-[180px]
+            top-[20%]
+            h-[400px]
+            w-[400px]
+            rounded-full
+            bg-[#ADD132]/[0.045]
+            blur-[130px]
+            animate-[softFloat_10s_ease-in-out_infinite]
+          "
+        />
 
         <div
           className="
-            grid
-            gap-8
-            lg:grid-cols-[0.8fr_1.2fr]
-            lg:items-end
-            lg:gap-14
+            absolute
+            -right-[180px]
+            bottom-[5%]
+            h-[420px]
+            w-[420px]
+            rounded-full
+            bg-[#ADD132]/[0.045]
+            blur-[140px]
+            animate-[softFloatReverse_12s_ease-in-out_infinite]
           "
-        >
-          {/* LEFT */}
-          <div className="relative z-10">
-            <div className="mb-5 flex items-center gap-3 sm:mb-6 sm:gap-4">
-              <span className="h-px w-8 bg-[#ADD132] sm:w-12" />
+        />
 
-              <span
-                className="
-                  text-[8px]
-                  font-black
-                  uppercase
-                  tracking-[0.22em]
-                  text-[#6D900B]
-                  dark:text-[#ADD132]
-                  sm:text-[9px]
-                  sm:tracking-[0.3em]
-                  md:text-[10px]
-                  md:tracking-[0.35em]
-                "
-              >
-                Protection Ecosystem
-              </span>
-            </div>
+        <div
+          className="
+            absolute
+            left-0
+            right-0
+            top-0
+            h-px
+            bg-gradient-to-r
+            from-transparent
+            via-[#ADD132]/40
+            to-transparent
+          "
+        />
+      </div>
 
-            <h2
-              className="
-                max-w-2xl
-                text-[42px]
-                font-black
-                leading-[0.92]
-                tracking-[-0.055em]
-                text-[#101610]
-                dark:text-white
-                sm:text-[52px]
-                sm:leading-[0.87]
-                md:text-[64px]
-                lg:text-[76px]
-                xl:text-[88px]
-              "
-            >
-              Everything
-
-              <span className="block text-[#6D900B] dark:text-[#ADD132]">
-                connected.
-              </span>
-            </h2>
-
-            <p
-              className="
-                mt-5
-                max-w-xl
-                text-[12px]
-                leading-5
-                text-[#68746B]
-                dark:text-white/45
-                sm:mt-6
-                sm:text-[13px]
-                sm:leading-6
-                md:text-[14px]
-                md:leading-7
-              "
-            >
-              TrackOwls connects the signals surrounding your digital
-              ecosystem into one continuous protection layer.
-            </p>
-
-            {/* CTA */}
-            <button
-              type="button"
-              className="
-                group
-                mt-6
-                inline-flex
-                items-center
-                gap-3
-                sm:mt-7
-                sm:gap-4
-              "
-            >
-              <span
-                className="
-                  relative
-                  flex
-                  h-11
-                  w-11
-                  items-center
-                  justify-center
-                  rounded-full
-                  bg-[#ADD132]
-                  text-[#152019]
-                  shadow-[0_15px_45px_rgba(173,209,50,0.25)]
-                  transition-all
-                  duration-500
-                  group-hover:scale-110
-                  group-hover:shadow-[0_20px_60px_rgba(173,209,50,0.35)]
-                  sm:h-12
-                  sm:w-12
-                  md:h-14
-                  md:w-14
-                "
-              >
-                <ArrowUpRight
-                  className="
-                    h-4
-                    w-4
-                    transition-transform
-                    duration-500
-                    group-hover:-translate-y-1
-                    group-hover:translate-x-1
-                    sm:h-5
-                    sm:w-5
-                  "
-                />
-
-                <span
-                  className="
-                    absolute
-                    inset-0
-                    rounded-full
-                    border
-                    border-[#ADD132]
-                    opacity-0
-                    transition-all
-                    duration-500
-                    group-hover:inset-[-6px]
-                    group-hover:opacity-40
-                  "
-                />
-              </span>
-
-              <span
-                className="
-                  text-[9px]
-                  font-black
-                  uppercase
-                  tracking-[0.18em]
-                  text-[#152019]
-                  dark:text-white
-                  sm:text-[10px]
-                  sm:tracking-[0.22em]
-                  md:text-xs
-                  md:tracking-[0.25em]
-                "
-              >
-                Explore Ecosystem
-              </span>
-            </button>
-          </div>
-
-          {/* RIGHT INTRO */}
-          <div className="relative">
-            <div className="flex items-center justify-start gap-3 sm:justify-end sm:gap-4">
-              <Activity className="h-3.5 w-3.5 text-[#6D900B] dark:text-[#ADD132] sm:h-4 sm:w-4" />
-
-              <span
-                className="
-                  text-[7px]
-                  font-black
-                  uppercase
-                  tracking-[0.2em]
-                  text-[#7D877F]
-                  dark:text-white/30
-                  sm:text-[8px]
-                  sm:tracking-[0.25em]
-                  md:text-[9px]
-                  md:tracking-[0.3em]
-                "
-              >
-                Digital Visibility Active
-              </span>
-
-              <span className="relative h-1.5 w-1.5 shrink-0 rounded-full bg-[#ADD132] sm:h-2 sm:w-2">
-                <span className="absolute inset-[-3px] animate-ping rounded-full bg-[#ADD132]/30" />
-              </span>
-            </div>
-
-            <div
-              className="
-                mt-6
-                border-t
-                border-black/[0.08]
-                pt-5
-                dark:border-white/[0.08]
-                sm:mt-7
-                sm:pt-6
-              "
-            >
-              <p
-                className="
-                  text-left
-                  text-[8px]
-                  font-bold
-                  uppercase
-                  tracking-[0.2em]
-                  text-[#9AA39C]
-                  dark:text-white/25
-                  sm:text-right
-                  sm:text-[9px]
-                  sm:tracking-[0.25em]
-                "
-              >
-                Monitoring
-              </p>
-
-              <div className="mt-2 flex items-center justify-start gap-5 sm:justify-end sm:gap-8">
-                <span
-                  className="
-                    text-3xl
-                    font-black
-                    tracking-[-0.06em]
-                    text-[#152019]
-                    dark:text-white
-                    sm:text-4xl
-                  "
-                >
-                  24/7
-                </span>
-
-                <span className="h-7 w-px bg-black/10 dark:bg-white/10 sm:h-8" />
-
-                <span
-                  className="
-                    text-3xl
-                    font-black
-                    tracking-[-0.06em]
-                    text-[#6D900B]
-                    dark:text-[#ADD132]
-                    sm:text-4xl
-                  "
-                >
-                  360°
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* =====================================================
-            INTELLIGENCE FIELD
-        ====================================================== */}
+      <div
+        className="
+          relative
+          mx-auto
+          w-full
+          max-w-[1320px]
+          px-5
+          sm:px-7
+          md:px-10
+          lg:px-12
+          xl:px-16
+        "
+      >
+        {/* =========================================================
+            INTRO
+        ========================================================= */}
 
         <div
           className="
             relative
-            mt-12
-            min-h-[440px]
-            overflow-hidden
-            border-y
-            border-black/[0.08]
-            dark:border-white/[0.08]
-            sm:mt-16
-            sm:min-h-[520px]
-            md:min-h-[580px]
-            lg:mt-20
-            lg:min-h-[620px]
+            max-w-3xl
+            border-l
+            border-[#ADD132]/50
+            pl-5
+            sm:pl-7
           "
         >
-          {/* Field glow */}
-          <div
-            className="
-              pointer-events-none
-              absolute
-              left-1/2
-              top-1/2
-              h-[300px]
-              w-[300px]
-              -translate-x-1/2
-              -translate-y-1/2
-              rounded-full
-              bg-[#ADD132]/[0.07]
-              blur-[80px]
-              sm:h-[400px]
-              sm:w-[400px]
-              sm:blur-[100px]
-              lg:h-[500px]
-              lg:w-[500px]
-              lg:blur-[120px]
-            "
-          />
-
-          {/* Vertical scanner */}
-          <div
-            className="
-              trackowls-scanner
-              absolute
-              bottom-0
-              left-[42%]
-              top-0
-              z-20
-              w-px
-              bg-gradient-to-b
-              from-transparent
-              via-[#ADD132]
-              to-transparent
-              opacity-80
-            "
-          >
-            <span className="absolute left-1/2 top-1/2 h-14 w-14 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ADD132]/20 blur-2xl sm:h-20 sm:w-20" />
-          </div>
-
-          {/* Radar heading */}
-          <div className="absolute left-0 top-0 z-20 pt-5 sm:pt-7 md:pt-8">
-            <div className="flex items-center gap-2 sm:gap-3">
-              <ScanSearch className="h-3.5 w-3.5 text-[#6D900B] dark:text-[#ADD132] sm:h-4 sm:w-4" />
-
-              <span
-                className="
-                  text-[7px]
-                  font-black
-                  uppercase
-                  tracking-[0.2em]
-                  text-[#7D877F]
-                  dark:text-white/30
-                  sm:text-[8px]
-                  sm:tracking-[0.26em]
-                  md:text-[9px]
-                  md:tracking-[0.3em]
-                "
-              >
-                Intelligence Field
-              </span>
-            </div>
-          </div>
-
-          {/* Signal lines */}
-          <div className="absolute inset-0">
-            <div className="trackowls-signal-line absolute left-0 right-0 top-[18%] h-px bg-gradient-to-r from-transparent via-[#ADD132]/25 to-transparent" />
-
-            <div className="trackowls-signal-line signal-delay-1 absolute left-0 right-0 top-[34%] h-px bg-gradient-to-r from-transparent via-[#ADD132]/20 to-transparent" />
-
-            <div className="trackowls-signal-line signal-delay-2 absolute left-0 right-0 top-[50%] h-px bg-gradient-to-r from-transparent via-[#ADD132]/30 to-transparent" />
-
-            <div className="trackowls-signal-line signal-delay-3 absolute left-0 right-0 top-[66%] h-px bg-gradient-to-r from-transparent via-[#ADD132]/20 to-transparent" />
-
-            <div className="trackowls-signal-line signal-delay-4 absolute left-0 right-0 top-[82%] h-px bg-gradient-to-r from-transparent via-[#ADD132]/25 to-transparent" />
-          </div>
-
-          {/* =================================================
-              SIGNAL DOTS
-          ================================================== */}
-
-          <span className="trackowls-signal-dot absolute left-[10%] top-[18%] h-1.5 w-1.5 rounded-full bg-[#ADD132]" />
-
-          <span className="trackowls-signal-dot delay-1 absolute left-[24%] top-[34%] h-1.5 w-1.5 rounded-full bg-[#ADD132]" />
-
-          <span className="trackowls-signal-dot delay-2 absolute left-[17%] top-[50%] h-1.5 w-1.5 rounded-full bg-[#ADD132]" />
-
-          <span className="trackowls-signal-dot delay-3 absolute left-[30%] top-[66%] h-1.5 w-1.5 rounded-full bg-[#ADD132]" />
-
-          <span className="trackowls-signal-dot delay-4 absolute left-[15%] top-[82%] h-1.5 w-1.5 rounded-full bg-[#ADD132]" />
-
-          <span className="trackowls-signal-dot delay-5 absolute right-[25%] top-[18%] h-1.5 w-1.5 rounded-full bg-[#ADD132]" />
-
-          <span className="trackowls-signal-dot delay-6 absolute right-[13%] top-[34%] h-1.5 w-1.5 rounded-full bg-[#ADD132]" />
-
-          <span className="trackowls-signal-dot delay-7 absolute right-[28%] top-[50%] h-1.5 w-1.5 rounded-full bg-[#ADD132]" />
-
-          <span className="trackowls-signal-dot delay-8 absolute right-[17%] top-[66%] h-1.5 w-1.5 rounded-full bg-[#ADD132]" />
-
-          <span className="trackowls-signal-dot delay-9 absolute right-[30%] top-[82%] h-1.5 w-1.5 rounded-full bg-[#ADD132]" />
-
-          {/* =================================================
-              CENTER INTELLIGENCE CORE
-          ================================================== */}
-
-          <div className="absolute left-[42%] top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
-            <div
+          <div className="flex items-center gap-3">
+            <span
               className="
-                trackowls-core-glow
-                absolute
-                -inset-10
+                h-1.5
+                w-1.5
                 rounded-full
-                bg-[#ADD132]/10
-                blur-[35px]
-                sm:-inset-16
-                sm:blur-[45px]
+                bg-[#ADD132]
+                shadow-[0_0_12px_#ADD132]
               "
             />
 
+            <span
+              className="
+                text-[8px]
+                font-bold
+                uppercase
+                tracking-[0.24em]
+                text-[#6D900B]
+                dark:text-[#ADD132]
+                sm:text-[9px]
+              "
+            >
+              Protection Ecosystem
+            </span>
+          </div>
+
+          <h2
+            className="
+              mt-4
+              text-[30px]
+              font-extrabold
+              leading-[1.05]
+              tracking-[-0.035em]
+              text-[#152019]
+              dark:text-white
+              sm:text-[36px]
+              md:text-[42px]
+              lg:text-[48px]
+            "
+          >
+            Protection that follows
+            <span className="text-[#6D900B] dark:text-[#ADD132]">
+              {" "}
+              the signal.
+            </span>
+          </h2>
+
+          <p
+            className="
+              mt-4
+              max-w-2xl
+              text-[12px]
+              leading-6
+              text-[#68736B]
+              dark:text-white/45
+              sm:text-[13px]
+              sm:leading-7
+            "
+          >
+            Protect your valuable digital assets across the places where
+            piracy, impersonation, counterfeit activity and unauthorized
+            distribution can appear.
+          </p>
+        </div>
+
+        {/* =========================================================
+            PROTECTION FLOW
+        ========================================================= */}
+
+        <div className="relative mt-12 sm:mt-16">
+          {/* CENTRAL SPINE */}
+
+          <div
+            className="
+              absolute
+              bottom-0
+              left-[18px]
+              top-0
+              w-px
+              bg-gradient-to-b
+              from-transparent
+              via-[#ADD132]/35
+              to-transparent
+              sm:left-1/2
+              sm:-translate-x-1/2
+            "
+          />
+
+          {/* MOVING SIGNAL */}
+
+          <div
+            className="
+              absolute
+              left-[16px]
+              top-0
+              z-20
+              h-5
+              w-1
+              rounded-full
+              bg-[#ADD132]
+              shadow-[0_0_14px_#ADD132]
+              animate-[flowDown_5s_linear_infinite]
+              sm:left-1/2
+              sm:-translate-x-1/2
+            "
+          />
+
+          {/* =======================================================
+              ANTI PIRACY
+          ======================================================= */}
+
+          <FlowSection
+            number="01"
+            eyebrow="Digital Rights"
+            title="Anti-Piracy"
+            description="Stop illegal copies of your movies, music, sports and courses."
+            items={antiPiracyItems}
+            icon={ScanSearch}
+            side="left"
+          />
+
+          {/* =======================================================
+              CORE
+          ======================================================= */}
+
+          <div
+            className="
+              relative
+              my-12
+              flex
+              items-center
+              sm:my-14
+            "
+          >
+            <div className="hidden h-px flex-1 bg-gradient-to-r from-transparent to-[#ADD132]/25 sm:block" />
+
             <div
               className="
-                trackowls-core
                 relative
+                ml-[2px]
                 flex
-                h-[88px]
-                w-[88px]
+                h-10
+                w-10
+                shrink-0
                 items-center
                 justify-center
                 rounded-full
                 border
                 border-[#ADD132]/40
-                bg-[#F8FAF5]/90
-                shadow-[0_0_60px_rgba(173,209,50,0.15)]
-                backdrop-blur-xl
-                dark:bg-[#0A100B]/90
-                sm:h-[108px]
-                sm:w-[108px]
-                md:h-32
-                md:w-32
+                bg-[#F7F9F4]
+                shadow-[0_0_25px_rgba(173,209,50,0.12)]
+                dark:bg-[#070A07]
+                sm:mx-5
               "
             >
-              <div className="absolute inset-2 rounded-full border border-[#ADD132]/20 sm:inset-3" />
-
-              <div className="absolute inset-5 rounded-full border border-dashed border-[#ADD132]/30 sm:inset-7" />
-
-              <div
-                className="
-                  relative
-                  flex
-                  h-8
-                  w-8
-                  items-center
-                  justify-center
-                  rounded-full
-                  bg-[#ADD132]
-                  text-[#152019]
-                  shadow-[0_0_30px_rgba(173,209,50,0.45)]
-                  sm:h-9
-                  sm:w-9
-                  md:h-10
-                  md:w-10
-                "
-              >
-                <ScanSearch className="h-4 w-4 sm:h-5 sm:w-5" />
-              </div>
-            </div>
-
-            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap sm:-bottom-10">
               <span
                 className="
-                  text-[6px]
-                  font-black
-                  uppercase
-                  tracking-[0.2em]
+                  absolute
+                  inset-1
+                  rounded-full
+                  border
+                  border-dashed
+                  border-[#ADD132]/30
+                  animate-spin
+                "
+                style={{ animationDuration: "8s" }}
+              />
+
+              <ShieldCheck
+                className="
+                  relative
+                  z-10
+                  h-4
+                  w-4
                   text-[#6D900B]
                   dark:text-[#ADD132]
-                  sm:text-[7px]
-                  sm:tracking-[0.25em]
-                  md:text-[8px]
-                  md:tracking-[0.3em]
+                "
+              />
+            </div>
+
+            <div className="hidden h-px flex-1 bg-gradient-to-r from-[#ADD132]/25 to-transparent sm:block" />
+          </div>
+
+          {/* =======================================================
+              BRAND PROTECTION
+          ======================================================= */}
+
+          <FlowSection
+            number="02"
+            eyebrow="Brand Integrity"
+            title="Brand Protection"
+            description="Defend your name, logo and customers from misuse."
+            items={brandProtectionItems}
+            icon={Fingerprint}
+            side="right"
+            legalNote="Trademark registration and court filings are handled by licensed attorneys. We provide monitoring, evidence and takedowns."
+          />
+        </div>
+
+        {/* =========================================================
+            PROTECTION SURFACES
+        ========================================================= */}
+
+        <div className="mt-16 sm:mt-20 lg:mt-24">
+          <div
+            className="
+              border-t
+              border-black/[0.07]
+              pt-8
+              dark:border-white/[0.08]
+            "
+          >
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <span
+                  className="
+                    text-[8px]
+                    font-bold
+                    uppercase
+                    tracking-[0.24em]
+                    text-[#6D900B]
+                    dark:text-[#ADD132]
+                    sm:text-[9px]
+                  "
+                >
+                  Protection surfaces
+                </span>
+
+                <h3
+                  className="
+                    mt-2
+                    text-[25px]
+                    font-extrabold
+                    tracking-[-0.03em]
+                    text-[#152019]
+                    dark:text-white
+                    sm:text-[30px]
+                    md:text-[34px]
+                  "
+                >
+                  One ecosystem. Many surfaces.
+                </h3>
+              </div>
+
+              <p
+                className="
+                  max-w-sm
+                  text-[11px]
+                  leading-5
+                  text-[#78837B]
+                  dark:text-white/35
+                  sm:text-[12px]
+                  sm:leading-6
                 "
               >
-                TrackOwls Intelligence
-              </span>
+                Visibility extends across the digital environments where
+                valuable content, brands and intellectual property appear.
+              </p>
             </div>
           </div>
 
-          {/* =================================================
-              SURFACE LABELS
-          ================================================== */}
+          {/* =======================================================
+              SURFACE FLOW
+          ======================================================= */}
 
-          {protectionSurfaces.map((item, index) => {
-            const Icon = item.icon;
+          <div className="relative mt-8">
+            <div
+              className="
+                absolute
+                left-0
+                right-0
+                top-1/2
+                hidden
+                h-px
+                -translate-y-1/2
+                bg-gradient-to-r
+                from-transparent
+                via-[#ADD132]/25
+                to-transparent
+                lg:block
+              "
+            />
 
-            const positions = [
-              "left-[2%] top-[10%]",
-              "right-[2%] top-[25%]",
-              "left-[2%] top-[42%]",
-              "right-[2%] top-[57%]",
-              "left-[2%] top-[73%]",
-              "right-[2%] top-[80%]",
-            ];
+            <div
+              className="
+                relative
+                flex
+                flex-col
+                gap-0
+                lg:flex-row
+                lg:items-stretch
+              "
+            >
+              {protectionSurfaces.map((item, index) => {
+                const Icon = item.icon;
+                const active = index === activeSurface;
 
-            return (
-              <div
-                key={item.number}
-                className={`trackowls-surface-label absolute z-30 ${positions[index]}`}
-              >
-                <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3">
-                  {/* Icon */}
-                  <div
+                return (
+                  <button
+                    key={item.number}
+                    type="button"
+                    onClick={() => setActiveSurface(index)}
                     className="
+                      group
                       relative
                       flex
-                      h-7
-                      w-7
-                      shrink-0
+                      min-h-[76px]
+                      flex-1
                       items-center
-                      justify-center
-                      rounded-full
-                      border
-                      border-[#ADD132]/30
-                      bg-white/80
-                      backdrop-blur-xl
-                      dark:bg-[#0B110C]/85
-                      sm:h-8
-                      sm:w-8
-                      md:h-10
-                      md:w-10
+                      gap-4
+                      border-b
+                      border-black/[0.07]
+                      py-4
+                      text-left
+                      transition-all
+                      duration-500
+                      dark:border-white/[0.07]
+                      lg:min-h-[150px]
+                      lg:flex-col
+                      lg:items-start
+                      lg:justify-center
+                      lg:border-b-0
+                      lg:border-r
+                      lg:px-5
+                      lg:py-5
+                      lg:last:border-r-0
                     "
                   >
-                    <Icon className="h-2.5 w-2.5 text-[#6D900B] dark:text-[#ADD132] sm:h-3 sm:w-3 md:h-3.5 md:w-3.5" />
+                    {/* ACTIVE MARKER */}
 
-                    <span className="absolute -inset-1 rounded-full border border-[#ADD132]/10" />
-                  </div>
+                    <span
+                      className={`
+                        absolute
+                        left-0
+                        top-0
+                        h-full
+                        w-[2px]
+                        bg-[#ADD132]
+                        transition-transform
+                        duration-500
+                        lg:bottom-0
+                        lg:left-0
+                        lg:top-auto
+                        lg:h-[2px]
+                        lg:w-full
+                        lg:origin-left
+                        ${
+                          active
+                            ? "scale-100"
+                            : "scale-0 group-hover:scale-100"
+                        }
+                      `}
+                    />
 
-                  <div
-                    className={
-                      index % 2 === 0 ? "" : "text-right"
-                    }
-                  >
-                    <div className="flex items-center gap-1 sm:gap-2">
+                    <span
+                      className={`
+                        text-[8px]
+                        font-bold
+                        tracking-[0.12em]
+                        transition-colors
+                        lg:absolute
+                        lg:left-5
+                        lg:top-5
+                        ${
+                          active
+                            ? "text-[#6D900B] dark:text-[#ADD132]"
+                            : "text-[#A0AAA2] dark:text-white/20"
+                        }
+                      `}
+                    >
+                      {item.number}
+                    </span>
+
+                    <span
+                      className={`
+                        flex
+                        h-8
+                        w-8
+                        shrink-0
+                        items-center
+                        justify-center
+                        border
+                        transition-all
+                        duration-500
+                        lg:h-9
+                        lg:w-9
+                        ${
+                          active
+                            ? "border-[#ADD132]/40 bg-[#ADD132]/10 text-[#6D900B] dark:text-[#ADD132]"
+                            : "border-black/[0.08] text-[#8A958D] dark:border-white/[0.08] dark:text-white/25"
+                        }
+                      `}
+                    >
+                      <Icon className="h-4 w-4" />
+                    </span>
+
+                    <span className="min-w-0">
                       <span
-                        className="
-                          text-[6px]
-                          font-black
-                          tracking-[0.12em]
-                          text-[#6D900B]
-                          dark:text-[#ADD132]
-                          sm:text-[7px]
-                          sm:tracking-[0.16em]
-                          md:text-[8px]
-                          md:tracking-[0.2em]
-                        "
-                      >
-                        {item.number}
-                      </span>
-
-                      <span
-                        className="
-                          max-w-[75px]
-                          truncate
-                          text-[6px]
-                          font-black
+                        className={`
+                          block
+                          text-[10px]
+                          font-bold
                           uppercase
-                          tracking-[0.1em]
-                          text-[#172019]
-                          dark:text-white
-                          sm:max-w-[100px]
-                          sm:text-[7px]
-                          sm:tracking-[0.14em]
-                          md:max-w-none
-                          md:text-[9px]
-                          md:tracking-[0.18em]
-                        "
+                          tracking-[0.06em]
+                          transition-colors
+                          sm:text-[11px]
+                          ${
+                            active
+                              ? "text-[#152019] dark:text-white"
+                              : "text-[#68736B] dark:text-white/45"
+                          }
+                        `}
                       >
                         {item.title}
                       </span>
-                    </div>
 
-                    <p
-                      className="
-                        mt-0.5
-                        max-w-[90px]
-                        truncate
-                        text-[5px]
-                        font-medium
-                        uppercase
-                        tracking-[0.08em]
-                        text-[#8B958E]
-                        dark:text-white/25
-                        sm:max-w-[120px]
-                        sm:text-[6px]
-                        sm:tracking-[0.1em]
-                        md:max-w-none
-                        md:text-[7px]
-                        md:tracking-[0.14em]
-                      "
+                      <span
+                        className="
+                          mt-0.5
+                          block
+                          text-[8px]
+                          text-[#909A93]
+                          dark:text-white/25
+                          sm:text-[9px]
+                        "
+                      >
+                        {item.subtitle}
+                      </span>
+                    </span>
+
+                    <span
+                      className={`
+                        ml-auto
+                        text-[8px]
+                        transition-all
+                        duration-300
+                        lg:absolute
+                        lg:bottom-5
+                        lg:right-5
+                        ${
+                          active
+                            ? "translate-x-0 text-[#6D900B] opacity-100 dark:text-[#ADD132]"
+                            : "-translate-x-2 text-[#ADD132] opacity-0"
+                        }
+                      `}
                     >
-                      {item.subtitle}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
-          {/* Horizontal field markers */}
+          {/* ACTIVE SURFACE DESCRIPTION */}
+
           <div
+            key={activeSurface}
             className="
-              absolute
-              bottom-4
-              left-0
-              right-0
+              mt-5
               flex
-              justify-between
-              px-1
-              sm:bottom-6
+              items-center
+              gap-3
+              animate-[surfaceReveal_500ms_ease-out]
             "
           >
-            {["Signal", "Detect", "Analyze", "Protect"].map((item) => (
+            <span className="h-px w-7 bg-[#ADD132]" />
+
+            <span
+              className="
+                text-[8px]
+                font-bold
+                uppercase
+                tracking-[0.18em]
+                text-[#6D900B]
+                dark:text-[#ADD132]
+              "
+            >
+              Active surface
+            </span>
+
+            <span className="text-[9px] text-[#879189] dark:text-white/25">
+              —
+            </span>
+
+            <span
+              className="
+                text-[10px]
+                font-medium
+                text-[#5F6A63]
+                dark:text-white/45
+              "
+            >
+              {protectionSurfaces[activeSurface].title}
+            </span>
+          </div>
+        </div>
+
+        {/* =========================================================
+            FINAL STATEMENT
+        ========================================================= */}
+
+        <div
+          className="
+            mt-14
+            border-t
+            border-black/[0.07]
+            pt-7
+            dark:border-white/[0.08]
+            sm:mt-16
+            sm:pt-8
+          "
+        >
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+            <div>
               <span
-                key={item}
                 className="
-                  text-[6px]
-                  font-black
+                  text-[8px]
+                  font-bold
                   uppercase
-                  tracking-[0.16em]
-                  text-[#A1AAA4]
-                  dark:text-white/20
-                  sm:text-[7px]
-                  sm:tracking-[0.2em]
-                  md:text-[8px]
-                  md:tracking-[0.25em]
+                  tracking-[0.22em]
+                  text-[#6D900B]
+                  dark:text-[#ADD132]
                 "
               >
-                {item}
+                TrackOwls protection
               </span>
-            ))}
+
+              <p
+                className="
+                  mt-2
+                  text-[17px]
+                  font-bold
+                  leading-tight
+                  tracking-[-0.02em]
+                  text-[#152019]
+                  dark:text-white
+                  sm:text-[20px]
+                  md:text-[22px]
+                "
+              >
+                See the activity. Understand the risk. Take action.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              className="
+                group
+                flex
+                w-fit
+                items-center
+                gap-2
+                border-b
+                border-[#ADD132]/50
+                pb-1.5
+                text-[8px]
+                font-bold
+                uppercase
+                tracking-[0.18em]
+                text-[#152019]
+                transition-all
+                hover:border-[#ADD132]
+                dark:text-white
+                sm:text-[9px]
+              "
+            >
+              Explore protection
+
+              <ArrowUpRight
+                className="
+                  h-3.5
+                  w-3.5
+                  text-[#6D900B]
+                  transition-transform
+                  duration-300
+                  group-hover:-translate-y-0.5
+                  group-hover:translate-x-0.5
+                  dark:text-[#ADD132]
+                "
+              />
+            </button>
           </div>
         </div>
       </div>
 
-      {/* =====================================================
+      {/* =========================================================
           ANIMATIONS
-      ====================================================== */}
+      ========================================================= */}
 
       <style>{`
-        @keyframes trackowls-scanner {
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800;900&display=swap');
+
+        @keyframes flowDown {
           0% {
-            left: 12%;
+            transform: translateY(-20px);
             opacity: 0;
           }
 
           10% {
-            opacity: 1;
-          }
-
-          50% {
             opacity: 1;
           }
 
@@ -767,182 +781,340 @@ const ProtectionEcosystem = () => {
           }
 
           100% {
-            left: 92%;
+            transform: translateY(100vh);
             opacity: 0;
           }
         }
 
-        .trackowls-scanner {
-          animation: trackowls-scanner 7s cubic-bezier(0.65, 0, 0.35, 1)
-            infinite;
-        }
-
-        @keyframes trackowls-signal-line {
+        @keyframes softFloat {
           0%,
           100% {
-            opacity: 0.15;
-            transform: scaleX(0.85);
+            transform: translate(0, 0) scale(1);
           }
 
           50% {
-            opacity: 0.55;
-            transform: scaleX(1);
+            transform: translate(30px, -20px) scale(1.08);
           }
         }
 
-        .trackowls-signal-line {
-          animation: trackowls-signal-line 4s ease-in-out infinite;
-          transform-origin: center;
-        }
-
-        .signal-delay-1 {
-          animation-delay: 0.6s;
-        }
-
-        .signal-delay-2 {
-          animation-delay: 1.2s;
-        }
-
-        .signal-delay-3 {
-          animation-delay: 1.8s;
-        }
-
-        .signal-delay-4 {
-          animation-delay: 2.4s;
-        }
-
-        @keyframes trackowls-signal-dot {
+        @keyframes softFloatReverse {
           0%,
           100% {
-            opacity: 0.2;
-            transform: scale(0.7);
-            box-shadow: 0 0 0 rgba(173, 209, 50, 0);
+            transform: translate(0, 0) scale(1);
           }
 
           50% {
+            transform: translate(-30px, 20px) scale(1.08);
+          }
+        }
+
+        @keyframes surfaceReveal {
+          from {
+            opacity: 0;
+            transform: translateY(6px);
+          }
+
+          to {
             opacity: 1;
-            transform: scale(1.4);
-            box-shadow: 0 0 18px rgba(173, 209, 50, 0.75);
-          }
-        }
-
-        .trackowls-signal-dot {
-          animation: trackowls-signal-dot 2.8s ease-in-out infinite;
-        }
-
-        .delay-1 {
-          animation-delay: 0.3s;
-        }
-
-        .delay-2 {
-          animation-delay: 0.6s;
-        }
-
-        .delay-3 {
-          animation-delay: 0.9s;
-        }
-
-        .delay-4 {
-          animation-delay: 1.2s;
-        }
-
-        .delay-5 {
-          animation-delay: 1.5s;
-        }
-
-        .delay-6 {
-          animation-delay: 1.8s;
-        }
-
-        .delay-7 {
-          animation-delay: 2.1s;
-        }
-
-        .delay-8 {
-          animation-delay: 2.4s;
-        }
-
-        .delay-9 {
-          animation-delay: 2.7s;
-        }
-
-        @keyframes trackowls-core-glow {
-          0%,
-          100% {
-            opacity: 0.2;
-            transform: scale(0.9);
-          }
-
-          50% {
-            opacity: 0.6;
-            transform: scale(1.08);
-          }
-        }
-
-        .trackowls-core-glow {
-          animation: trackowls-core-glow 4s ease-in-out infinite;
-        }
-
-        @keyframes trackowls-core {
-          0%,
-          100% {
-            transform: scale(1);
-          }
-
-          50% {
-            transform: scale(1.035);
-          }
-        }
-
-        .trackowls-core {
-          animation: trackowls-core 4s ease-in-out infinite;
-        }
-
-        @keyframes trackowls-surface {
-          0%,
-          100% {
             transform: translateY(0);
-          }
-
-          50% {
-            transform: translateY(-6px);
-          }
-        }
-
-        .trackowls-surface-label {
-          animation: trackowls-surface 5s ease-in-out infinite;
-        }
-
-        @media (max-width: 639px) {
-          .trackowls-surface-label {
-            transform: scale(0.82);
-            transform-origin: center;
-          }
-
-          .trackowls-scanner {
-            animation-duration: 5s;
-          }
-        }
-
-        @media (min-width: 640px) and (max-width: 1023px) {
-          .trackowls-surface-label {
-            transform: scale(0.9);
           }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .trackowls-scanner,
-          .trackowls-signal-line,
-          .trackowls-signal-dot,
-          .trackowls-core-glow,
-          .trackowls-core,
-          .trackowls-surface-label {
-            animation: none !important;
+          *,
+          *::before,
+          *::after {
+            animation-duration: 0.001ms !important;
+            animation-iteration-count: 1 !important;
+            scroll-behavior: auto !important;
           }
         }
       `}</style>
     </section>
   );
-};
+}
+
+/* ===============================================================
+   FLOW SECTION
+=============================================================== */
+
+function FlowSection({
+  number,
+  eyebrow,
+  title,
+  description,
+  items,
+  icon: Icon,
+  side,
+  legalNote,
+}) {
+  const isLeft = side === "left";
+
+  return (
+    <div
+      className={`
+        relative
+        pl-12
+        sm:pl-0
+        ${
+          isLeft
+            ? "sm:pr-[53%]"
+            : "sm:pl-[53%]"
+        }
+      `}
+    >
+      {/* MOBILE CONNECTOR */}
+
+      <div
+        className="
+          absolute
+          left-[14px]
+          top-0
+          h-10
+          w-2
+          rounded-full
+          bg-[#ADD132]/20
+          sm:hidden
+        "
+      />
+
+      {/* DESKTOP CONNECTOR */}
+
+      <div
+        className={`
+          absolute
+          top-7
+          hidden
+          h-px
+          w-[8%]
+          bg-[#ADD132]/30
+          sm:block
+          ${
+            isLeft
+              ? "right-1/2"
+              : "left-1/2"
+          }
+        `}
+      />
+
+      {/* NODE */}
+
+      <div
+        className={`
+          absolute
+          top-0
+          hidden
+          h-3
+          w-3
+          rounded-full
+          border-2
+          border-[#ADD132]
+          bg-[#F7F9F4]
+          shadow-[0_0_12px_rgba(173,209,50,0.35)]
+          dark:bg-[#070A07]
+          sm:block
+          ${
+            isLeft
+              ? "right-[calc(50%-6px)]"
+              : "left-[calc(50%-6px)]"
+          }
+        `}
+      />
+
+      <div
+        className="
+          border-t
+          border-black/[0.07]
+          pt-6
+          dark:border-white/[0.07]
+          sm:pt-7
+        "
+      >
+        {/* HEADER */}
+
+        <div className="flex items-center gap-3">
+          <span
+            className="
+              text-[8px]
+              font-bold
+              tracking-[0.18em]
+              text-[#9AA39C]
+              dark:text-white/25
+            "
+          >
+            {number}
+          </span>
+
+          <span className="h-px w-5 bg-[#ADD132]" />
+
+          <span
+            className="
+              text-[8px]
+              font-bold
+              uppercase
+              tracking-[0.2em]
+              text-[#6D900B]
+              dark:text-[#ADD132]
+            "
+          >
+            {eyebrow}
+          </span>
+        </div>
+
+        {/* TITLE */}
+
+        <div className="mt-4 flex items-center gap-3">
+          <Icon
+            className="
+              h-5
+              w-5
+              shrink-0
+              text-[#6D900B]
+              dark:text-[#ADD132]
+            "
+          />
+
+          <h3
+            className="
+              text-[26px]
+              font-extrabold
+              leading-none
+              tracking-[-0.035em]
+              text-[#152019]
+              dark:text-white
+              sm:text-[30px]
+              md:text-[34px]
+            "
+          >
+            {title}
+          </h3>
+        </div>
+
+        <p
+          className="
+            mt-4
+            max-w-xl
+            text-[12px]
+            leading-6
+            text-[#68736B]
+            dark:text-white/45
+            sm:text-[13px]
+            sm:leading-7
+          "
+        >
+          {description}
+        </p>
+
+        {/* ITEMS */}
+
+        <div className="mt-6">
+          {items.map((item, index) => (
+            <div
+              key={item}
+              className="
+                group
+                flex
+                items-start
+                gap-3
+                border-t
+                border-black/[0.06]
+                py-3
+                dark:border-white/[0.06]
+              "
+            >
+              <span
+                className="
+                  pt-0.5
+                  text-[8px]
+                  font-bold
+                  tracking-[0.1em]
+                  text-[#9AA39C]
+                  transition-colors
+                  group-hover:text-[#6D900B]
+                  dark:text-white/20
+                  dark:group-hover:text-[#ADD132]
+                "
+              >
+                {String(index + 1).padStart(2, "0")}
+              </span>
+
+              <span
+                className="
+                  mt-[6px]
+                  h-1
+                  w-1
+                  shrink-0
+                  rounded-full
+                  bg-[#ADD132]/50
+                  transition-transform
+                  duration-300
+                  group-hover:scale-150
+                "
+              />
+
+              <p
+                className="
+                  text-[11px]
+                  leading-5
+                  text-[#657068]
+                  dark:text-white/50
+                  sm:text-[12px]
+                  sm:leading-6
+                "
+              >
+                {item}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* LEGAL NOTE */}
+
+        {legalNote && (
+          <div
+            className="
+              mt-5
+              border-l
+              border-[#ADD132]
+              pl-4
+            "
+          >
+            <p
+              className="
+                text-[10px]
+                leading-5
+                text-[#7A857D]
+                dark:text-white/35
+                sm:text-[11px]
+                sm:leading-6
+              "
+            >
+              {legalNote}
+            </p>
+          </div>
+        )}
+
+        {/* FOOTER */}
+
+        <div className="mt-5 flex items-center gap-2">
+          <span className="h-px w-7 bg-[#ADD132]" />
+
+          <span
+            className="
+              text-[7px]
+              font-bold
+              uppercase
+              tracking-[0.2em]
+              text-[#8A958D]
+              dark:text-white/25
+            "
+          >
+            Active protection layer
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default ProtectionEcosystem;

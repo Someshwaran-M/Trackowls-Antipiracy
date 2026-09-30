@@ -1,58 +1,50 @@
 import React, { useState } from "react";
 import {
-  ChevronDown,
   ArrowUpRight,
-  MessageCircle,
+  ChevronDown,
+  MessageCircleQuestion,
 } from "lucide-react";
 
-const faqs = [
-  {
-    question: "What is TrackOwls?",
-    answer:
+function Faq() {
+  const faqs = [
+    [
+      "What is TrackOwls?",
       "TrackOwls is a digital intelligence and anti-piracy platform designed to help organizations discover, monitor, analyze, and respond to threats across the digital ecosystem.",
-  },
-  {
-    question: "What types of digital threats can TrackOwls monitor?",
-    answer:
+    ],
+    [
+      "What types of digital threats can TrackOwls monitor?",
       "TrackOwls can help monitor unauthorized content, suspicious websites, social platforms, streaming platforms, marketplaces, digital media, and other online surfaces where potential threats or misuse may appear.",
-  },
-  {
-    question: "How does TrackOwls help protect digital content?",
-    answer:
+    ],
+    [
+      "How does TrackOwls help protect digital content?",
       "TrackOwls brings together digital signals from multiple sources, helping teams identify potentially unauthorized usage, investigate relevant activity, and take informed protection measures.",
-  },
-  {
-    question: "Can TrackOwls monitor multiple digital platforms?",
-    answer:
+    ],
+    [
+      "Can TrackOwls monitor multiple digital platforms?",
       "Yes. The platform is designed around visibility across multiple digital surfaces, including websites, social platforms, OTT and video environments, e-commerce, news and media, and other online channels.",
-  },
-  {
-    question: "How does the threat detection process work?",
-    answer:
+    ],
+    [
+      "How does the threat detection process work?",
       "TrackOwls follows an intelligence-driven workflow: discover relevant digital signals, detect potential threats, analyze the available information, and support the appropriate protection response.",
-  },
-  {
-    question: "Is TrackOwls suitable for brands and businesses?",
-    answer:
+    ],
+    [
+      "Is TrackOwls suitable for brands and businesses?",
       "Yes. TrackOwls can support brands, media companies, content owners, digital platforms, publishers, gaming businesses, and organizations that need greater visibility into their digital presence.",
-  },
-  {
-    question: "Does TrackOwls provide continuous monitoring?",
-    answer:
+    ],
+    [
+      "Does TrackOwls provide continuous monitoring?",
       "TrackOwls is designed around continuous digital intelligence and monitoring so teams can maintain visibility over their digital ecosystem and identify relevant activity as it emerges.",
-  },
-  {
-    question: "How can I request a TrackOwls demo?",
-    answer:
+    ],
+    [
+      "How can I request a TrackOwls demo?",
       "You can use the Request Demo option on the website to share your requirements with the TrackOwls team. The team can then understand your protection needs and discuss the appropriate solution.",
-  },
-];
+    ],
+  ];
 
-function FAQ() {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [activeFaq, setActiveFaq] = useState(0);
 
-  const toggleFAQ = (index) => {
-    setOpenIndex(openIndex === index ? -1 : index);
+  const toggleFaq = (index) => {
+    setActiveFaq((current) => (current === index ? -1 : index));
   };
 
   return (
@@ -60,91 +52,46 @@ function FAQ() {
       className="
         relative
         overflow-hidden
-        bg-[#F4F7F0]
-        py-12
-        text-[#101510]
-        dark:bg-[#050705]
+        bg-[#F8FAF6]
+        font-['Roboto',sans-serif]
+        text-[#152019]
+        dark:bg-[#050805]
         dark:text-white
-        sm:py-16
-        md:py-20
-        lg:py-24
       "
     >
       {/* =====================================================
-          AMBIENT BACKGROUND
+          AMBIENT LIGHT
       ===================================================== */}
 
-      <div className="pointer-events-none absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
           className="
             absolute
-            left-[-10%]
-            top-[8%]
-            h-[220px]
-            w-[220px]
+            -right-40
+            top-[-120px]
+            h-[360px]
+            w-[360px]
+            animate-[faqGlow_9s_ease-in-out_infinite]
             rounded-full
             bg-[#ADD132]/8
-            blur-[90px]
-            dark:bg-[#ADD132]/4
-            sm:left-[5%]
-            sm:h-[280px]
-            sm:w-[280px]
-            sm:blur-[110px]
-            md:h-[320px]
-            md:w-[320px]
-            lg:left-[8%]
-            lg:top-[10%]
-            lg:h-[300px]
-            lg:w-[300px]
-            lg:blur-[130px]
+            blur-[130px]
+            dark:bg-[#ADD132]/[0.035]
           "
         />
 
         <div
           className="
             absolute
-            bottom-[-5%]
-            right-[-10%]
-            h-[240px]
-            w-[240px]
+            -bottom-40
+            -left-40
+            h-[350px]
+            w-[350px]
+            animate-[faqGlowReverse_11s_ease-in-out_infinite]
             rounded-full
-            bg-[#ADD132]/8
-            blur-[100px]
-            dark:bg-[#ADD132]/4
-            sm:right-[2%]
-            sm:h-[300px]
-            sm:w-[300px]
-            sm:blur-[120px]
-            md:h-[350px]
-            md:w-[350px]
-            lg:bottom-[5%]
-            lg:right-[5%]
-            lg:blur-[140px]
+            bg-[#DDEBC4]/50
+            blur-[130px]
+            dark:bg-[#ADD132]/[0.025]
           "
-        />
-
-        <div
-          className="
-            absolute
-            right-0
-            top-0
-            h-full
-            w-full
-            opacity-[0.07]
-            dark:opacity-[0.05]
-            sm:w-[60%]
-            md:w-[50%]
-            lg:w-[45%]
-          "
-          style={{
-            backgroundImage:
-              "radial-gradient(rgba(90,120,45,0.45) 1px, transparent 1px)",
-            backgroundSize: "20px 20px",
-            maskImage:
-              "radial-gradient(circle at center, black, transparent 70%)",
-            WebkitMaskImage:
-              "radial-gradient(circle at center, black, transparent 70%)",
-          }}
         />
       </div>
 
@@ -156,488 +103,383 @@ function FAQ() {
         className="
           relative
           mx-auto
-          w-full
-          max-w-[1250px]
-          px-4
+          max-w-[1480px]
+          px-5
+          py-16
           sm:px-7
+          sm:py-20
           md:px-10
-          lg:px-12
+          md:py-24
+          lg:px-14
+          lg:py-28
+          xl:px-16
         "
       >
-        {/* ===================================================
+        {/* =================================================
             HEADER
-        =================================================== */}
-
-        <div className="mx-auto max-w-3xl text-center">
-          <div
-            className="
-              mb-4
-              flex
-              items-center
-              justify-center
-              gap-2
-              sm:mb-5
-              sm:gap-3
-              md:mb-6
-            "
-          >
-            <span className="h-px w-6 bg-[#8BAA20] dark:bg-[#ADD132] sm:w-8 md:w-10" />
-
-            <span
-              className="
-                text-[7px]
-                font-black
-                uppercase
-                tracking-[0.25em]
-                text-[#68755F]
-                dark:text-[#ADD132]
-                sm:text-[8px]
-                sm:tracking-[0.32em]
-                md:text-[9px]
-                md:tracking-[0.38em]
-              "
-            >
-              Frequently Asked Questions
-            </span>
-
-            <span className="h-px w-6 bg-[#8BAA20] dark:bg-[#ADD132] sm:w-8 md:w-10" />
-          </div>
-
-          <h2
-            className="
-              text-[32px]
-              font-black
-              leading-[0.96]
-              tracking-[-0.055em]
-              sm:text-[42px]
-              md:text-[52px]
-              lg:text-[64px]
-            "
-          >
-            Questions about
-            <br />
-            <span className="text-[#789900] dark:text-[#ADD132]">
-              digital protection?
-            </span>
-          </h2>
-
-          <p
-            className="
-              mx-auto
-              mt-4
-              max-w-[580px]
-              text-[10px]
-              leading-5
-              text-[#6D766C]
-              dark:text-white/40
-              sm:mt-5
-              sm:text-[11px]
-              sm:leading-6
-              md:mt-6
-              md:text-[12px]
-              lg:text-[13px]
-            "
-          >
-            Find answers about TrackOwls, digital intelligence, anti-piracy
-            monitoring, and protecting your online presence.
-          </p>
-        </div>
-
-        {/* ===================================================
-            FAQ LAYOUT
-        =================================================== */}
+        ================================================= */}
 
         <div
           className="
-            mt-10
-            grid
-            gap-6
-            sm:mt-12
-            sm:gap-8
-            md:gap-10
-            lg:grid-cols-[0.75fr_1.25fr]
-            lg:items-start
-            lg:gap-8
+            flex
+            flex-col
+            gap-8
+            border-b
+            border-black/[0.08]
+            pb-10
+            dark:border-white/[0.09]
+            lg:flex-row
+            lg:items-end
+            lg:justify-between
+            lg:gap-16
+            lg:pb-14
           "
         >
-          {/* =================================================
-              LEFT INFORMATION CARD
-          ================================================= */}
-
-          <div className="lg:sticky lg:top-28">
-            <div
-              className="
-                relative
-                overflow-hidden
-                rounded-[20px]
-                border
-                border-[#273326]/10
-                bg-white/75
-                p-5
-                shadow-[0_15px_45px_rgba(30,50,20,0.05)]
-                backdrop-blur-xl
-                dark:border-white/[0.08]
-                dark:bg-[#0A1009]/80
-                dark:shadow-[0_20px_60px_rgba(0,0,0,0.18)]
-                sm:rounded-[24px]
-                sm:p-6
-                md:rounded-[28px]
-                md:p-7
-                lg:p-8
-              "
-            >
-              {/* Decorative circles */}
-
-              <div
-                className="
-                  absolute
-                  right-[-40px]
-                  top-[-40px]
-                  h-28
-                  w-28
-                  rounded-full
-                  border
-                  border-[#ADD132]/15
-                  sm:right-[-45px]
-                  sm:top-[-45px]
-                  sm:h-32
-                  sm:w-32
-                "
-              />
-
-              <div
-                className="
-                  absolute
-                  right-[-18px]
-                  top-[-18px]
-                  h-16
-                  w-16
-                  rounded-full
-                  border
-                  border-[#ADD132]/15
-                  sm:right-[-20px]
-                  sm:top-[-20px]
-                  sm:h-20
-                  sm:w-20
-                "
-              />
-
-              {/* Icon */}
-
-              <div
+          <div className="max-w-[820px]">
+            <div className="mb-5 flex items-center gap-3">
+              <span
                 className="
                   flex
-                  h-10
-                  w-10
+                  h-8
+                  w-8
                   items-center
                   justify-center
-                  rounded-xl
                   border
-                  border-[#7D9F00]/15
-                  bg-[#ADD132]/10
-                  text-[#6F8D08]
-                  dark:border-[#ADD132]/15
+                  border-[#ADD132]/30
+                  bg-[#ADD132]/5
+                  text-[#789900]
                   dark:text-[#ADD132]
-                  sm:h-11
-                  sm:w-11
-                  sm:rounded-2xl
-                  md:h-12
-                  md:w-12
                 "
               >
-                <MessageCircle
-                  size={17}
+                <MessageCircleQuestion
+                  size={15}
                   strokeWidth={1.5}
-                  className="sm:h-[18px] sm:w-[18px] md:h-5 md:w-5"
                 />
-              </div>
+              </span>
 
-              <p
+              <span
                 className="
-                  mt-5
-                  text-[7px]
+                  text-[8px]
+                  font-black
+                  uppercase
+                  tracking-[0.32em]
+                  text-[#6F850E]
+                  dark:text-[#ADD132]
+                  sm:text-[9px]
+                "
+              >
+                Knowledge Centre
+              </span>
+            </div>
+
+            <h2
+              className="
+                text-[34px]
+                font-black
+                leading-[0.97]
+                tracking-[-0.045em]
+                text-[#152019]
+                dark:text-white
+                sm:text-4xl
+                md:text-5xl
+                lg:text-6xl
+              "
+            >
+              Questions before
+              <span className="text-[#789900] dark:text-[#ADD132]">
+                {" "}
+                protection begins.
+              </span>
+            </h2>
+          </div>
+
+          <div className="max-w-[410px] lg:pb-1">
+            <p
+              className="
+                text-[13px]
+                leading-7
+                text-[#69756D]
+                dark:text-white/45
+                sm:text-[14px]
+              "
+            >
+              Explore the fundamentals of TrackOwls, its monitoring approach,
+              supported digital surfaces and how organizations can begin using
+              the platform.
+            </p>
+
+            <div className="mt-5 flex items-center gap-2">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#ADD132]" />
+
+              <span
+                className="
+                  text-[8px]
                   font-black
                   uppercase
                   tracking-[0.2em]
-                  text-[#71805F]
+                  text-[#789900]
                   dark:text-[#ADD132]
-                  sm:mt-6
-                  sm:text-[8px]
-                  sm:tracking-[0.23em]
-                  md:mt-7
-                  md:text-[9px]
-                  md:tracking-[0.25em]
                 "
               >
-                Need more information?
-              </p>
-
-              <h3
-                className="
-                  mt-2
-                  text-[22px]
-                  font-black
-                  leading-[1.05]
-                  tracking-[-0.04em]
-                  text-[#172017]
-                  dark:text-white
-                  sm:mt-3
-                  sm:text-[24px]
-                  md:text-[25px]
-                "
-              >
-                Let's talk about
-                <br />
-                your digital ecosystem.
-              </h3>
-
-              <p
-                className="
-                  mt-3
-                  text-[10px]
-                  leading-5
-                  text-[#707A70]
-                  dark:text-white/35
-                  sm:mt-4
-                  sm:text-[11px]
-                  sm:leading-6
-                "
-              >
-                Have a specific requirement or want to understand how
-                TrackOwls can support your organization?
-              </p>
-
-              <button
-                type="button"
-                className="
-                  group
-                  mt-5
-                  inline-flex
-                  w-full
-                  items-center
-                  justify-between
-                  gap-3
-                  rounded-full
-                  bg-[#ADD132]
-                  px-4
-                  py-2.5
-                  text-[7px]
-                  font-black
-                  uppercase
-                  tracking-[0.15em]
-                  text-[#101800]
-                  shadow-[0_10px_30px_rgba(110,140,20,0.14)]
-                  transition-all
-                  hover:-translate-y-0.5
-                  hover:shadow-[0_15px_40px_rgba(110,140,20,0.24)]
-                  sm:w-auto
-                  sm:gap-4
-                  sm:px-5
-                  sm:py-3
-                  sm:text-[8px]
-                  sm:tracking-[0.18em]
-                "
-              >
-                Contact TrackOwls
-
-                <span
-                  className="
-                    flex
-                    h-5
-                    w-5
-                    shrink-0
-                    items-center
-                    justify-center
-                    rounded-full
-                    bg-[#0A1008]
-                    text-[#ADD132]
-                    transition-transform
-                    group-hover:rotate-45
-                    sm:h-6
-                    sm:w-6
-                  "
-                >
-                  <ArrowUpRight size={10} className="sm:h-3 sm:w-3" />
-                </span>
-              </button>
-            </div>
-
-            {/* Trust Detail */}
-
-            <div
-              className="
-                mt-3
-                flex
-                items-center
-                justify-between
-                rounded-[16px]
-                border
-                border-[#273326]/10
-                bg-white/55
-                px-4
-                py-3
-                backdrop-blur-xl
-                dark:border-white/[0.07]
-                dark:bg-white/[0.02]
-                sm:mt-4
-                sm:rounded-[18px]
-                sm:px-5
-                sm:py-4
-              "
-            >
-              <span
-                className="
-                  text-[7px]
-                  font-black
-                  uppercase
-                  tracking-[0.15em]
-                  text-[#687267]
-                  dark:text-white/30
-                  sm:text-[8px]
-                  sm:tracking-[0.18em]
-                "
-              >
-                Digital Intelligence
-              </span>
-
-              <span
-                className="
-                  flex
-                  items-center
-                  gap-1.5
-                  text-[7px]
-                  font-black
-                  uppercase
-                  tracking-[0.12em]
-                  text-[#6F8D08]
-                  dark:text-[#ADD132]
-                  sm:gap-2
-                  sm:text-[8px]
-                  sm:tracking-[0.15em]
-                "
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-[#7D9F00] dark:bg-[#ADD132]" />
-                Active
+                08 questions
               </span>
             </div>
           </div>
+        </div>
 
-          {/* =================================================
-              QUESTIONS
-          ================================================= */}
+        {/* =================================================
+            FAQ AREA
+        ================================================= */}
 
-          <div className="space-y-2.5 sm:space-y-3">
-            {faqs.map((faq, index) => {
-              const isOpen = openIndex === index;
+        <div className="relative mt-12 lg:mt-16">
+          {/* Vertical signal line */}
+
+          <div
+            className="
+              pointer-events-none
+              absolute
+              bottom-0
+              left-[17px]
+              top-0
+              hidden
+              w-px
+              bg-black/[0.08]
+              dark:bg-white/[0.09]
+              sm:block
+            "
+          />
+
+          <div
+            className="
+              pointer-events-none
+              absolute
+              left-[17px]
+              top-0
+              hidden
+              h-[130px]
+              w-px
+              animate-[faqSignal_4.5s_linear_infinite]
+              bg-gradient-to-b
+              from-transparent
+              via-[#ADD132]
+              to-transparent
+              shadow-[0_0_14px_rgba(173,209,50,0.7)]
+              sm:block
+            "
+          />
+
+          <div className="space-y-0">
+            {faqs.map(([question, answer], index) => {
+              const isOpen = activeFaq === index;
 
               return (
                 <div
-                  key={faq.question}
-                  className={`
-                    overflow-hidden
-                    rounded-[16px]
-                    border
-                    transition-all
-                    duration-300
-                    sm:rounded-[18px]
-                    md:rounded-[20px]
-                    ${
-                      isOpen
-                        ? "border-[#ADD132]/35 bg-white shadow-[0_12px_35px_rgba(40,60,25,0.06)] dark:border-[#ADD132]/25 dark:bg-[#0B120A] dark:shadow-[0_15px_45px_rgba(0,0,0,0.16)]"
-                        : "border-[#273326]/10 bg-white/60 hover:border-[#ADD132]/25 dark:border-white/[0.07] dark:bg-white/[0.025] dark:hover:border-[#ADD132]/20"
-                    }
-                  `}
+                  key={question}
+                  className="
+                    relative
+                    border-b
+                    border-black/[0.08]
+                    dark:border-white/[0.09]
+                  "
                 >
-                  {/* Question Button */}
+                  {/* =================================================
+                      QUESTION ROW
+                  ================================================= */}
 
                   <button
                     type="button"
-                    onClick={() => toggleFAQ(index)}
+                    onClick={() => toggleFaq(index)}
+                    aria-expanded={isOpen}
                     className="
+                      group
                       flex
                       w-full
+                      cursor-pointer
                       items-center
-                      justify-between
-                      gap-3
-                      px-4
-                      py-4
+                      gap-4
+                      py-6
                       text-left
-                      sm:gap-5
-                      sm:px-5
-                      sm:py-5
-                      md:px-6
+                      sm:gap-6
+                      sm:py-7
+                      md:py-8
                     "
-                    aria-expanded={isOpen}
                   >
-                    <div className="flex min-w-0 items-center gap-3 sm:gap-4">
+                    {/* Number */}
+
+                    <div
+                      className="
+                        relative
+                        hidden
+                        h-9
+                        w-9
+                        shrink-0
+                        items-center
+                        justify-center
+                        sm:flex
+                      "
+                    >
                       <span
                         className={`
-                          shrink-0
-                          text-[7px]
+                          absolute
+                          inset-0
+                          rounded-full
+                          border
+                          transition-all
+                          duration-500
+                          ${
+                            isOpen
+                              ? "scale-100 border-[#ADD132]/50 bg-[#ADD132]/10"
+                              : "scale-75 border-black/10 dark:border-white/10"
+                          }
+                        `}
+                      />
+
+                      <span
+                        className={`
+                          relative
+                          text-[8px]
                           font-black
-                          tracking-[0.16em]
-                          sm:text-[8px]
-                          sm:tracking-[0.2em]
+                          tracking-[0.1em]
+                          transition-colors
+                          duration-300
                           ${
                             isOpen
                               ? "text-[#789900] dark:text-[#ADD132]"
-                              : "text-[#9AA397] dark:text-white/20"
+                              : "text-[#89948B] dark:text-white/25"
                           }
                         `}
                       >
-                        0{index + 1}
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+
+                    {/* Mobile number */}
+
+                    <span
+                      className={`
+                        w-7
+                        shrink-0
+                        text-[8px]
+                        font-black
+                        tracking-[0.1em]
+                        sm:hidden
+                        ${
+                          isOpen
+                            ? "text-[#789900] dark:text-[#ADD132]"
+                            : "text-[#89948B] dark:text-white/25"
+                        }
+                      `}
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+
+                    {/* Question */}
+
+                    <span
+                      className={`
+                        flex-1
+                        text-[15px]
+                        font-bold
+                        leading-6
+                        tracking-[-0.015em]
+                        transition-all
+                        duration-300
+                        sm:text-[17px]
+                        md:text-[18px]
+                        ${
+                          isOpen
+                            ? "text-[#152019] dark:text-white"
+                            : "text-[#566159] group-hover:text-[#152019] dark:text-white/55 dark:group-hover:text-white"
+                        }
+                      `}
+                    >
+                      {question}
+                    </span>
+
+                    {/* Right status */}
+
+                    <span
+                      className="
+                        hidden
+                        items-center
+                        gap-3
+                        sm:flex
+                      "
+                    >
+                      <span
+                        className={`
+                          text-[7px]
+                          font-black
+                          uppercase
+                          tracking-[0.18em]
+                          transition-all
+                          duration-300
+                          ${
+                            isOpen
+                              ? "text-[#789900] opacity-100 dark:text-[#ADD132]"
+                              : "text-[#8A948C] opacity-0 group-hover:opacity-100 dark:text-white/25"
+                          }
+                        `}
+                      >
+                        {isOpen ? "Open" : "View"}
                       </span>
 
                       <span
                         className={`
-                          text-[10px]
-                          font-black
-                          leading-5
-                          sm:text-[12px]
-                          md:text-[13px]
+                          flex
+                          h-8
+                          w-8
+                          items-center
+                          justify-center
+                          border
+                          transition-all
+                          duration-500
                           ${
                             isOpen
-                              ? "text-[#172017] dark:text-white"
-                              : "text-[#374036] dark:text-white/65"
+                              ? "rotate-180 border-[#ADD132]/40 bg-[#ADD132] text-[#152019]"
+                              : "border-black/10 text-[#778178] group-hover:border-[#ADD132]/40 dark:border-white/10 dark:text-white/30"
                           }
                         `}
                       >
-                        {faq.question}
+                        <ChevronDown size={14} strokeWidth={2} />
                       </span>
-                    </div>
+                    </span>
+
+                    {/* Mobile icon */}
 
                     <span
                       className={`
                         flex
-                        h-7
-                        w-7
+                        h-8
+                        w-8
                         shrink-0
                         items-center
                         justify-center
-                        rounded-full
                         border
                         transition-all
-                        duration-300
-                        sm:h-8
-                        sm:w-8
+                        duration-500
+                        sm:hidden
                         ${
                           isOpen
-                            ? "rotate-180 border-[#ADD132]/40 bg-[#ADD132] text-[#101800]"
-                            : "border-[#273326]/10 bg-white text-[#6E786C] dark:border-white/10 dark:bg-white/[0.03] dark:text-white/40"
+                            ? "rotate-180 border-[#ADD132]/40 bg-[#ADD132] text-[#152019]"
+                            : "border-black/10 text-[#778178] dark:border-white/10 dark:text-white/30"
                         }
                       `}
                     >
-                      <ChevronDown size={12} className="sm:h-[14px] sm:w-[14px]" />
+                      <ChevronDown size={14} strokeWidth={2} />
                     </span>
                   </button>
 
-                  {/* Answer */}
+                  {/* =================================================
+                      ANSWER
+                  ================================================= */}
 
                   <div
                     className={`
                       grid
-                      transition-all
-                      duration-300
+                      transition-[grid-template-rows,opacity]
+                      duration-500
+                      ease-out
                       ${
                         isOpen
                           ? "grid-rows-[1fr] opacity-100"
@@ -645,36 +487,57 @@ function FAQ() {
                       }
                     `}
                   >
-                    <div className="min-h-0 overflow-hidden">
+                    <div className="overflow-hidden">
                       <div
                         className="
-                          border-t
-                          border-[#273326]/8
-                          px-4
-                          pb-5
-                          pt-4
-                          dark:border-white/[0.07]
-                          sm:px-5
-                          sm:pb-6
-                          sm:pt-5
-                          md:px-6
+                          pb-7
+                          pl-11
+                          sm:pl-[66px]
+                          md:pb-8
                         "
                       >
-                        <p
+                        <div
                           className="
-                            pl-[25px]
-                            text-[9px]
-                            leading-5
-                            text-[#697369]
-                            dark:text-white/40
-                            sm:pl-[32px]
-                            sm:text-[11px]
-                            sm:leading-6
-                            md:text-[12px]
+                            flex
+                            max-w-[820px]
+                            gap-4
+                            border-l-2
+                            border-[#ADD132]/40
+                            pl-5
+                            sm:pl-6
                           "
                         >
-                          {faq.answer}
-                        </p>
+                          <p
+                            className="
+                              text-[12px]
+                              leading-7
+                              text-[#68736B]
+                              dark:text-white/45
+                              sm:text-[13px]
+                              sm:leading-7
+                              md:text-[14px]
+                            "
+                          >
+                            {answer}
+                          </p>
+                        </div>
+
+                        <div className="mt-5 flex items-center gap-2">
+                          <span className="h-1 w-1 rounded-full bg-[#ADD132]" />
+
+                          <span
+                            className="
+                              text-[7px]
+                              font-black
+                              uppercase
+                              tracking-[0.18em]
+                              text-[#89948B]
+                              dark:text-white/25
+                            "
+                          >
+                            TrackOwls intelligence
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -684,67 +547,69 @@ function FAQ() {
           </div>
         </div>
 
-        {/* ===================================================
-            BOTTOM CTA
-        =================================================== */}
+        {/* =================================================
+            BOTTOM INFORMATION
+        ================================================= */}
 
         <div
           className="
-            mt-8
+            mt-12
             flex
             flex-col
-            items-stretch
-            justify-between
-            gap-4
-            rounded-[18px]
-            border
-            border-[#273326]/10
-            bg-white/65
-            px-4
-            py-4
-            backdrop-blur-xl
-            dark:border-white/[0.08]
-            dark:bg-white/[0.025]
-            sm:mt-10
+            gap-5
+            border-t
+            border-black/[0.08]
+            pt-7
+            dark:border-white/[0.09]
             sm:flex-row
             sm:items-center
-            sm:gap-5
-            sm:rounded-[20px]
-            sm:px-6
-            sm:py-5
-            md:rounded-[22px]
-            md:px-8
+            sm:justify-between
           "
         >
-          <div className="min-w-0">
-            <p
+          <div className="flex items-center gap-3">
+            <span
               className="
-                text-[7px]
-                font-black
-                uppercase
-                tracking-[0.18em]
-                text-[#3E493C]
-                dark:text-white/65
-                sm:text-[8px]
-                sm:tracking-[0.22em]
-                md:text-[9px]
+                flex
+                h-8
+                w-8
+                items-center
+                justify-center
+                border
+                border-[#ADD132]/30
+                bg-[#ADD132]/5
+                text-[#789900]
+                dark:text-[#ADD132]
               "
             >
-              Still have questions?
-            </p>
+              <MessageCircleQuestion
+                size={14}
+                strokeWidth={1.5}
+              />
+            </span>
 
-            <p
-              className="
-                mt-0.5
-                text-[7px]
-                text-[#7B857B]
-                dark:text-white/30
-                sm:mt-1
-                sm:text-[8px]
-              "
-            >
-              Our team can help you understand the right protection approach.
-            </p>
+            <div>
+              <p
+                className="
+                  text-[10px]
+                  font-bold
+                  text-[#435047]
+                  dark:text-white/60
+                "
+              >
+                Still have a question?
+              </p>
+
+              <p
+                className="
+                  mt-0.5
+                  text-[8px]
+                  text-[#8A948C]
+                  dark:text-white/25
+                "
+              >
+                Our team can discuss your specific protection requirements.
+              </p>
+            </div>
           </div>
 
           <button
@@ -752,51 +617,107 @@ function FAQ() {
             className="
               group
               inline-flex
-              w-full
+              w-fit
+              cursor-pointer
               items-center
-              justify-center
-              gap-2.5
-              rounded-full
+              gap-3
               border
-              border-[#6F8D08]/20
-              bg-[#ADD132]/10
-              px-4
-              py-2.5
-              text-[7px]
+              border-[#172018]
+              px-5
+              py-3
+              text-[8px]
               font-black
               uppercase
-              tracking-[0.15em]
-              text-[#5D7607]
+              tracking-[0.2em]
+              text-[#172018]
               transition-all
-              hover:border-[#ADD132]/50
-              hover:bg-[#ADD132]/20
-              dark:border-[#ADD132]/20
-              dark:text-[#ADD132]
-              sm:w-auto
-              sm:gap-3
-              sm:px-5
-              sm:py-3
-              sm:text-[8px]
-              sm:tracking-[0.18em]
+              duration-300
+              hover:-translate-y-1
+              hover:border-[#ADD132]
+              hover:bg-[#ADD132]
+              dark:border-white/15
+              dark:text-white
+              dark:hover:border-[#ADD132]
+              dark:hover:text-[#101600]
             "
           >
-            Talk to Our Team
+            Contact TrackOwls
 
             <ArrowUpRight
-              size={11}
+              size={14}
               className="
                 transition-transform
-                group-hover:translate-x-0.5
+                duration-300
                 group-hover:-translate-y-0.5
-                sm:h-[13px]
-                sm:w-[13px]
+                group-hover:translate-x-0.5
               "
             />
           </button>
         </div>
       </div>
+
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800;900&display=swap');
+
+        @keyframes faqGlow {
+          0%,
+          100% {
+            transform: translate3d(0, 0, 0) scale(1);
+            opacity: 0.45;
+          }
+
+          50% {
+            transform: translate3d(-25px, 30px, 0) scale(1.12);
+            opacity: 0.8;
+          }
+        }
+
+        @keyframes faqGlowReverse {
+          0%,
+          100% {
+            transform: translate3d(0, 0, 0) scale(1);
+            opacity: 0.35;
+          }
+
+          50% {
+            transform: translate3d(30px, -25px, 0) scale(1.1);
+            opacity: 0.7;
+          }
+        }
+
+        @keyframes faqSignal {
+          0% {
+            transform: translateY(-150px);
+            opacity: 0;
+          }
+
+          15% {
+            opacity: 1;
+          }
+
+          80% {
+            opacity: 1;
+          }
+
+          100% {
+            transform: translateY(850px);
+            opacity: 0;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          *,
+          *::before,
+          *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            scroll-behavior: auto !important;
+            transition-duration: 0.01ms !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
 
-export default FAQ;
+export default Faq;

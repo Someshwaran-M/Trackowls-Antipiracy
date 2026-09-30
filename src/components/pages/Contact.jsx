@@ -60,16 +60,16 @@ function Contact() {
     {
       icon: Mail,
       title: "Email",
-      value: "contact@trackowls.com",
-      description: "Send us your requirements",
-      href: "mailto:contact@trackowls.com",
+      value: "hello@trackowls.example",
+      description: "Replace with your live business email",
+      href: "mailto:hello@trackowls.example",
     },
     {
       icon: Phone,
       title: "Phone",
-      value: "+91 XXXXX XXXXX",
-      description: "Talk to our team",
-      href: "tel:+91XXXXXXXXXX",
+      value: "+91 00000 00000",
+      description: "Replace with your live contact number",
+      href: "#inquiry",
     },
     {
       icon: MapPin,
@@ -241,17 +241,10 @@ function Contact() {
 
               <h1
                 className="
+                  track-section-heading
                   max-w-4xl
-                  text-[42px]
-                  font-black
-                  leading-[0.97]
-                  tracking-[-0.055em]
                   text-[#152019]
                   dark:text-white
-                  sm:text-[54px]
-                  md:text-[66px]
-                  lg:text-[76px]
-                  xl:text-[86px]
                 "
               >
                 Let's protect what
@@ -1143,7 +1136,7 @@ function Contact() {
                       type="tel"
                       value={formData.phone}
                       onChange={handleChange}
-                      placeholder="+91 XXXXX XXXXX"
+                      placeholder="+91 00000 00000"
                       className={inputClass}
                     />
                   </FormField>

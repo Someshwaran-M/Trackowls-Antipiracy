@@ -15,6 +15,7 @@ import CaseStudies from "./components/pages/CaseStudies";
 import Insights from "./components/pages/Insights";
 import Contact from "./components/pages/Contact";
 import RequestDemo from "./components/pages/RequestDemo";
+
 function App() {
   return (
     <div className="min-h-screen bg-white text-[#152019] dark:bg-[#070A07] dark:text-white">
@@ -25,8 +26,6 @@ function App() {
       {/* ================= MAIN CONTENT ================= */}
       <main className="pt-[90px]">
         <Routes>
-
-          {/* Home */}
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/solutions" element={<Solutions />} />

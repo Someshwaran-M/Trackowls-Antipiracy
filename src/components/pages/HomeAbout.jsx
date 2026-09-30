@@ -1,30 +1,64 @@
 import React from "react";
+import { ArrowUpRight, ShieldCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 
-import {
-  Eye,
-  Fingerprint,
-  ShieldCheck,
-  ArrowUpRight,
-} from "lucide-react";
-
 function HomeAbout() {
+  const processSteps = [
+    {
+      number: "01",
+      title: "SCAN",
+      heading: "Find the signals.",
+      body:
+        "We monitor websites, social platforms, Telegram, marketplaces, search results and domains to discover activity around your valuable assets.",
+    },
+    {
+      number: "02",
+      title: "DETECT",
+      heading: "Verify what matters.",
+      body:
+        "Potential matches are reviewed and verified before evidence is captured, helping separate meaningful threats from irrelevant results.",
+    },
+    {
+      number: "03",
+      title: "REMOVE",
+      heading: "Turn intelligence into action.",
+      body:
+        "We coordinate response workflows with platforms, hosts, registrars and search engines to address identified infringements.",
+    },
+    {
+      number: "04",
+      title: "PROTECT",
+      heading: "Keep watching.",
+      body:
+        "We monitor repeat offenders, track emerging activity and provide ongoing visibility so protection continues beyond a single incident.",
+    },
+  ];
+
+  const approachPoints = [
+    "Digital visibility",
+    "Threat intelligence",
+    "Human verification",
+    "Protection workflows",
+  ];
+
   return (
     <section
       className="
         relative
         overflow-hidden
         bg-[#F4F7F0]
-        py-16
+        py-14
+        text-[#152019]
         dark:bg-[#050705]
-        sm:py-20
-        md:py-24
-        lg:py-28
+        dark:text-white
+        sm:py-16
+        md:py-20
+        lg:py-24
       "
     >
-      {/* =====================================================
-          AMBIENT GLOW
-      ===================================================== */}
+      {/* =========================================================
+          AMBIENT BACKGROUND
+      ========================================================= */}
 
       <div
         className="
@@ -32,17 +66,16 @@ function HomeAbout() {
           absolute
           -left-32
           top-1/4
-          h-[260px]
-          w-[260px]
-          animate-pulse
+          h-[240px]
+          w-[240px]
           rounded-full
           bg-[#ADD132]/10
           blur-[100px]
-          sm:h-[350px]
-          sm:w-[350px]
+          sm:h-[320px]
+          sm:w-[320px]
           sm:blur-[120px]
-          lg:h-[420px]
-          lg:w-[420px]
+          lg:h-[400px]
+          lg:w-[400px]
           lg:blur-[140px]
         "
       />
@@ -53,867 +86,883 @@ function HomeAbout() {
           absolute
           -right-32
           bottom-0
-          h-[300px]
-          w-[300px]
+          h-[260px]
+          w-[260px]
           rounded-full
-          bg-[#ADD132]/8
+          bg-[#ADD132]/[0.06]
           blur-[110px]
-          sm:h-[400px]
-          sm:w-[400px]
-          sm:blur-[140px]
-          lg:h-[500px]
-          lg:w-[500px]
-          lg:blur-[160px]
+          sm:h-[360px]
+          sm:w-[360px]
+          sm:blur-[130px]
+          lg:h-[440px]
+          lg:w-[440px]
+          lg:blur-[150px]
         "
       />
 
-      <div className="trackowls-container relative mx-auto w-full max-w-[1500px] px-4 sm:px-7 md:px-9 lg:px-12 xl:px-16">
-        {/* =====================================================
-            TOP HEADING
-        ===================================================== */}
+      <div
+        className="
+          pointer-events-none
+          absolute
+          inset-0
+          opacity-[0.25]
+          [background-image:linear-gradient(to_right,rgba(21,32,25,0.025)_1px,transparent_1px),linear-gradient(to_bottom,rgba(21,32,25,0.025)_1px,transparent_1px)]
+          [background-size:72px_72px]
+          dark:opacity-[0.12]
+          dark:[background-image:linear-gradient(to_right,rgba(173,209,50,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(173,209,50,0.035)_1px,transparent_1px)]
+        "
+      />
+
+      <div
+        className="
+          trackowls-container
+          relative
+          mx-auto
+          w-full
+          max-w-[1480px]
+          px-5
+          sm:px-7
+          md:px-10
+          lg:px-12
+          xl:px-16
+        "
+      >
+        {/* =========================================================
+            ABOUT INTRO
+        ========================================================= */}
 
         <div
           className="
             grid
-            gap-6
-            lg:grid-cols-[1fr_auto]
+            gap-7
+            lg:grid-cols-[minmax(0,1fr)_300px]
             lg:items-end
-            lg:gap-10
+            lg:gap-12
+            xl:grid-cols-[minmax(0,1fr)_340px]
+            xl:gap-16
           "
         >
-          {/* Heading */}
+          {/* LEFT */}
+
           <div>
-            {/* Label */}
-            <div className="mb-4 flex items-center gap-2 sm:mb-5 sm:gap-3">
-              <span className="relative flex h-1.5 w-1.5 shrink-0 sm:h-2 sm:w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#ADD132] opacity-60" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#ADD132] sm:h-2 sm:w-2" />
+            <div className="mb-4 flex items-center gap-3 sm:mb-5">
+              <span className="relative flex h-2 w-2 shrink-0">
+                <span
+                  className="
+                    absolute
+                    inset-0
+                    animate-ping
+                    rounded-full
+                    bg-[#ADD132]
+                    opacity-60
+                  "
+                />
+
+                <span className="relative h-2 w-2 rounded-full bg-[#ADD132]" />
               </span>
 
               <span
                 className="
-                  text-[8px]
+                  text-[10px]
                   font-black
                   uppercase
                   tracking-[0.2em]
                   text-[#6D900B]
                   dark:text-[#ADD132]
-                  sm:text-[9px]
-                  sm:tracking-[0.28em]
-                  md:text-[10px]
-                  md:tracking-[0.35em]
+                  sm:text-[11px]
+                  sm:tracking-[0.25em]
                 "
               >
                 About TrackOwls
               </span>
             </div>
 
-            {/* Main heading */}
+            {/* SAME GENERAL SIZE SCALE AS HOME HERO */}
+
             <h2
               className="
-                max-w-5xl
-                text-[42px]
+                max-w-3xl
+                text-[34px]
                 font-black
-                leading-[0.92]
-                tracking-[-0.055em]
+                leading-[0.95]
+                tracking-[-0.05em]
                 text-[#152019]
                 dark:text-white
-                sm:text-[52px]
-                sm:leading-[0.88]
-                md:text-[64px]
-                lg:text-[76px]
-                xl:text-[88px]
+                sm:text-4xl
+                md:text-5xl
+                lg:text-6xl
               "
             >
               Protection
               <br />
-              starts with
-              <br />
+              starts with{" "}
               <span className="relative inline-block text-[#6D900B] dark:text-[#ADD132]">
                 visibility.
-
                 <span
                   className="
                     absolute
-                    -bottom-2
+                    -bottom-1.5
                     left-0
                     h-[2px]
                     w-full
                     origin-left
                     animate-[trackowls-line_3s_ease-in-out_infinite]
                     bg-[#ADD132]
-                    sm:-bottom-3
-                    sm:h-[3px]
+                    sm:-bottom-2
                   "
                 />
               </span>
             </h2>
           </div>
 
-          {/* Intro */}
-          <div className="lg:pb-2">
+          {/* RIGHT */}
+
+          <div className="max-w-md lg:pb-1">
+            <div className="mb-4 h-px w-12 bg-[#ADD132] sm:mb-5 sm:w-16" />
+
             <p
               className="
-                max-w-xs
-                text-[12px]
-                leading-5
+                text-[13px]
+                leading-6
                 text-[#68736B]
-                dark:text-white/40
-                sm:text-[13px]
-                sm:leading-6
-                md:text-sm
-                md:leading-7
+                dark:text-white/50
+                sm:text-[14px]
+                sm:leading-7
+                md:text-[15px]
               "
             >
               We help organizations understand the digital ecosystem around
               their content, brands and intellectual property.
             </p>
+
+            <p
+              className="
+                mt-4
+                text-[12px]
+                leading-5
+                text-[#7A857D]
+                dark:text-white/35
+                sm:text-[13px]
+                sm:leading-6
+              "
+            >
+              Visibility gives rights holders the information needed to
+              identify misuse, understand emerging threats and respond.
+            </p>
           </div>
         </div>
 
-        {/* =====================================================
-            INTERACTIVE STORY
-        ===================================================== */}
-
-        <div className="relative mt-14 sm:mt-16 md:mt-20 lg:mt-24">
-          {/* Animated vertical beam */}
-          <div
-            className="
-              absolute
-              bottom-0
-              left-[23px]
-              top-0
-              hidden
-              w-px
-              overflow-hidden
-              bg-black/[0.07]
-              dark:bg-white/[0.08]
-              sm:block
-              sm:left-[31px]
-            "
-          >
-            <div
-              className="
-                trackowls-beam
-                absolute
-                left-0
-                top-0
-                h-24
-                w-full
-                bg-[#ADD132]
-                shadow-[0_0_15px_#ADD132]
-                sm:h-32
-              "
-            />
-          </div>
-
-          {/* =====================================================
-              01 / DISCOVER
-          ===================================================== */}
-
-          <div
-            className="
-              group
-              relative
-              grid
-              gap-5
-              pb-12
-              sm:grid-cols-[64px_1fr]
-              sm:gap-8
-              sm:pb-16
-              md:gap-10
-              md:pb-18
-              lg:pb-20
-            "
-          >
-            {/* Icon */}
-            <div
-              className="
-                relative
-                z-10
-                flex
-                h-12
-                w-12
-                items-center
-                justify-center
-                rounded-full
-                border
-                border-[#ADD132]/30
-                bg-[#F4F7F0]
-                dark:bg-[#050705]
-                sm:h-16
-                sm:w-16
-              "
-            >
-              <Eye
-                className="
-                  h-4
-                  w-4
-                  text-[#6D900B]
-                  transition-transform
-                  duration-500
-                  group-hover:scale-125
-                  dark:text-[#ADD132]
-                  sm:h-5
-                  sm:w-5
-                "
-              />
-            </div>
-
-            <div
-              className="
-                grid
-                gap-4
-                md:grid-cols-[0.8fr_1.2fr]
-                md:items-center
-                md:gap-8
-              "
-            >
-              <div>
-                <span
-                  className="
-                    text-[8px]
-                    font-black
-                    tracking-[0.22em]
-                    text-[#89938B]
-                    dark:text-white/20
-                    sm:text-[9px]
-                    sm:tracking-[0.28em]
-                    md:text-[10px]
-                    md:tracking-[0.3em]
-                  "
-                >
-                  01 / DISCOVER
-                </span>
-
-                <h3
-                  className="
-                    mt-2
-                    text-[26px]
-                    font-black
-                    leading-[0.95]
-                    tracking-[-0.04em]
-                    text-[#152019]
-                    dark:text-white
-                    sm:mt-3
-                    sm:text-3xl
-                    md:text-4xl
-                  "
-                >
-                  Know what
-                  <br />
-                  exists.
-                </h3>
-              </div>
-
-              <p
-                className="
-                  max-w-xl
-                  text-[12px]
-                  leading-5
-                  text-[#707A72]
-                  dark:text-white/40
-                  sm:text-[13px]
-                  sm:leading-6
-                  md:text-sm
-                  md:leading-7
-                  lg:text-base
-                  lg:leading-8
-                "
-              >
-                The digital ecosystem is vast and constantly changing.
-                TrackOwls brings visibility to the places, platforms and
-                digital activity surrounding your valuable assets.
-              </p>
-            </div>
-          </div>
-
-          {/* =====================================================
-              02 / UNDERSTAND
-          ===================================================== */}
-
-          <div
-            className="
-              group
-              relative
-              grid
-              gap-5
-              pb-12
-              sm:grid-cols-[64px_1fr]
-              sm:gap-8
-              sm:pb-16
-              md:gap-10
-              md:pb-18
-              lg:pb-20
-            "
-          >
-            {/* Icon */}
-            <div
-              className="
-                relative
-                z-10
-                flex
-                h-12
-                w-12
-                items-center
-                justify-center
-                rounded-full
-                border
-                border-[#ADD132]/30
-                bg-[#F4F7F0]
-                dark:bg-[#050705]
-                sm:h-16
-                sm:w-16
-              "
-            >
-              <Fingerprint
-                className="
-                  h-4
-                  w-4
-                  text-[#6D900B]
-                  transition-transform
-                  duration-500
-                  group-hover:scale-125
-                  dark:text-[#ADD132]
-                  sm:h-5
-                  sm:w-5
-                "
-              />
-            </div>
-
-            <div
-              className="
-                grid
-                gap-4
-                md:grid-cols-[0.8fr_1.2fr]
-                md:items-center
-                md:gap-8
-              "
-            >
-              <div>
-                <span
-                  className="
-                    text-[8px]
-                    font-black
-                    tracking-[0.22em]
-                    text-[#89938B]
-                    dark:text-white/20
-                    sm:text-[9px]
-                    sm:tracking-[0.28em]
-                    md:text-[10px]
-                    md:tracking-[0.3em]
-                  "
-                >
-                  02 / UNDERSTAND
-                </span>
-
-                <h3
-                  className="
-                    mt-2
-                    text-[26px]
-                    font-black
-                    leading-[0.95]
-                    tracking-[-0.04em]
-                    text-[#152019]
-                    dark:text-white
-                    sm:mt-3
-                    sm:text-3xl
-                    md:text-4xl
-                  "
-                >
-                  Read the
-                  <br />
-                  signals.
-                </h3>
-              </div>
-
-              <p
-                className="
-                  max-w-xl
-                  text-[12px]
-                  leading-5
-                  text-[#707A72]
-                  dark:text-white/40
-                  sm:text-[13px]
-                  sm:leading-6
-                  md:text-sm
-                  md:leading-7
-                  lg:text-base
-                  lg:leading-8
-                "
-              >
-                Signals become meaningful when they are connected. We help
-                transform scattered digital activity into intelligence that
-                provides a clearer picture of emerging risks.
-              </p>
-            </div>
-          </div>
-
-          {/* =====================================================
-              03 / PROTECT
-          ===================================================== */}
-
-          <div
-            className="
-              group
-              relative
-              grid
-              gap-5
-              sm:grid-cols-[64px_1fr]
-              sm:gap-8
-              md:gap-10
-            "
-          >
-            {/* Icon */}
-            <div
-              className="
-                relative
-                z-10
-                flex
-                h-12
-                w-12
-                items-center
-                justify-center
-                rounded-full
-                border
-                border-[#ADD132]/30
-                bg-[#F4F7F0]
-                dark:bg-[#050705]
-                sm:h-16
-                sm:w-16
-              "
-            >
-              <ShieldCheck
-                className="
-                  h-4
-                  w-4
-                  text-[#6D900B]
-                  transition-transform
-                  duration-500
-                  group-hover:scale-125
-                  dark:text-[#ADD132]
-                  sm:h-5
-                  sm:w-5
-                "
-              />
-            </div>
-
-            <div
-              className="
-                grid
-                gap-4
-                md:grid-cols-[0.8fr_1.2fr]
-                md:items-center
-                md:gap-8
-              "
-            >
-              <div>
-                <span
-                  className="
-                    text-[8px]
-                    font-black
-                    tracking-[0.22em]
-                    text-[#89938B]
-                    dark:text-white/20
-                    sm:text-[9px]
-                    sm:tracking-[0.28em]
-                    md:text-[10px]
-                    md:tracking-[0.3em]
-                  "
-                >
-                  03 / PROTECT
-                </span>
-
-                <h3
-                  className="
-                    mt-2
-                    text-[26px]
-                    font-black
-                    leading-[0.95]
-                    tracking-[-0.04em]
-                    text-[#152019]
-                    dark:text-white
-                    sm:mt-3
-                    sm:text-3xl
-                    md:text-4xl
-                  "
-                >
-                  Act with
-                  <br />
-                  confidence.
-                </h3>
-              </div>
-
-              <p
-                className="
-                  max-w-xl
-                  text-[12px]
-                  leading-5
-                  text-[#707A72]
-                  dark:text-white/40
-                  sm:text-[13px]
-                  sm:leading-6
-                  md:text-sm
-                  md:leading-7
-                  lg:text-base
-                  lg:leading-8
-                "
-              >
-                Intelligence becomes valuable when it leads to action.
-                TrackOwls is built to help organizations respond to digital
-                threats with greater clarity and control.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* =====================================================
-            PREMIUM ABOUT CTA
-        ===================================================== */}
+        {/* =========================================================
+            HOW TRACKOWLS WORKS
+        ========================================================= */}
 
         <section
           className="
             relative
-            mt-12
-            py-10
-            sm:mt-16
-            sm:py-12
-            md:mt-20
-            md:py-14
-            lg:mt-24
-            lg:mr-0
-            lg:py-16
+            mt-16
+            border-t
+            border-black/[0.07]
+            py-16
+            dark:border-white/[0.09]
+            sm:mt-20
+            sm:py-20
+            md:mt-24
+            md:py-24
+            lg:mt-28
+            lg:py-24
           "
         >
-          {/* Ambient glow */}
-          <div
-            className="
-              pointer-events-none
-              absolute
-              -left-24
-              top-1/2
-              h-56
-              w-56
-              -translate-y-1/2
-              rounded-full
-              bg-[#ADD132]/10
-              blur-[90px]
-              sm:h-72
-              sm:w-72
-              sm:blur-[120px]
-            "
-          />
+          {/* SECTION HEADER */}
 
           <div
             className="
-              pointer-events-none
-              absolute
-              right-0
-              top-0
-              h-48
-              w-48
-              rounded-full
-              bg-[#ADD132]/5
-              blur-[80px]
-              sm:h-64
-              sm:w-64
-              sm:blur-[100px]
+              flex
+              flex-col
+              gap-5
+              lg:flex-row
+              lg:items-end
+              lg:justify-between
+              lg:gap-12
             "
-          />
+          >
+            <div>
+              <p
+                className="
+                  text-[10px]
+                  font-black
+                  uppercase
+                  tracking-[0.22em]
+                  text-[#6D900B]
+                  dark:text-[#ADD132]
+                  sm:text-[11px]
+                  sm:tracking-[0.28em]
+                "
+              >
+                How TrackOwls works
+              </p>
 
-          <div className="trackowls-container relative">
+              <h2
+                className="
+                  mt-3
+                  max-w-3xl
+                  text-[30px]
+                  font-black
+                  leading-[0.96]
+                  tracking-[-0.045em]
+                  text-[#152019]
+                  dark:text-white
+                  sm:text-[34px]
+                  md:text-4xl
+                  lg:text-5xl
+                  xl:text-[52px]
+                "
+              >
+                From signal
+                <br />
+                <span className="text-[#6D900B] dark:text-[#ADD132]">
+                  to protection.
+                </span>
+              </h2>
+            </div>
+
+            <p
+              className="
+                max-w-md
+                text-[13px]
+                leading-6
+                text-[#657169]
+                dark:text-white/50
+                sm:text-[14px]
+                sm:leading-7
+                md:text-[15px]
+              "
+            >
+              A continuous intelligence process designed to discover threats,
+              verify what matters and help you take action.
+            </p>
+          </div>
+
+          {/* =======================================================
+              PROCESS TIMELINE
+          ======================================================= */}
+
+          <div className="relative mt-12 sm:mt-14 md:mt-16 lg:mt-18">
+            {/* Desktop line */}
+
+            <div
+              className="
+                pointer-events-none
+                absolute
+                left-[7%]
+                right-[7%]
+                top-[24px]
+                hidden
+                h-px
+                bg-black/[0.10]
+                dark:bg-white/[0.12]
+                lg:block
+              "
+            >
+              <div
+                className="
+                  h-full
+                  w-1/2
+                  bg-gradient-to-r
+                  from-transparent
+                  via-[#ADD132]
+                  to-transparent
+                  opacity-80
+                "
+              />
+            </div>
+
+            {/* Mobile line */}
+
+            <div
+              className="
+                pointer-events-none
+                absolute
+                bottom-8
+                left-[11px]
+                top-8
+                w-px
+                bg-black/[0.08]
+                dark:bg-white/[0.10]
+                lg:hidden
+              "
+            >
+              <div
+                className="
+                  h-1/2
+                  w-full
+                  bg-gradient-to-b
+                  from-[#ADD132]/20
+                  via-[#ADD132]
+                  to-transparent
+                "
+              />
+            </div>
+
             <div
               className="
                 grid
-                items-center
-                gap-8
-                lg:grid-cols-[1fr_auto]
-                lg:gap-12
+                gap-10
+                lg:grid-cols-4
+                lg:gap-7
+                xl:gap-10
               "
             >
-              {/* Left content */}
-              <div className="relative">
-                {/* Label */}
-                <div className="mb-4 flex items-center gap-2 sm:mb-5 sm:gap-3">
-                  <span
-                    className="
-                      h-1.5
-                      w-1.5
-                      animate-pulse
-                      rounded-full
-                      bg-[#ADD132]
-                      shadow-[0_0_12px_rgba(173,209,50,0.7)]
-                      sm:h-2
-                      sm:w-2
-                    "
-                  />
+              {processSteps.map((step) => (
+                <div
+                  key={step.number}
+                  className="
+                    group
+                    relative
+                    pl-9
+                    lg:pl-0
+                  "
+                >
+                  {/* Mobile marker */}
 
-                  <span
+                  <div
                     className="
-                      text-[8px]
+                      absolute
+                      left-0
+                      top-0
+                      flex
+                      h-[23px]
+                      w-[23px]
+                      items-center
+                      justify-center
+                      rounded-full
+                      border
+                      border-[#ADD132]/50
+                      bg-[#F4F7F0]
+                      dark:bg-[#050705]
+                      lg:hidden
+                    "
+                  >
+                    <span
+                      className="
+                        h-2
+                        w-2
+                        rounded-full
+                        bg-[#ADD132]
+                        shadow-[0_0_10px_rgba(173,209,50,0.65)]
+                        transition-transform
+                        duration-300
+                        group-hover:scale-150
+                      "
+                    />
+                  </div>
+
+                  {/* Desktop marker */}
+
+                  <div
+                    className="
+                      relative
+                      z-10
+                      mb-6
+                      hidden
+                      h-[48px]
+                      w-[48px]
+                      items-center
+                      justify-center
+                      rounded-full
+                      border
+                      border-[#ADD132]/35
+                      bg-[#F4F7F0]
+                      dark:bg-[#050705]
+                      lg:flex
+                    "
+                  >
+                    <span
+                      className="
+                        h-2.5
+                        w-2.5
+                        rounded-full
+                        bg-[#ADD132]
+                        shadow-[0_0_12px_rgba(173,209,50,0.7)]
+                        transition-all
+                        duration-300
+                        group-hover:h-3.5
+                        group-hover:w-3.5
+                      "
+                    />
+                  </div>
+
+                  {/* Number */}
+
+                  <p
+                    className="
+                      text-[10px]
+                      font-bold
+                      tracking-[0.18em]
+                      text-[#8A958D]
+                      transition-colors
+                      duration-300
+                      group-hover:text-[#6D900B]
+                      dark:text-white/25
+                      dark:group-hover:text-[#ADD132]
+                      sm:text-[11px]
+                    "
+                  >
+                    {step.number}
+                  </p>
+
+                  {/* Label */}
+
+                  <p
+                    className="
+                      mt-2.5
+                      text-[10px]
                       font-black
                       uppercase
                       tracking-[0.2em]
                       text-[#6D900B]
                       dark:text-[#ADD132]
-                      sm:text-[9px]
-                      sm:tracking-[0.28em]
-                      md:text-[10px]
-                      md:tracking-[0.35em]
+                      sm:text-[11px]
                     "
                   >
-                    Our Approach
-                  </span>
+                    {step.title}
+                  </p>
+
+                  {/* Heading */}
+
+                  <h3
+                    className="
+                      mt-2.5
+                      max-w-[280px]
+                      text-[20px]
+                      font-black
+                      leading-[1.08]
+                      tracking-[-0.035em]
+                      text-[#152019]
+                      dark:text-white
+                      sm:text-[21px]
+                      md:text-[23px]
+                      lg:text-[25px]
+                    "
+                  >
+                    {step.heading}
+                  </h3>
+
+                  {/* Body */}
+
+                  <p
+                    className="
+                      mt-3
+                      max-w-[310px]
+                      text-[12px]
+                      leading-5
+                      text-[#68736B]
+                      dark:text-white/45
+                      sm:text-[13px]
+                      sm:leading-6
+                      md:text-[14px]
+                    "
+                  >
+                    {step.body}
+                  </p>
+
+                  {/* Editorial line */}
+
+                  <div
+                    className="
+                      mt-5
+                      h-px
+                      w-8
+                      bg-[#ADD132]/40
+                      transition-all
+                      duration-300
+                      group-hover:w-16
+                      group-hover:bg-[#ADD132]
+                    "
+                  />
                 </div>
+              ))}
+            </div>
+          </div>
 
-                {/* Heading */}
-                <h3
+          {/* =======================================================
+              INTELLIGENCE STATEMENT
+          ======================================================= */}
+
+          <div
+            className="
+              mt-12
+              flex
+              flex-col
+              gap-4
+              border-t
+              border-black/[0.07]
+              pt-6
+              dark:border-white/[0.09]
+              sm:mt-14
+              sm:flex-row
+              sm:items-center
+              sm:justify-between
+              sm:pt-7
+              lg:mt-16
+            "
+          >
+            <p
+              className="
+                max-w-2xl
+                text-[11px]
+                font-medium
+                leading-5
+                text-[#68736B]
+                dark:text-white/35
+                sm:text-[12px]
+                sm:leading-6
+                md:text-[13px]
+              "
+            >
+              Discover the signal. Understand the threat. Take action. Stay
+              ahead.
+            </p>
+
+            <div className="flex items-center gap-2">
+              <span
+                className="
+                  h-1.5
+                  w-1.5
+                  animate-pulse
+                  rounded-full
+                  bg-[#ADD132]
+                  shadow-[0_0_10px_rgba(173,209,50,0.7)]
+                "
+              />
+
+              <span
+                className="
+                  text-[9px]
+                  font-black
+                  uppercase
+                  tracking-[0.2em]
+                  text-[#6D900B]
+                  dark:text-[#ADD132]
+                  sm:text-[10px]
+                  sm:tracking-[0.24em]
+                "
+              >
+                TrackOwls Intelligence
+              </span>
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================
+            OUR APPROACH
+        ========================================================= */}
+
+        <section
+          className="
+            border-t
+            border-black/[0.07]
+            py-16
+            dark:border-white/[0.09]
+            sm:py-20
+            md:py-24
+            lg:py-24
+          "
+        >
+          <div
+            className="
+              grid
+              items-center
+              gap-9
+              lg:grid-cols-[minmax(0,1fr)_minmax(300px,390px)]
+              lg:gap-14
+              xl:gap-20
+            "
+          >
+            {/* LEFT */}
+
+            <div>
+              <div className="mb-4 flex items-center gap-3 sm:mb-5">
+                <span
                   className="
-                    max-w-3xl
-                    text-[34px]
+                    h-1.5
+                    w-1.5
+                    animate-pulse
+                    rounded-full
+                    bg-[#ADD132]
+                    shadow-[0_0_10px_rgba(173,209,50,0.7)]
+                    sm:h-2
+                    sm:w-2
+                  "
+                />
+
+                <span
+                  className="
+                    text-[9px]
                     font-black
-                    leading-[0.95]
-                    tracking-[-0.05em]
-                    text-[#152019]
-                    dark:text-white
-                    sm:text-4xl
-                    md:text-5xl
-                    lg:text-6xl
+                    uppercase
+                    tracking-[0.2em]
+                    text-[#6D900B]
+                    dark:text-[#ADD132]
+                    sm:text-[10px]
+                    sm:tracking-[0.26em]
                   "
                 >
-                  See it.
-                  <span className="text-[#6D900B] dark:text-[#ADD132]">
-                    {" "}
-                    Understand it.
-                  </span>
-                  <br />
-                  Protect it.
-                </h3>
-
-                {/* Description */}
-                <p
-                  className="
-                    mt-5
-                    max-w-xl
-                    text-[12px]
-                    leading-5
-                    text-[#69746C]
-                    dark:text-white/40
-                    sm:mt-6
-                    sm:text-[13px]
-                    sm:leading-6
-                    md:mt-7
-                    md:text-sm
-                    md:leading-7
-                  "
-                >
-                  We turn digital complexity into meaningful intelligence,
-                  helping organizations discover their digital presence,
-                  understand emerging threats and protect what matters.
-                </p>
+                  Our Approach
+                </span>
               </div>
 
-              {/* Right CTA */}
+              {/* SAME SCALE AS HOME HERO */}
+
+              <h3
+                className="
+                  max-w-3xl
+                  text-[34px]
+                  font-black
+                  leading-[0.95]
+                  tracking-[-0.05em]
+                  text-[#152019]
+                  dark:text-white
+                  sm:text-2xl
+                  md:text-4xl
+                  lg:text-5xl
+                "
+              >
+                See it.
+                <span className="text-[#6D900B] dark:text-[#ADD132]">
+                  {" "}
+                  Understand it.
+                </span>
+                <br />
+                Protect it.
+              </h3>
+
+              <p
+                className="
+                  mt-5
+                  max-w-xl
+                  text-[12px]
+                  leading-5
+                  text-[#69746C]
+                  dark:text-white/40
+                  sm:mt-6
+                  sm:text-[13px]
+                  sm:leading-6
+                  md:text-[14px]
+                  md:leading-7
+                "
+              >
+                We turn digital complexity into meaningful intelligence,
+                helping organizations discover their digital presence,
+                understand emerging threats and protect what matters.
+              </p>
+
+              {/* Approach points */}
+
+              <div
+                className="
+                  mt-7
+                  flex
+                  flex-wrap
+                  gap-x-5
+                  gap-y-3
+                  sm:mt-8
+                  sm:gap-x-6
+                "
+              >
+                {approachPoints.map((item) => (
+                  <div
+                    key={item}
+                    className="flex items-center gap-2"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#ADD132]" />
+
+                    <span
+                      className="
+                        text-[10px]
+                        font-bold
+                        uppercase
+                        tracking-[0.1em]
+                        text-[#68736B]
+                        dark:text-white/40
+                        sm:text-[11px]
+                      "
+                    >
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* RIGHT */}
+
+            <div>
+              {/* Protection intelligence */}
+
+              <div
+                className="
+                  border-y
+                  border-black/[0.08]
+                  py-6
+                  dark:border-white/[0.10]
+                  sm:py-7
+                "
+              >
+                <div className="flex items-start gap-4">
+                  <div
+                    className="
+                      mt-0.5
+                      flex
+                      h-10
+                      w-10
+                      shrink-0
+                      items-center
+                      justify-center
+                      rounded-full
+                      border
+                      border-[#ADD132]/35
+                      text-[#6D900B]
+                      dark:text-[#ADD132]
+                      sm:h-11
+                      sm:w-11
+                    "
+                  >
+                    <ShieldCheck
+                      size={19}
+                      strokeWidth={1.8}
+                    />
+                  </div>
+
+                  <div>
+                    <p
+                      className="
+                        text-[10px]
+                        font-black
+                        uppercase
+                        tracking-[0.17em]
+                        text-[#6D900B]
+                        dark:text-[#ADD132]
+                        sm:text-[11px]
+                      "
+                    >
+                      Protection intelligence
+                    </p>
+
+                    <p
+                      className="
+                        mt-2.5
+                        text-[13px]
+                        leading-6
+                        text-[#657169]
+                        dark:text-white/45
+                        sm:text-[14px]
+                        sm:leading-7
+                      "
+                    >
+                      Visibility is the starting point. Intelligence turns
+                      visibility into action.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* About link */}
+
               <Link
                 to="/about"
                 className="
                   group
-                  relative
-                  block
+                  mt-7
+                  flex
+                  min-h-[60px]
                   w-full
-                  max-w-full
-                  sm:max-w-[420px]
+                  items-center
+                  justify-between
+                  gap-4
+                  border-b
+                  border-black/[0.12]
+                  pb-4
+                  text-[#152019]
+                  transition-colors
+                  duration-300
+                  hover:border-[#ADD132]
+                  dark:border-white/[0.12]
+                  dark:text-white
+                  dark:hover:border-[#ADD132]
+                  sm:mt-8
+                  sm:min-h-[66px]
+                  sm:pb-5
                 "
               >
-                {/* Animated border */}
-                <div
-                  className="
-                    absolute
-                    -inset-[1px]
-                    rounded-full
-                    bg-gradient-to-r
-                    from-[#ADD132]/30
-                    via-[#ADD132]
-                    to-[#ADD132]/20
-                    opacity-60
-                    transition-all
-                    duration-700
-                    group-hover:opacity-100
-                  "
-                />
-
-                <div
-                  className="
-                    relative
-                    flex
-                    min-h-[64px]
-                    items-center
-                    justify-between
-                    gap-2
-                    rounded-full
-                    bg-[#F3F6EE]
-                    p-1.5
-                    dark:bg-[#070A07]
-                    sm:min-h-[72px]
-                    sm:p-2
-                  "
-                >
-                  {/* Arrow */}
-                  <span
+                <div>
+                  <p
                     className="
-                      relative
-                      flex
-                      h-12
-                      w-12
-                      shrink-0
-                      items-center
-                      justify-center
-                      overflow-hidden
-                      rounded-full
-                      bg-[#ADD132]
-                      text-[#152019]
-                      shadow-[0_10px_35px_rgba(173,209,50,0.2)]
-                      transition-all
-                      duration-500
-                      group-hover:scale-105
-                      group-hover:shadow-[0_15px_50px_rgba(173,209,50,0.35)]
-                      sm:h-14
-                      sm:w-14
-                      md:h-16
-                      md:w-16
+                      text-[9px]
+                      font-black
+                      uppercase
+                      tracking-[0.2em]
+                      text-[#6D900B]
+                      dark:text-[#ADD132]
+                      sm:text-[10px]
                     "
                   >
-                    <ArrowUpRight
-                      className="
-                        relative
-                        z-10
-                        h-5
-                        w-5
-                        transition-transform
-                        duration-500
-                        group-hover:translate-x-1
-                        group-hover:-translate-y-1
-                        sm:h-6
-                        sm:w-6
-                      "
-                    />
+                    Explore
+                  </p>
 
-                    <span
-                      className="
-                        absolute
-                        inset-0
-                        scale-0
-                        rounded-full
-                        bg-white/30
-                        transition-transform
-                        duration-500
-                        group-hover:scale-100
-                      "
-                    />
-                  </span>
-
-                  {/* Text */}
-                  <div className="min-w-0 flex-1 px-2 sm:px-4 md:px-5">
-                    <p
-                      className="
-                        text-[8px]
-                        font-black
-                        uppercase
-                        tracking-[0.2em]
-                        text-[#6D900B]
-                        dark:text-[#ADD132]
-                        sm:text-[9px]
-                        sm:tracking-[0.25em]
-                        md:text-[10px]
-                        md:tracking-[0.3em]
-                      "
-                    >
-                      Explore
-                    </p>
-
-                    <p
-                      className="
-                        mt-1
-                        truncate
-                        text-[10px]
-                        font-black
-                        uppercase
-                        tracking-[0.12em]
-                        text-[#152019]
-                        dark:text-white
-                        sm:text-xs
-                        sm:tracking-[0.16em]
-                        md:text-sm
-                        md:tracking-[0.18em]
-                      "
-                    >
-                      Learn More
-                    </p>
-                  </div>
-
-                  {/* Mini visual */}
-                  <div className="hidden items-center gap-1.5 pr-4 sm:flex">
-                    <span
-                      className="
-                        h-6
-                        w-1
-                        rounded-full
-                        bg-[#ADD132]/20
-                        transition-all
-                        duration-500
-                        group-hover:h-9
-                        group-hover:bg-[#ADD132]
-                      "
-                    />
-
-                    <span
-                      className="
-                        h-8
-                        w-1
-                        rounded-full
-                        bg-[#ADD132]/40
-                        transition-all
-                        duration-500
-                        group-hover:h-5
-                        group-hover:bg-[#ADD132]
-                      "
-                    />
-
-                    <span
-                      className="
-                        h-5
-                        w-1
-                        rounded-full
-                        bg-[#ADD132]/70
-                        transition-all
-                        duration-500
-                        group-hover:h-8
-                        group-hover:bg-[#ADD132]
-                      "
-                    />
-
-                    <span
-                      className="
-                        h-7
-                        w-1
-                        rounded-full
-                        bg-[#ADD132]
-                        transition-all
-                        duration-500
-                        group-hover:h-5
-                      "
-                    />
-                  </div>
+                  <p
+                    className="
+                      mt-1.5
+                      text-[16px]
+                      font-black
+                      tracking-[-0.02em]
+                      sm:text-[18px]
+                    "
+                  >
+                    Learn more about TrackOwls
+                  </p>
                 </div>
+
+                <span
+                  className="
+                    flex
+                    h-10
+                    w-10
+                    shrink-0
+                    items-center
+                    justify-center
+                    rounded-full
+                    border
+                    border-[#ADD132]/40
+                    transition-all
+                    duration-300
+                    group-hover:border-[#ADD132]
+                    group-hover:bg-[#ADD132]
+                    group-hover:text-[#152019]
+                    sm:h-11
+                    sm:w-11
+                  "
+                >
+                  <ArrowUpRight
+                    size={17}
+                    strokeWidth={2}
+                    className="
+                      transition-transform
+                      duration-300
+                      group-hover:-translate-y-0.5
+                      group-hover:translate-x-0.5
+                    "
+                  />
+                </span>
               </Link>
             </div>
           </div>
         </section>
+        
       </div>
 
-      {/* =====================================================
+      {/* =========================================================
           ANIMATIONS
-      ===================================================== */}
+      ========================================================= */}
 
       <style>{`
         @keyframes trackowls-line {
@@ -929,30 +978,6 @@ function HomeAbout() {
           }
         }
 
-        @keyframes trackowls-beam {
-          0% {
-            transform: translateY(-130px);
-            opacity: 0;
-          }
-
-          15% {
-            opacity: 1;
-          }
-
-          70% {
-            opacity: 1;
-          }
-
-          100% {
-            transform: translateY(600px);
-            opacity: 0;
-          }
-        }
-
-        .trackowls-beam {
-          animation: trackowls-beam 4s ease-in-out infinite;
-        }
-
         @media (max-width: 639px) {
           .trackowls-container {
             width: 100%;
@@ -962,8 +987,12 @@ function HomeAbout() {
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .trackowls-beam {
-            animation: none;
+          .trackowls-container *,
+          .trackowls-container *::before,
+          .trackowls-container *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            scroll-behavior: auto !important;
           }
         }
       `}</style>
