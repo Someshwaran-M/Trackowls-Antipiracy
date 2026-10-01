@@ -92,7 +92,7 @@ function Connect() {
           relative
           mx-auto
           w-full
-          max-w-[1500px]
+          max-w-[1480px]
           px-4
           sm:px-7
           md:px-10
@@ -928,75 +928,7 @@ function Connect() {
           </div>
         </div>
 
-        {/* =====================================================
-            BOTTOM STATEMENT
-        ===================================================== */}
-
-        <div
-          className="
-            mt-6
-            border-t
-            border-black/[0.06]
-            pt-5
-            dark:border-white/[0.06]
-            sm:mt-8
-            sm:pt-6
-            md:mt-10
-          "
-        >
-          <div
-            className="
-              flex
-              flex-col
-              gap-2
-              sm:flex-row
-              sm:items-center
-              sm:justify-between
-            "
-          >
-            <p
-              className="
-                text-[8px]
-                font-black
-                uppercase
-                tracking-[0.18em]
-                text-[#7E8981]
-                dark:text-white/25
-                sm:text-[9px]
-                sm:tracking-[0.22em]
-              "
-            >
-              Many signals. One intelligence layer.
-            </p>
-
-            <div className="flex items-center gap-2">
-              <span
-                className="
-                  h-1.5
-                  w-1.5
-                  animate-pulse
-                  rounded-full
-                  bg-[#ADD132]
-                "
-              />
-
-              <span
-                className="
-                  text-[7px]
-                  font-black
-                  uppercase
-                  tracking-[0.18em]
-                  text-[#6D900B]
-                  dark:text-[#ADD132]
-                  sm:text-[8px]
-                  sm:tracking-[0.22em]
-                "
-              >
-                Intelligence Active
-              </span>
-            </div>
-          </div>
-        </div>
+        
       </div>
 
       {/* =====================================================

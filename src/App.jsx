@@ -8,13 +8,12 @@ import Footer from "./components/layout/Footer";
 // Pages
 import Home from "./components/pages/Home";
 import About from "./components/pages/About";
-import Solutions from "./components/pages/Solutions";
-import Industries from "./components/pages/Industries";
-import Technology from "./components/pages/Technology";
-import CaseStudies from "./components/pages/CaseStudies";
+
+
 import Insights from "./components/pages/Insights";
 import Contact from "./components/pages/Contact";
 import RequestDemo from "./components/pages/RequestDemo";
+import HowItWorks from "./components/pages/HowItWorks";
 
 function App() {
   return (
@@ -27,12 +26,10 @@ function App() {
       <main className="pt-[90px]">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/howitworks" element={<HowItWorks />} />
           <Route path="/about" element={<About />} />
-          <Route path="/solutions" element={<Solutions />} />
-          <Route path="/industries" element={<Industries />} />
-          <Route path="/technology" element={<Technology />} />
-          <Route path="/case-studies" element={<CaseStudies />} />
-          <Route path="/insights" element={<Insights />} />
+         
+          
           <Route path="/contact" element={<Contact />} />
           <Route path="/request-demo" element={<RequestDemo />} />
         </Routes>

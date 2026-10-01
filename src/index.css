@@ -2,6 +2,94 @@
 @import "tailwindcss";
 
 /* =========================================================
+   TRACKOWLS FIXED LOGO
+   No CSS animation
+========================================================= */
+
+
+.track-logo-fixed {
+  position: relative;
+
+  width: 120px;
+  height: 80px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  text-decoration: none;
+
+  overflow: visible;
+
+  cursor: pointer;
+}
+
+/* Fixed logo size */
+
+.track-logo-fixed-video {
+  display: block;
+
+  width: 100px;
+  height: 68px;
+
+  object-fit: contain;
+
+  flex-shrink: 0;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+  outline: none;
+
+  background: transparent;
+
+  box-shadow: none;
+
+  filter: none;
+
+  transform: none;
+}
+
+/* Prevent hover scaling */
+
+.track-logo-fixed:hover .track-logo-fixed-video {
+  transform: none;
+  filter: none;
+}
+
+/* Tablet */
+
+@media (max-width: 1024px) {
+  .track-logo-fixed {
+    width: 110px;
+    height: 76px;
+  }
+
+  .track-logo-fixed-video {
+    width: 84px;
+    height: 64px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 640px) {
+  .track-logo-fixed {
+    width: 88px;
+    height: 68px;
+  }
+
+  .track-logo-fixed-video {
+    width: 70px;
+    height: 54px;
+  }
+}
+
+
+/* =========================================================
    TAILWIND V4 — CLASS BASED DARK MODE
 ========================================================= */
 

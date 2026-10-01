@@ -9,18 +9,22 @@ import {
 
 import { Link } from "react-router-dom";
 
-import ThreatIntelligence from "./ThreatIntelligence";
+
 import Connect from "./Connect";
 import ProtectionEcosystem from "./ProtectionEcosystem";
-import IntelligentStatement from "./IntelligentStatement";
+
 import HomeAbout from "./HomeAbout";
 import ClientReviews from "./ClientReviews";
 import Faq from "./Faq";
-import ProductionFlow from "./ProtectionFlow";
+
 
 import AntiPiracyAnimation from "../animations/AntiPiracyAnimation";
-import HomeTech from "./HomeTech";
+
 import Plan from "./Plan";
+import HowItWorks from "./HowItWorks";
+import MonitoringTool from "./MonitoringTool";
+import ClientUseCases from "./ClientUseCases";
+import GettingStarted from "./GettingStarted";
 
 /* =========================================================
    VIEWPORT REVEAL
@@ -574,6 +578,8 @@ function Home() {
               </div>
             </Reveal>
 
+            
+
             {/* Tags */}
 
             <Reveal delay={400}>
@@ -645,6 +651,42 @@ function Home() {
           </Reveal>
         </div>
 
+
+
+<div
+                className="
+                  absolute
+                  right-0
+                  top-0
+                  flex
+                  items-center
+                  gap-2
+                  rounded-full
+                  border
+                  border-[#ADD132]/25
+                  bg-white/65
+                  px-3
+                  py-1.5
+                  mt-5
+                  backdrop-blur-xl
+                  dark:bg-[#071006]/70
+                "
+              >
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#ADD132] shadow-[0_0_8px_#ADD132]" />
+
+                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-[#566152] dark:text-white/55">
+                  Live Monitoring
+                </span>
+
+                <span className="h-3 w-px bg-black/10 dark:bg-white/10" />
+
+                <span className="text-[8px] font-black text-[#719000] dark:text-[#ADD132]">
+                  24/7
+                </span>
+              </div>
+
+
+
         {/* =================================================
             SCROLL INDICATOR
         ================================================= */}
@@ -686,20 +728,21 @@ function Home() {
         </div>
       </section>
 
+     <div id="how-it-works">
+        <HowItWorks />
+      </div>
 
       <HomeAbout />
-
-      <ThreatIntelligence />
-
-      <HomeTech />
 
       <Connect />
 
       <ProtectionEcosystem />
 
-      <IntelligentStatement />
+      <MonitoringTool />
 
-      <ProductionFlow />
+      <ClientUseCases />
+
+      <GettingStarted />
 
       <Plan />
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
   ArrowRight,
+  ArrowUp,
   ArrowUpRight,
-  Check,
   Menu,
   MessageCircle,
   Moon,
@@ -11,41 +11,108 @@ import {
   X,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-import ScrollToTop from "./ScrollToTop";
+
+import TrackOwlsLogo from "./TrackOwlsLogo";
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
 const navItems = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
-  { name: "Solutions", path: "/solutions" },
-  { name: "Industries", path: "/industries" },
-  { name: "Technology", path: "/technology" },
-  { name: "Case Studies", path: "/case-studies" },
-  { name: "Insights", path: "/insights" },
-  { name: "Contact", path: "/contact" },
+  {
+    name: "Home",
+    path: "/",
+  },
+  {
+    name: "How it works",
+    path: "/how-it-works",
+  },
+  {
+    name: "About",
+    path: "/about",
+  },
+  {
+    name: "Services",
+    path: "/services",
+  },
+  {
+    name: "Monitoring Tools",
+    path: "/monitoring-tools",
+  },
+  {
+    name: "Plans",
+    path: "/plans",
+  },
+  {
+    name: "Contact",
+    path: "/contact",
+  },
 ];
 
+/* =========================================================
+   WHATSAPP
+========================================================= */
+
 const WHATSAPP_NUMBER = "91XXXXXXXXXX";
+
+/* =========================================================
+   NAVBAR
+========================================================= */
 
 export default function Navbar() {
   const location = useLocation();
 
+  /* =======================================================
+     THEME
+  ======================================================= */
+
   const [darkMode, setDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem("trackowls-theme");
+
     return savedTheme ? savedTheme === "dark" : true;
   });
-  const [menuOpen, setMenuOpen] = useState(false);
+
+  /* =======================================================
+     SEARCH
+  ======================================================= */
+
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+
+  /* =======================================================
+     MOBILE MENU
+  ======================================================= */
+
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  /* =======================================================
+     WHATSAPP
+  ======================================================= */
+
   const [whatsappOpen, setWhatsappOpen] = useState(false);
 
-  /* =====================================================
-     THEME CHANGE
-  ===================================================== */
+  /* =======================================================
+     SCROLL TO TOP
+  ======================================================= */
+
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  /* =======================================================
+     APPLY THEME
+  ======================================================= */
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
-    localStorage.setItem("trackowls-theme", darkMode ? "dark" : "light");
+
+    localStorage.setItem(
+      "trackowls-theme",
+      darkMode ? "dark" : "light"
+    );
   }, [darkMode]);
+
+  /* =======================================================
+     THEME CHANGE
+  ======================================================= */
 
   const changeTheme = (dark) => {
     setDarkMode(dark);
@@ -58,9 +125,9 @@ export default function Navbar() {
     );
   };
 
-  /* =====================================================
+  /* =======================================================
      ACTIVE LINK
-  ===================================================== */
+  ======================================================= */
 
   const isActive = (path) => {
     if (path === "/") {
@@ -70,64 +137,166 @@ export default function Navbar() {
     return location.pathname.startsWith(path);
   };
 
-  const closeMenu = () => {
-    setMenuOpen(false);
+  /* =======================================================
+     CLOSE PANELS WHEN ROUTE CHANGES
+  ======================================================= */
+
+  useEffect(() => {
+    setSearchOpen(false);
+    setSearchValue("");
+    setMobileMenuOpen(false);
+    setWhatsappOpen(false);
+  }, [location.pathname]);
+
+  /* =======================================================
+     CLOSE MOBILE MENU ON RESIZE
+  ======================================================= */
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1280) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  /* =======================================================
+     SCROLL LISTENER
+  ======================================================= */
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  /* =======================================================
+     SCROLL TO TOP
+  ======================================================= */
+
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   };
+
+  /* =======================================================
+     MOBILE NAV CLICK
+  ======================================================= */
+
+  const handleMobileNavigation = () => {
+    setMobileMenuOpen(false);
+    setSearchOpen(false);
+  };
+
+  /* =======================================================
+     RETURN
+  ======================================================= */
 
   return (
     <>
       {/* =====================================================
-          NAVBAR
+          FULL WIDTH NAVBAR
       ===================================================== */}
 
       <header
-        className={`
-          fixed left-0 right-0 top-0 z-[1000]
-          px-2.5 pt-3 transition-all duration-500
-          sm:px-4 sm:pt-4
-          lg:px-6
-          xl:px-8
-        `}
+        className="
+          fixed
+          left-0
+          right-0
+          top-0
+          z-[1000]
+          w-full
+        "
       >
+        {/* ===================================================
+            NAVBAR CONTAINER
+        =================================================== */}
+
         <div
-          className={`
-            relative mx-auto flex h-[64px] w-full max-w-[1480px]
-            items-center justify-between gap-2
-            rounded-[20px] px-2
-            backdrop-blur-2xl
-            transition-all duration-500
-
-            sm:h-[70px]
-            sm:rounded-[22px]
-            sm:px-3
-
-            lg:h-[74px]
-            lg:rounded-[24px]
-            lg:px-3.5
-
-            ${
-              darkMode
-                ? `
-                  border border-white/[0.08]
-                  bg-[#0B100D]/95
-                  shadow-[0_18px_60px_rgba(0,0,0,0.45)]
-                `
-                : `
-                  border border-black/[0.08]
-                  bg-white/95
-                  shadow-[0_12px_45px_rgba(30,60,35,0.12)]
-                `
-            }
-          `}
+          className="
+            relative
+            h-[82px]
+            w-full
+            overflow-visible
+            border-b
+            border-black/[0.08]
+            bg-[#F8FAF5]
+            shadow-[0_12px_40px_rgba(20,40,25,0.08)]
+            dark:border-white/[0.08]
+            dark:bg-[#070A07]
+            dark:shadow-[0_12px_40px_rgba(0,0,0,0.35)]
+            lg:h-[88px]
+          "
         >
-          {/* TOP GREEN LINE */}
+          {/* =================================================
+              SUBTLE LIGHT GLOW
+          ================================================= */}
 
           <div
             className="
               pointer-events-none
               absolute
-              left-[10%]
-              right-[10%]
+              left-[-100px]
+              top-1/2
+              h-[150px]
+              w-[330px]
+              -translate-y-1/2
+              rounded-full
+              bg-[#ADD132]/[0.07]
+              blur-[75px]
+              dark:bg-[#ADD132]/[0.09]
+            "
+          />
+
+          {/* =================================================
+              SUBTLE RIGHT GLOW
+          ================================================= */}
+
+          <div
+            className="
+              pointer-events-none
+              absolute
+              right-[4%]
+              top-1/2
+              h-[110px]
+              w-[280px]
+              -translate-y-1/2
+              rounded-full
+              bg-[#ADD132]/[0.04]
+              blur-[70px]
+              dark:bg-[#ADD132]/[0.06]
+            "
+          />
+
+          {/* =================================================
+              TOP ACCENT LINE
+          ================================================= */}
+
+          <div
+            className="
+              pointer-events-none
+              absolute
+              left-0
+              right-0
               top-0
               h-px
               bg-gradient-to-r
@@ -138,1052 +307,1118 @@ export default function Navbar() {
           />
 
           {/* =================================================
-              BRAND
+              BOTTOM ACCENT LINE
           ================================================= */}
 
-          <Link
-            to="/"
-            onClick={closeMenu}
+          <div
             className="
-              group
+              pointer-events-none
+              absolute
+              bottom-0
+              left-0
+              right-0
+              h-px
+              bg-gradient-to-r
+              from-transparent
+              via-[#ADD132]/35
+              to-transparent
+            "
+          />
+
+          {/* =================================================
+              NAV CONTENT
+          ================================================= */}
+
+          <div
+            className="
               relative
-              z-10
+              z-20
               flex
-              shrink-0
+              h-full
+              w-full
               items-center
-              gap-2
-              rounded-xl
-              px-1
-              transition-all
-              duration-300
-              sm:gap-2.5
+              px-4
+              sm:px-6
+              lg:px-8
+              xl:px-10
+              2xl:px-14
             "
           >
-            {/* LOGO */}
+            {/* =================================================
+                LOGO
+                WIDER / NO BOX / NO TEXT
+            ================================================= */}
 
             <div
               className="
                 flex
-                h-[42px]
-                w-[42px]
+                h-full
+                w-[150px]
                 shrink-0
                 items-center
-                justify-center
-                overflow-hidden
-                rounded-[12px]
-                bg-[#ADD132]
-                p-[3px]
-                shadow-[0_0_20px_rgba(173,209,50,0.16)]
-                transition-all
-                duration-300
-                group-hover:scale-105
-                group-hover:shadow-[0_0_30px_rgba(173,209,50,0.32)]
-
-                sm:h-[46px]
-                sm:w-[46px]
-
-                lg:h-[48px]
-                lg:w-[48px]
+                sm:w-[185px]
+                lg:w-[200px]
+                xl:w-[215px]
               "
             >
-              <video
-                src="/logo-video.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="auto"
-                className="h-full w-full object-contain"
-              />
+              <TrackOwlsLogo />
             </div>
 
-            {/* BRAND NAME */}
-
-            <div
-              className={`
-                whitespace-nowrap
-                text-[16px]
-                font-black
-                leading-none
-                tracking-[-0.6px]
-                transition-colors
-                duration-300
-
-                sm:text-[18px]
-
-                lg:text-[20px]
-
-                ${
-                  darkMode
-                    ? "text-white"
-                    : "text-[#152019]"
-                }
-              `}
-            >
-              TRACK<span className="text-[#ADD132]">OWLS</span>
-            </div>
-          </Link>
-
-          {/* =================================================
-              DESKTOP NAVIGATION
-          ================================================= */}
-
-          <nav
-            className="
-              hidden
-              flex-1
-              items-center
-              justify-center
-              gap-0.5
-              xl:flex
-            "
-          >
-            {navItems.map((item) => {
-              const active = isActive(item.path);
-
-              return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`
-                    relative
-                    flex
-                    h-[46px]
-                    items-center
-                    justify-center
-                    rounded-[13px]
-                    px-2.5
-                    text-[12px]
-                    font-semibold
-                    whitespace-nowrap
-                    transition-all
-                    duration-300
-
-                    2xl:px-3
-
-                    ${
-                      active
-                        ? darkMode
-                          ? `
-                            bg-[#ADD132]/10
-                            text-[#DFFF72]
-                          `
-                          : `
-                            bg-[#ADD132]/15
-                            text-[#294300]
-                          `
-                        : darkMode
-                          ? `
-                            text-white/60
-                            hover:bg-white/[0.05]
-                            hover:text-white
-                          `
-                          : `
-                            text-[#59665E]
-                            hover:bg-[#ADD132]/10
-                            hover:text-[#182219]
-                          `
-                    }
-                  `}
-                >
-                  {item.name}
-
-                  {active && (
-                    <span
-                      className="
-                        absolute
-                        bottom-[5px]
-                        left-1/2
-                        h-1
-                        w-1
-                        -translate-x-1/2
-                        rounded-full
-                        bg-[#ADD132]
-                        shadow-[0_0_10px_rgba(173,209,50,0.9)]
-                      "
-                    />
-                  )}
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* =================================================
-              ACTIONS
-          ================================================= */}
-
-          <div
-            className="
-              relative
-              z-10
-              flex
-              shrink-0
-              items-center
-              gap-1
-              sm:gap-1.5
-            "
-          >
-            {/* SEARCH */}
-
-            <button
-              type="button"
-              onClick={() => setSearchOpen(!searchOpen)}
-              aria-label="Search"
-              className={`
-                hidden
-                h-[43px]
-                w-[43px]
-                items-center
-                justify-center
-                rounded-full
-                border
-                transition-all
-                duration-300
-                md:flex
-
-                ${
-                  darkMode
-                    ? `
-                      border-white/10
-                      bg-white/[0.04]
-                      text-white
-                      hover:border-[#ADD132]
-                      hover:bg-[#ADD132]
-                      hover:text-black
-                    `
-                    : `
-                      border-black/10
-                      bg-black/[0.025]
-                      text-[#172119]
-                      hover:border-[#ADD132]
-                      hover:bg-[#ADD132]
-                      hover:text-black
-                    `
-                }
-              `}
-            >
-              {searchOpen ? (
-                <X size={18} />
-              ) : (
-                <Search
-                  size={18}
-                  strokeWidth={1.8}
-                />
-              )}
-            </button>
-
-              
             {/* =================================================
-                THEME SWITCH
+                DESKTOP NAVIGATION
             ================================================= */}
 
-            <div
-              className={`
-                flex
-                h-[45px]
+            <nav
+              className="
+                ml-auto
+                hidden
+                h-full
                 items-center
                 gap-1
-                rounded-full
-                border
-                p-1
-                transition-all
-                duration-300
-
-                ${
-                  darkMode
-                    ? `
-                      border-white/10
-                      bg-[#111812]
-                    `
-                    : `
-                      border-black/[0.10]
-                      bg-[#F1F3EF]
-                    `
-                }
-              `}
-            >
-              {/* LIGHT */}
-
-              <button
-                type="button"
-                onClick={() => changeTheme(false)}
-                aria-label="Switch to light mode"
-                aria-pressed={!darkMode}
-                className={`
-                  flex
-                  h-[37px]
-                  w-[37px]
-                  items-center
-                  justify-center
-                  rounded-full
-                  transition-all
-                  duration-300
-
-                  ${
-                    !darkMode
-                      ? `
-                        bg-[#ADD132]
-                        text-[#101800]
-                        shadow-[0_3px_15px_rgba(173,209,50,0.38)]
-                        scale-100
-                      `
-                      : `
-                        bg-transparent
-                        text-white/40
-                        hover:bg-white/[0.07]
-                        hover:text-white/80
-                      `
-                  }
-                `}
-              >
-                <Sun
-                  size={18}
-                  strokeWidth={2}
-                />
-              </button>
-
-              {/* DARK */}
-
-              <button
-                type="button"
-                onClick={() => changeTheme(true)}
-                aria-label="Switch to dark mode"
-                aria-pressed={darkMode}
-                className={`
-                  flex
-                  h-[37px]
-                  w-[37px]
-                  items-center
-                  justify-center
-                  rounded-full
-                  transition-all
-                  duration-300
-
-                  ${
-                    darkMode
-                      ? `
-                        bg-[#ADD132]
-                        text-[#101800]
-                        shadow-[0_3px_15px_rgba(173,209,50,0.38)]
-                        scale-100
-                      `
-                      : `
-                        bg-transparent
-                        text-[#6B756E]
-                        hover:bg-black/[0.05]
-                        hover:text-[#182219]
-                      `
-                  }
-                `}
-              >
-                <Moon
-                  size={18}
-                  strokeWidth={2}
-                />
-              </button>
-            </div>
-
-            {/* =================================================
-                REQUEST DEMO
-            ================================================= */}
-
-            <Link
-              to="/request-demo"
-              onClick={closeMenu}
-              className="
-                group
-                hidden
-                h-[45px]
-                items-center
-                gap-2
-                rounded-full
-                bg-gradient-to-r
-                from-[#C7EB45]
-                to-[#ADD132]
-                pl-4
-                pr-1
-                text-[12px]
-                font-extrabold
-                text-[#101800]
-                shadow-[0_7px_25px_rgba(173,209,50,0.16)]
-                transition-all
-                duration-300
-                hover:-translate-y-0.5
-                hover:shadow-[0_10px_32px_rgba(173,209,50,0.34)]
-                lg:flex
+                xl:flex
               "
             >
-              <span>Request a Demo</span>
-
-              <span
-                className="
-                  flex
-                  h-[37px]
-                  w-[37px]
-                  items-center
-                  justify-center
-                  rounded-full
-                  bg-[#071006]
-                  text-white
-                  transition-transform
-                  duration-300
-                  group-hover:-rotate-[35deg]
-                "
-              >
-                <ArrowUpRight size={17} />
-              </span>
-            </Link>
-
-            {/* MOBILE MENU */}
-
-            <button
-              type="button"
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label="Menu"
-              aria-expanded={menuOpen}
-              className={`
-                flex
-                h-[41px]
-                w-[41px]
-                items-center
-                justify-center
-                rounded-full
-                border
-                transition-all
-                duration-300
-                xl:hidden
-
-                ${
-                  darkMode
-                    ? `
-                      border-white/10
-                      bg-white/[0.04]
-                      text-white
-                      hover:border-[#ADD132]
-                      hover:bg-[#ADD132]
-                      hover:text-black
-                    `
-                    : `
-                      border-black/10
-                      bg-black/[0.025]
-                      text-[#172119]
-                      hover:border-[#ADD132]
-                      hover:bg-[#ADD132]
-                      hover:text-black
-                    `
-                }
-              `}
-            >
-              {menuOpen ? (
-                <X size={20} />
-              ) : (
-                <Menu size={20} />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* =====================================================
-            SEARCH PANEL
-        ===================================================== */}
-
-        <div
-          className={`
-            mx-auto
-            mt-2
-            w-full
-            max-w-[1480px]
-            overflow-hidden
-            rounded-[20px]
-            border
-            p-2
-            backdrop-blur-2xl
-            transition-all
-            duration-300
-
-            ${
-              darkMode
-                ? `
-                  border-[#ADD132]/15
-                  bg-[#070D09]/96
-                  shadow-[0_18px_55px_rgba(0,0,0,0.45)]
-                `
-                : `
-                  border-black/10
-                  bg-white/96
-                  shadow-[0_18px_50px_rgba(30,60,35,0.12)]
-                `
-            }
-
-            ${
-              searchOpen
-                ? "max-h-[150px] opacity-100"
-                : "pointer-events-none max-h-0 !p-0 opacity-0"
-            }
-          `}
-        >
-          <div
-            className={`
-              flex
-              h-[50px]
-              items-center
-              gap-3
-              rounded-[14px]
-              px-4
-
-              ${
-                darkMode
-                  ? `
-                    bg-white/[0.045]
-                    text-[#ADD132]
-                  `
-                  : `
-                    bg-[#ADD132]/[0.07]
-                    text-[#657168]
-                  `
-              }
-            `}
-          >
-            <Search size={18} />
-
-            <input
-              type="text"
-              value={searchValue}
-              onChange={(e) =>
-                setSearchValue(e.target.value)
-              }
-              placeholder="Search TrackOwls..."
-              className={`
-                min-w-0
-                flex-1
-                border-0
-                bg-transparent
-                text-sm
-                outline-none
-
-                ${
-                  darkMode
-                    ? `
-                      text-white
-                      placeholder:text-white/40
-                    `
-                    : `
-                      text-[#182219]
-                      placeholder:text-[#7B877F]
-                    `
-                }
-              `}
-            />
-
-            {searchValue && (
-              <button
-                type="button"
-                onClick={() => setSearchValue("")}
-                className={`
-                  transition-colors
-
-                  ${
-                    darkMode
-                      ? "text-white/45 hover:text-white"
-                      : "text-[#6B776F] hover:text-black"
-                  }
-                `}
-              >
-                <X size={17} />
-              </button>
-            )}
-          </div>
-
-          {searchValue && (
-            <div
-              className={`
-                flex
-                gap-1.5
-                px-2
-                pt-2
-                text-[11px]
-
-                ${
-                  darkMode
-                    ? "text-white/50"
-                    : "text-[#657168]"
-                }
-              `}
-            >
-              <span>Searching for</span>
-
-              <strong
-                className={
-                  darkMode
-                    ? "text-white"
-                    : "text-[#182219]"
-                }
-              >
-                {searchValue}
-              </strong>
-            </div>
-          )}
-        </div>
-
-        {/* =====================================================
-            MOBILE / TABLET MENU
-        ===================================================== */}
-
-        <div
-          className={`
-            mx-auto
-            mt-2
-            w-full
-            max-w-[1480px]
-            overflow-hidden
-            rounded-[22px]
-            border
-            backdrop-blur-2xl
-            transition-all
-            duration-500
-            xl:hidden
-
-            ${
-              darkMode
-                ? `
-                  border-[#ADD132]/15
-                  bg-[#070D09]/97
-                  shadow-[0_20px_60px_rgba(0,0,0,0.5)]
-                `
-                : `
-                  border-black/10
-                  bg-white/97
-                  shadow-[0_20px_55px_rgba(30,60,35,0.13)]
-                `
-            }
-
-            ${
-              menuOpen
-                ? "max-h-[800px] opacity-100"
-                : "pointer-events-none max-h-0 opacity-0"
-            }
-          `}
-        >
-          <div className="p-3 sm:p-4">
-            {/* MOBILE BRAND */}
-
-            <div
-              className={`
-                mb-2
-                flex
-                items-center
-                gap-3
-                border-b
-                px-1
-                pb-3
-
-                ${
-                  darkMode
-                    ? "border-white/[0.08]"
-                    : "border-black/[0.07]"
-                }
-              `}
-            >
-              <div
-                className="
-                  flex
-                  h-[43px]
-                  w-[43px]
-                  shrink-0
-                  items-center
-                  justify-center
-                  overflow-hidden
-                  rounded-[12px]
-                  bg-[#ADD132]
-                  p-[3px]
-                "
-              >
-                <video
-                  src="/logo-video.mp4"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="h-full w-full object-contain"
-                />
-              </div>
-
-              <div>
-                <div
-                  className={`
-                    text-[17px]
-                    font-black
-                    tracking-[-0.5px]
-
-                    ${
-                      darkMode
-                        ? "text-white"
-                        : "text-[#172119]"
-                    }
-                  `}
-                >
-                  TRAK<span className="text-[#ADD132]">
-                    OWLS
-                  </span>
-                </div>
-
-                <p
-                  className={`
-                    mt-0.5
-                    text-[10px]
-
-                    ${
-                      darkMode
-                        ? "text-white/45"
-                        : "text-[#69756D]"
-                    }
-                  `}
-                >
-                  Digital Protection Intelligence
-                </p>
-              </div>
-            </div>
-
-            {/* MOBILE LINKS */}
-
-            <div className="grid gap-1 sm:grid-cols-2 sm:gap-1.5">
-              {navItems.map((item, index) => {
+              {navItems.map((item) => {
                 const active = isActive(item.path);
 
                 return (
                   <Link
                     key={item.path}
                     to={item.path}
-                    onClick={closeMenu}
                     className={`
                       group
-                      grid
-                      min-h-[48px]
-                      grid-cols-[28px_1fr_auto]
+                      relative
+                      flex
+                      h-[46px]
                       items-center
-                      gap-2
-                      rounded-[13px]
-                      px-3
+                      justify-center
+                      whitespace-nowrap
+                      rounded-full
+                      px-[13px]
                       text-[13px]
                       font-semibold
+                      tracking-[-0.01em]
                       transition-all
                       duration-300
 
                       ${
                         active
-                          ? darkMode
-                            ? `
-                              bg-[#ADD132]/10
-                              text-[#DFFF72]
-                              shadow-[inset_3px_0_0_#ADD132]
-                            `
-                            : `
-                              bg-[#ADD132]/15
-                              text-[#294300]
-                              shadow-[inset_3px_0_0_#ADD132]
-                            `
-                          : darkMode
-                            ? `
-                              text-white/65
-                              hover:bg-white/[0.04]
-                              hover:text-white
-                            `
-                            : `
-                              text-[#59665E]
-                              hover:bg-[#ADD132]/10
-                              hover:text-[#172119]
-                            `
+                          ? `
+                            bg-[#ADD132]/15
+                            text-[#294300]
+                            dark:bg-[#ADD132]/15
+                            dark:text-[#DFFF72]
+                          `
+                          : `
+                            text-[#182219]
+                            hover:bg-black/[0.04]
+                            hover:text-[#101800]
+                            dark:text-white/75
+                            dark:hover:bg-white/[0.06]
+                            dark:hover:text-white
+                          `
                       }
                     `}
                   >
-                    <span
-                      className={`
-                        text-[9px]
-                        font-black
+                    {item.name}
 
-                        ${
-                          active
-                            ? "text-[#769C0B]"
-                            : darkMode
-                              ? "text-white/25"
-                              : "text-[#8B958F]"
-                        }
-                      `}
-                    >
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
+                    {/* Active indicator */}
 
-                    <span>{item.name}</span>
-
-                    {active ? (
-                      <Check
-                        size={16}
-                        className="text-[#ADD132]"
-                      />
-                    ) : (
-                      <ArrowRight
-                        size={16}
-                        className={`
-                          transition-transform
-                          duration-300
-                          group-hover:translate-x-1
-
-                          ${
-                            darkMode
-                              ? "text-white/30"
-                              : "text-[#8B958F]"
-                          }
-                        `}
+                    {active && (
+                      <span
+                        className="
+                          absolute
+                          bottom-[4px]
+                          left-1/2
+                          h-[3px]
+                          w-[22px]
+                          -translate-x-1/2
+                          rounded-full
+                          bg-[#ADD132]
+                          shadow-[0_0_12px_rgba(173,209,50,0.85)]
+                        "
                       />
                     )}
                   </Link>
                 );
               })}
-            </div>
+            </nav>
 
-            {/* MOBILE DEMO */}
+            {/* =================================================
+                RIGHT ACTION AREA
+            ================================================= */}
 
-            <Link
-              to="/request-demo"
-              onClick={closeMenu}
+            <div
               className="
-                group
-                mt-2
-                flex
-                min-h-[54px]
+                ml-3
+                hidden
+                shrink-0
                 items-center
-                justify-between
-                rounded-full
-                bg-gradient-to-r
-                from-[#C7EB45]
-                to-[#ADD132]
-                pl-5
-                pr-1.5
-                text-[13px]
-                font-extrabold
-                text-[#101800]
+                gap-2
+                border-l
+                border-black/10
+                pl-3
+                dark:border-white/10
+                xl:flex
+                xl:ml-4
+                xl:pl-4
               "
             >
-              <span>Request a Demo</span>
+              {/* =================================================
+                  SEARCH
+              ================================================= */}
 
-              <span
+              <button
+                type="button"
+                onClick={() => setSearchOpen((prev) => !prev)}
+                aria-label={
+                  searchOpen ? "Close search" : "Open search"
+                }
                 className="
                   flex
-                  h-[43px]
-                  w-[43px]
+                  h-[44px]
+                  w-[44px]
                   items-center
                   justify-center
                   rounded-full
-                  bg-[#071006]
-                  text-white
-                  transition-transform
+                  border
+                  border-black/10
+                  bg-white/40
+                  text-[#182219]
+                  backdrop-blur-md
+                  transition-all
                   duration-300
-                  group-hover:-rotate-[35deg]
+                  hover:border-[#ADD132]/60
+                  hover:bg-[#ADD132]
+                  hover:text-[#101800]
+                  dark:border-white/10
+                  dark:bg-white/[0.03]
+                  dark:text-white
+                  dark:hover:border-[#ADD132]
+                  dark:hover:bg-[#ADD132]
+                  dark:hover:text-[#101800]
                 "
               >
-                <ArrowUpRight size={19} />
-              </span>
-            </Link>
+                {searchOpen ? (
+                  <X
+                    size={19}
+                    strokeWidth={2}
+                  />
+                ) : (
+                  <Search
+                    size={19}
+                    strokeWidth={1.9}
+                  />
+                )}
+              </button>
+
+              {/* =================================================
+                  THEME SWITCH
+              ================================================= */}
+
+              <div
+                className="
+                  flex
+                  h-[44px]
+                  items-center
+                  gap-1
+                  rounded-full
+                  border
+                  border-black/10
+                  bg-white/40
+                  p-1
+                  backdrop-blur-md
+                  dark:border-white/10
+                  dark:bg-white/[0.03]
+                "
+              >
+                {/* LIGHT */}
+
+                <button
+                  type="button"
+                  onClick={() => changeTheme(false)}
+                  aria-label="Switch to light mode"
+                  aria-pressed={!darkMode}
+                  className={`
+                    flex
+                    h-[36px]
+                    w-[36px]
+                    items-center
+                    justify-center
+                    rounded-full
+                    transition-all
+                    duration-300
+
+                    ${
+                      !darkMode
+                        ? `
+                          bg-[#ADD132]
+                          text-[#101800]
+                          shadow-[0_0_16px_rgba(173,209,50,0.40)]
+                        `
+                        : `
+                          text-[#667067]
+                          hover:text-[#182219]
+                          dark:text-white/45
+                          dark:hover:text-white
+                        `
+                    }
+                  `}
+                >
+                  <Sun
+                    size={17}
+                    strokeWidth={2}
+                  />
+                </button>
+
+                {/* DARK */}
+
+                <button
+                  type="button"
+                  onClick={() => changeTheme(true)}
+                  aria-label="Switch to dark mode"
+                  aria-pressed={darkMode}
+                  className={`
+                    flex
+                    h-[36px]
+                    w-[36px]
+                    items-center
+                    justify-center
+                    rounded-full
+                    transition-all
+                    duration-300
+
+                    ${
+                      darkMode
+                        ? `
+                          bg-[#ADD132]
+                          text-[#101800]
+                          shadow-[0_0_16px_rgba(173,209,50,0.40)]
+                        `
+                        : `
+                          text-[#667067]
+                          hover:text-[#182219]
+                          dark:text-white/45
+                          dark:hover:text-white
+                        `
+                    }
+                  `}
+                >
+                  <Moon
+                    size={17}
+                    strokeWidth={2}
+                  />
+                </button>
+              </div>
+
+              {/* =================================================
+                  FREE AUDIT
+              ================================================= */}
+
+              <Link
+                to="/request-demo"
+                className="
+                  group
+                  flex
+                  h-[48px]
+                  items-center
+                  gap-3
+                  rounded-full
+                  bg-gradient-to-r
+                  from-[#C9EF48]
+                  to-[#ADD132]
+                  pl-5
+                  pr-1.5
+                  text-[13px]
+                  font-extrabold
+                  text-[#101800]
+                  shadow-[0_8px_28px_rgba(173,209,50,0.20)]
+                  transition-all
+                  duration-300
+                  hover:-translate-y-0.5
+                  hover:shadow-[0_12px_38px_rgba(173,209,50,0.35)]
+                "
+              >
+                <span>
+                  Free audit
+                </span>
+
+                <span
+                  className="
+                    flex
+                    h-[38px]
+                    w-[38px]
+                    items-center
+                    justify-center
+                    rounded-full
+                    bg-[#071006]
+                    text-white
+                    transition-transform
+                    duration-300
+                    group-hover:translate-x-0.5
+                  "
+                >
+                  <ArrowRight
+                    size={17}
+                    strokeWidth={2}
+                  />
+                </span>
+              </Link>
+            </div>
+
+            {/* =================================================
+                MOBILE ACTIONS
+            ================================================= */}
+
+            <div
+              className="
+                ml-auto
+                flex
+                items-center
+                gap-2
+                xl:hidden
+              "
+            >
+              {/* Mobile theme */}
+
+              <button
+                type="button"
+                onClick={() => changeTheme(!darkMode)}
+                aria-label={
+                  darkMode
+                    ? "Switch to light mode"
+                    : "Switch to dark mode"
+                }
+                className="
+                  flex
+                  h-[42px]
+                  w-[42px]
+                  items-center
+                  justify-center
+                  rounded-full
+                  border
+                  border-black/10
+                  bg-white/50
+                  text-[#182219]
+                  backdrop-blur-md
+                  transition-all
+                  hover:border-[#ADD132]
+                  hover:bg-[#ADD132]
+                  hover:text-[#101800]
+                  dark:border-white/10
+                  dark:bg-white/[0.04]
+                  dark:text-white
+                  dark:hover:bg-[#ADD132]
+                  dark:hover:text-[#101800]
+                  sm:flex
+                "
+              >
+                {darkMode ? (
+                  <Moon
+                    size={18}
+                    strokeWidth={2}
+                  />
+                ) : (
+                  <Sun
+                    size={18}
+                    strokeWidth={2}
+                  />
+                )}
+              </button>
+
+              {/* Mobile search */}
+
+              <button
+                type="button"
+                onClick={() => setSearchOpen((prev) => !prev)}
+                aria-label={
+                  searchOpen
+                    ? "Close search"
+                    : "Open search"
+                }
+                className="
+                  hidden
+                  h-[42px]
+                  w-[42px]
+                  items-center
+                  justify-center
+                  rounded-full
+                  border
+                  border-black/10
+                  bg-white/50
+                  text-[#182219]
+                  backdrop-blur-md
+                  transition-all
+                  hover:border-[#ADD132]
+                  hover:bg-[#ADD132]
+                  hover:text-[#101800]
+                  dark:border-white/10
+                  dark:bg-white/[0.04]
+                  dark:text-white
+                  dark:hover:bg-[#ADD132]
+                  dark:hover:text-[#101800]
+                  sm:flex
+                "
+              >
+                {searchOpen ? (
+                  <X size={18} />
+                ) : (
+                  <Search size={18} />
+                )}
+              </button>
+
+              {/* Mobile menu */}
+
+              <button
+                type="button"
+                onClick={() =>
+                  setMobileMenuOpen((prev) => !prev)
+                }
+                aria-label={
+                  mobileMenuOpen
+                    ? "Close menu"
+                    : "Open menu"
+                }
+                aria-expanded={mobileMenuOpen}
+                className="
+                  flex
+                  h-[44px]
+                  w-[44px]
+                  items-center
+                  justify-center
+                  rounded-full
+                  border
+                  border-black/10
+                  bg-white/50
+                  text-[#182219]
+                  backdrop-blur-md
+                  transition-all
+                  hover:border-[#ADD132]
+                  hover:bg-[#ADD132]
+                  hover:text-[#101800]
+                  dark:border-white/10
+                  dark:bg-white/[0.04]
+                  dark:text-white
+                  dark:hover:bg-[#ADD132]
+                  dark:hover:text-[#101800]
+                "
+              >
+                {mobileMenuOpen ? (
+                  <X size={20} />
+                ) : (
+                  <Menu size={20} />
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* =================================================
+              SEARCH PANEL
+          ================================================= */}
+
+          <div
+            className={`
+              absolute
+              left-4
+              right-4
+              top-[92px]
+              z-40
+              overflow-hidden
+              rounded-[20px]
+              border
+              border-black/10
+              bg-white/95
+              p-2
+              shadow-[0_20px_60px_rgba(20,40,25,0.18)]
+              backdrop-blur-2xl
+              transition-all
+              duration-300
+              dark:border-[#ADD132]/20
+              dark:bg-[#06100B]/96
+              dark:shadow-[0_20px_60px_rgba(0,0,0,0.45)]
+              sm:left-6
+              sm:right-6
+              lg:left-8
+              lg:right-8
+
+              ${
+                searchOpen
+                  ? "max-h-[120px] opacity-100"
+                  : "pointer-events-none max-h-0 !p-0 opacity-0"
+              }
+            `}
+          >
+            <div
+              className="
+                flex
+                h-[54px]
+                items-center
+                gap-3
+                rounded-[15px]
+                border
+                border-black/[0.07]
+                bg-black/[0.025]
+                px-4
+                dark:border-white/[0.07]
+                dark:bg-white/[0.035]
+              "
+            >
+              <Search
+                size={19}
+                strokeWidth={1.8}
+                className="
+                  shrink-0
+                  text-[#648A00]
+                  dark:text-[#ADD132]
+                "
+              />
+
+              <input
+                type="text"
+                value={searchValue}
+                onChange={(e) =>
+                  setSearchValue(e.target.value)
+                }
+                placeholder="Search TrackOwls..."
+                autoFocus={searchOpen}
+                className="
+                  min-w-0
+                  flex-1
+                  border-0
+                  bg-transparent
+                  text-sm
+                  text-[#182219]
+                  outline-none
+                  placeholder:text-[#7C867F]
+                  dark:text-white
+                  dark:placeholder:text-white/35
+                "
+              />
+
+              {searchValue && (
+                <button
+                  type="button"
+                  onClick={() => setSearchValue("")}
+                  aria-label="Clear search"
+                  className="
+                    flex
+                    h-7
+                    w-7
+                    items-center
+                    justify-center
+                    rounded-full
+                    text-[#68736C]
+                    transition-all
+                    hover:bg-black/5
+                    hover:text-black
+                    dark:text-white/40
+                    dark:hover:bg-white/10
+                    dark:hover:text-white
+                  "
+                >
+                  <X size={16} />
+                </button>
+              )}
+            </div>
+
+            {searchValue && (
+              <div
+                className="
+                  flex
+                  gap-1.5
+                  px-3
+                  pb-1
+                  pt-2
+                  text-[11px]
+                  text-[#718078]
+                  dark:text-white/45
+                "
+              >
+                <span>
+                  Searching for
+                </span>
+
+                <strong
+                  className="
+                    text-[#182219]
+                    dark:text-white
+                  "
+                >
+                  {searchValue}
+                </strong>
+              </div>
+            )}
+          </div>
+
+          {/* =================================================
+              MOBILE MENU
+          ================================================= */}
+
+          <div
+            className={`
+              absolute
+              left-3
+              right-3
+              top-[92px]
+              z-30
+              overflow-hidden
+              rounded-[24px]
+              border
+              border-black/10
+              bg-[#F8FAF5]/98
+              p-2
+              shadow-[0_25px_70px_rgba(20,40,25,0.16)]
+              backdrop-blur-2xl
+              transition-all
+              duration-300
+              dark:border-white/10
+              dark:bg-[#07100B]/98
+              dark:shadow-[0_25px_70px_rgba(0,0,0,0.50)]
+
+              ${
+                mobileMenuOpen
+                  ? "visible translate-y-0 opacity-100"
+                  : "invisible -translate-y-3 opacity-0"
+              }
+            `}
+          >
+            <div
+              className="
+                max-h-[calc(100vh-115px)]
+                overflow-y-auto
+                p-2
+              "
+            >
+              {/* Mobile navigation */}
+
+              <div className="space-y-1">
+                {navItems.map((item) => {
+                  const active = isActive(item.path);
+
+                  return (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      onClick={handleMobileNavigation}
+                      className={`
+                        flex
+                        min-h-[48px]
+                        items-center
+                        justify-between
+                        rounded-[14px]
+                        px-4
+                        text-[14px]
+                        font-semibold
+                        transition-all
+
+                        ${
+                          active
+                            ? `
+                              bg-[#ADD132]/15
+                              text-[#416000]
+                              dark:bg-[#ADD132]/15
+                              dark:text-[#DFFF72]
+                            `
+                            : `
+                              text-[#263129]
+                              hover:bg-black/[0.04]
+                              dark:text-white/75
+                              dark:hover:bg-white/[0.06]
+                              dark:hover:text-white
+                            `
+                        }
+                      `}
+                    >
+                      <span>
+                        {item.name}
+                      </span>
+
+                      <ArrowRight
+                        size={16}
+                        className={`
+                          transition-transform
+                          duration-300
+                          ${
+                            active
+                              ? "translate-x-0 text-[#719800] dark:text-[#ADD132]"
+                              : "text-black/25 dark:text-white/25"
+                          }
+                        `}
+                      />
+                    </Link>
+                  );
+                })}
+              </div>
+
+              {/* Mobile divider */}
+
+              <div
+                className="
+                  my-3
+                  h-px
+                  bg-black/[0.07]
+                  dark:bg-white/[0.08]
+                "
+              />
+
+              {/* Mobile Free Audit */}
+
+              <Link
+                to="/request-demo"
+                onClick={handleMobileNavigation}
+                className="
+                  group
+                  flex
+                  h-[52px]
+                  items-center
+                  justify-between
+                  rounded-full
+                  bg-gradient-to-r
+                  from-[#C9EF48]
+                  to-[#ADD132]
+                  pl-5
+                  pr-1.5
+                  text-[13px]
+                  font-extrabold
+                  text-[#101800]
+                  shadow-[0_10px_30px_rgba(173,209,50,0.20)]
+                "
+              >
+                <span>
+                  Request a free audit
+                </span>
+
+                <span
+                  className="
+                    flex
+                    h-10
+                    w-10
+                    items-center
+                    justify-center
+                    rounded-full
+                    bg-[#071006]
+                    text-white
+                  "
+                >
+                  <ArrowUpRight size={17} />
+                </span>
+              </Link>
+            </div>
           </div>
         </div>
       </header>
 
-             
       {/* =====================================================
-          WHATSAPP
+          FLOATING CONTROLS
       ===================================================== */}
 
       <div
         className="
           fixed
           bottom-5
-          right-4
+          right-5
           z-[1100]
+          flex
+          flex-col
+          items-center
+          gap-4
           sm:bottom-6
           sm:right-6
         "
       >
-        <ScrollToTop />
-        
-        {whatsappOpen && (
-          <div
-            className={`
-              absolute
-              bottom-[72px]
-              right-0
-              w-[285px]
-              rounded-[20px]
-              border
-              p-4
-              backdrop-blur-2xl
-              sm:w-[300px]
+        {/* ===================================================
+            SCROLL TO TOP
+        =================================================== */}
 
-              ${
-                darkMode
-                  ? `
-                    border-[#ADD132]/15
-                    bg-[#070D09]/97
-                    shadow-[0_20px_60px_rgba(0,0,0,0.5)]
-                  `
-                  : `
-                    border-black/10
-                    bg-white/97
-                    shadow-[0_20px_60px_rgba(20,50,25,0.16)]
-                  `
-              }
-            `}
-          >
-            <button
-              type="button"
-              onClick={() => setWhatsappOpen(false)}
-              className={`
-                absolute
-                right-3
-                top-3
-                flex
-                h-6
-                w-6
-                items-center
-                justify-center
-                rounded-full
-
-                ${
-                  darkMode
-                    ? "text-white/45 hover:bg-white/10 hover:text-white"
-                    : "text-[#6B776F] hover:bg-black/5 hover:text-black"
-                }
-              `}
-            >
-              <X size={14} />
-            </button>
-
-            <div className="flex gap-3">
-              <div
-                className="
-                  flex
-                  h-[44px]
-                  w-[44px]
-                  shrink-0
-                  items-center
-                  justify-center
-                  rounded-[13px]
-                  bg-gradient-to-br
-                  from-[#35E879]
-                  to-[#18B957]
-                  text-white
-                  shadow-[0_8px_20px_rgba(37,211,102,0.25)]
-                "
-              >
-                <MessageCircle size={22} />
-              </div>
-
-              <div className="pr-4">
-                <h4
-                  className={`
-                    text-[13px]
-                    font-extrabold
-                    ${
-                      darkMode
-                        ? "text-white"
-                        : "text-[#172119]"
-                    }
-                  `}
-                >
-                  TrackOwls Support
-                </h4>
-
-                <p
-                  className={`
-                    mt-1
-                    text-[11px]
-                    leading-relaxed
-                    ${
-                      darkMode
-                        ? "text-white/50"
-                        : "text-[#68746C]"
-                    }
-                  `}
-                >
-                  Need help with digital protection?
-                </p>
-
-                <a
-                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hello%20TrackOwls,%20I%20would%20like%20to%20know%20more.`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="
-                    mt-2
-                    inline-flex
-                    items-center
-                    gap-1
-                    text-[11px]
-                    font-extrabold
-                    text-[#6B9408]
-                    hover:text-[#3F5D00]
-                  "
-                >
-                  Start a conversation
-                  <ArrowUpRight size={13} />
-                </a>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <button
-          type="button"
-          onClick={() => setWhatsappOpen(!whatsappOpen)}
-          aria-label="WhatsApp"
-          className="
-            group
+        <div
+          className={`
             relative
-            flex
-            h-[56px]
-            w-[56px]
-            items-center
-            justify-center
-            rounded-full
-            bg-gradient-to-br
-            from-[#35E879]
-            to-[#18B957]
-            text-white
-            shadow-[0_10px_32px_rgba(37,211,102,0.30)]
+            h-[52px]
+            w-[52px]
             transition-all
             duration-300
-            hover:-translate-y-1
-            hover:scale-105
-          "
+
+            ${
+              showScrollTop
+                ? "visible translate-y-0 opacity-100"
+                : "invisible translate-y-3 opacity-0"
+            }
+          `}
         >
+          {/* Outer ring */}
+
           <span
             className="
+              pointer-events-none
               absolute
-              -inset-1
-              animate-ping
+              -inset-[5px]
               rounded-full
               border
-              border-[#25D366]/40
+              border-[#ADD132]/20
             "
           />
 
-          <MessageCircle
-            size={27}
-            strokeWidth={2.1}
-          />
+          {/* Inner ring */}
 
           <span
             className="
+              pointer-events-none
               absolute
-              right-1
-              top-1
-              h-3
-              w-3
+              -inset-[1px]
               rounded-full
-              border-2
-              border-white
-              bg-[#C7EB45]
+              border
+              border-[#ADD132]/35
             "
           />
-        </button>
+
+          {/* Button */}
+
+          <button
+            type="button"
+            onClick={handleScrollToTop}
+            aria-label="Scroll to top"
+            title="Scroll to top"
+            className="
+              group
+              relative
+              z-10
+              flex
+              h-[52px]
+              w-[52px]
+              items-center
+              justify-center
+              rounded-full
+              border
+              border-[#ADD132]/40
+              bg-white
+              text-[#648A00]
+              shadow-[0_8px_25px_rgba(60,90,10,0.16)]
+              transition-all
+              duration-300
+              hover:-translate-y-1
+              hover:border-[#ADD132]
+              hover:bg-[#ADD132]
+              hover:text-[#101800]
+              hover:shadow-[0_10px_30px_rgba(173,209,50,0.30)]
+              focus:outline-none
+              focus:ring-2
+              focus:ring-[#ADD132]/40
+              dark:border-[#ADD132]/35
+              dark:bg-[#0B100D]
+              dark:text-[#ADD132]
+              dark:shadow-[0_8px_25px_rgba(0,0,0,0.35)]
+              dark:hover:bg-[#ADD132]
+              dark:hover:text-[#101800]
+            "
+          >
+            <ArrowUp
+              size={22}
+              strokeWidth={2.5}
+              className="
+                transition-transform
+                duration-300
+                group-hover:-translate-y-0.5
+              "
+            />
+          </button>
+        </div>
+
+        {/* ===================================================
+            WHATSAPP
+        =================================================== */}
+
+        <div className="relative">
+          {/* WhatsApp popup */}
+
+          {whatsappOpen && (
+            <div
+              className="
+                absolute
+                bottom-[72px]
+                right-0
+                w-[300px]
+                overflow-hidden
+                rounded-[20px]
+                border
+                border-black/10
+                bg-white/96
+                p-4
+                shadow-[0_20px_60px_rgba(20,40,25,0.18)]
+                backdrop-blur-2xl
+                dark:border-[#ADD132]/20
+                dark:bg-[#07100B]/96
+                dark:shadow-[0_20px_60px_rgba(0,0,0,0.50)]
+              "
+            >
+              {/* Close */}
+
+              <button
+                type="button"
+                onClick={() =>
+                  setWhatsappOpen(false)
+                }
+                aria-label="Close WhatsApp"
+                className="
+                  absolute
+                  right-3
+                  top-3
+                  flex
+                  h-6
+                  w-6
+                  items-center
+                  justify-center
+                  rounded-full
+                  text-[#6B776F]
+                  transition-colors
+                  hover:bg-black/5
+                  hover:text-black
+                  dark:text-white/40
+                  dark:hover:bg-white/10
+                  dark:hover:text-white
+                "
+              >
+                <X size={14} />
+              </button>
+
+              <div className="flex gap-3">
+                {/* Icon */}
+
+                <div
+                  className="
+                    flex
+                    h-[44px]
+                    w-[44px]
+                    shrink-0
+                    items-center
+                    justify-center
+                    rounded-[13px]
+                    bg-gradient-to-br
+                    from-[#35E879]
+                    to-[#18B957]
+                    text-white
+                    shadow-[0_8px_20px_rgba(37,211,102,0.25)]
+                  "
+                >
+                  <MessageCircle size={22} />
+                </div>
+
+                {/* Content */}
+
+                <div className="pr-4">
+                  <h4
+                    className="
+                      text-[13px]
+                      font-extrabold
+                      text-[#172119]
+                      dark:text-white
+                    "
+                  >
+                    TrackOwls Support
+                  </h4>
+
+                  <p
+                    className="
+                      mt-1
+                      text-[11px]
+                      leading-relaxed
+                      text-[#68746C]
+                      dark:text-white/50
+                    "
+                  >
+                    Need help with digital
+                    protection?
+                  </p>
+
+                  <a
+                    href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hello%20TrackOwls,%20I%20would%20like%20to%20know%20more.`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="
+                      mt-2
+                      inline-flex
+                      items-center
+                      gap-1
+                      text-[11px]
+                      font-extrabold
+                      text-[#648A00]
+                      transition-colors
+                      hover:text-[#3F5D00]
+                      dark:text-[#ADD132]
+                      dark:hover:text-[#DFFF72]
+                    "
+                  >
+                    Start a conversation
+
+                    <ArrowUpRight size={13} />
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* WhatsApp button */}
+
+          <button
+            type="button"
+            onClick={() =>
+              setWhatsappOpen((prev) => !prev)
+            }
+            aria-label="WhatsApp"
+            className="
+              group
+              relative
+              flex
+              h-[56px]
+              w-[56px]
+              items-center
+              justify-center
+              rounded-full
+              bg-gradient-to-br
+              from-[#35E879]
+              to-[#18B957]
+              text-white
+              shadow-[0_10px_32px_rgba(37,211,102,0.30)]
+              transition-all
+              duration-300
+              hover:-translate-y-1
+              hover:scale-105
+            "
+          >
+            {/* Pulse */}
+
+            <span
+              className="
+                absolute
+                -inset-1
+                animate-ping
+                rounded-full
+                border
+                border-[#25D366]/30
+              "
+            />
+
+            <MessageCircle
+              size={27}
+              strokeWidth={2.1}
+            />
+
+            {/* Online dot */}
+
+            <span
+              className="
+                absolute
+                right-1
+                top-1
+                h-3
+                w-3
+                rounded-full
+                border-2
+                border-white
+                bg-[#C7EB45]
+              "
+            />
+          </button>
+        </div>
       </div>
     </>
   );

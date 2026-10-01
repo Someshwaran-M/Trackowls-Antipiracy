@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   ArrowRight,
   ArrowUpRight,
   Check,
-  CircleCheck,
   ShieldCheck,
   Sparkles,
   Zap,
 } from "lucide-react";
+
+/* =========================================================
+   PLAN DATA
+========================================================= */
 
 const plans = [
   {
@@ -23,7 +27,9 @@ const plans = [
       "Takedown management",
       "Monthly report",
     ],
+    featured: false,
   },
+
   {
     number: "02",
     name: "PRO",
@@ -40,6 +46,7 @@ const plans = [
     ],
     featured: true,
   },
+
   {
     number: "03",
     name: "ENTERPRISE",
@@ -53,24 +60,787 @@ const plans = [
       "Legal escalation",
       "Dedicated manager",
     ],
+    featured: false,
   },
 ];
 
+
+/* =========================================================
+   ANIMATED FEATURE TEXT
+========================================================= */
+
+function AnimatedText({ text, active, animationKey }) {
+  return (
+    <span className="inline-block">
+
+      {text.split("").map((letter, index) => (
+        <span
+          key={`${animationKey}-${index}`}
+          className={active ? "plan-letter" : ""}
+          style={
+            active
+              ? {
+                  animationDelay: `${index * 0.018}s`,
+                }
+              : undefined
+          }
+        >
+          {letter === " " ? "\u00A0" : letter}
+        </span>
+      ))}
+
+    </span>
+  );
+}
+
+
+/* =========================================================
+   PLAN CARD
+========================================================= */
+
+function PlanCard({
+  plan,
+  index,
+  activeIndex,
+  setActiveIndex,
+  animationKey,
+}) {
+  const isActive = index === activeIndex;
+
+  return (
+    <article
+      onMouseEnter={() => {
+        setActiveIndex(index);
+      }}
+      className={`
+        plan-card
+        group
+        relative
+        flex
+        min-h-[590px]
+        w-full
+        flex-col
+        overflow-hidden
+        rounded-[22px]
+        border
+        bg-white
+        transition-all
+        duration-700
+
+        dark:bg-[#090D0A]
+
+        ${
+          isActive
+            ? `
+              -translate-y-2
+              border-[#ADD132]/70
+              shadow-[0_24px_70px_rgba(173,209,50,0.13)]
+              dark:shadow-[0_24px_70px_rgba(173,209,50,0.07)]
+            `
+            : `
+              translate-y-0
+              border-black/[0.08]
+              shadow-[0_12px_35px_rgba(0,0,0,0.035)]
+              dark:border-white/[0.08]
+              dark:shadow-[0_12px_35px_rgba(0,0,0,0.15)]
+            `
+        }
+      `}
+      style={{
+        animationDelay: `${index * 140}ms`,
+      }}
+    >
+
+      {/* ===================================================
+          TOP SCANNER
+      =================================================== */}
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          left-0
+          right-0
+          top-0
+          z-30
+          h-[2px]
+          overflow-hidden
+        "
+      >
+        <span
+          className={`
+            absolute
+            top-0
+            h-full
+            w-[45%]
+            bg-gradient-to-r
+            from-transparent
+            via-[#ADD132]
+            to-transparent
+
+            ${
+              isActive
+                ? "animate-[planScanner_1.3s_ease-in-out_infinite]"
+                : "opacity-0"
+            }
+          `}
+        />
+      </div>
+
+
+      {/* ===================================================
+          AMBIENT GLOW
+      =================================================== */}
+
+      <div
+        className={`
+          pointer-events-none
+          absolute
+          -right-20
+          -top-20
+          h-44
+          w-44
+          rounded-full
+          bg-[#ADD132]/10
+          blur-[65px]
+          transition-opacity
+          duration-700
+
+          ${isActive ? "opacity-100" : "opacity-0"}
+        `}
+      />
+
+
+      {/* ===================================================
+          POPULAR BADGE
+      =================================================== */}
+
+      {plan.featured && (
+        <div
+          className="
+            absolute
+            right-4
+            top-4
+            z-40
+            flex
+            items-center
+            gap-1.5
+            rounded-full
+            border
+            border-[#ADD132]/30
+            bg-[#ADD132]/10
+            px-3
+            py-1.5
+            text-[7px]
+            font-black
+            uppercase
+            tracking-[0.14em]
+            text-[#678300]
+            dark:text-[#ADD132]
+          "
+        >
+          <Sparkles size={9} />
+          Popular
+        </div>
+      )}
+
+
+      {/* ===================================================
+          HEADER
+      =================================================== */}
+
+      <header
+        className="
+          relative
+          border-b
+          border-black/[0.07]
+          px-5
+          pb-5
+          pt-6
+          dark:border-white/[0.07]
+          sm:px-6
+          sm:pt-7
+        "
+      >
+
+        <div className="flex items-start gap-3">
+
+          {/* Number */}
+
+          <div
+            className={`
+              flex
+              h-9
+              w-9
+              shrink-0
+              items-center
+              justify-center
+              rounded-xl
+              border
+              text-[8px]
+              font-black
+              tracking-[0.12em]
+              transition-all
+              duration-500
+
+              ${
+                isActive
+                  ? `
+                    border-[#ADD132]
+                    bg-[#ADD132]
+                    text-[#101600]
+                    shadow-[0_0_22px_rgba(173,209,50,0.24)]
+                  `
+                  : `
+                    border-black/10
+                    bg-black/[0.015]
+                    text-black/35
+                    dark:border-white/10
+                    dark:bg-white/[0.02]
+                    dark:text-white/30
+                  `
+              }
+            `}
+          >
+            {plan.number}
+          </div>
+
+
+          {/* Name */}
+
+          <div className="min-w-0">
+
+            <p
+              className="
+                text-[7px]
+                font-black
+                uppercase
+                tracking-[0.24em]
+                text-[#789900]
+                dark:text-[#ADD132]
+              "
+            >
+              {plan.label}
+            </p>
+
+            <h3
+              className="
+                mt-1
+                text-[17px]
+                font-black
+                tracking-[-0.025em]
+                text-[#172018]
+                dark:text-white
+              "
+            >
+              {plan.name}
+            </h3>
+
+          </div>
+
+        </div>
+
+
+        {/* Audience */}
+
+        <div className="mt-5 flex items-center gap-2">
+
+          <span
+            className={`
+              h-1.5
+              w-1.5
+              rounded-full
+              bg-[#ADD132]
+              transition-all
+              duration-500
+
+              ${
+                isActive
+                  ? "shadow-[0_0_10px_rgba(173,209,50,0.9)]"
+                  : ""
+              }
+            `}
+          />
+
+          <span
+            className="
+              text-[8px]
+              font-medium
+              text-black/40
+              dark:text-white/30
+            "
+          >
+            {plan.audience}
+          </span>
+
+        </div>
+
+      </header>
+
+
+      {/* ===================================================
+          CONTENT
+      =================================================== */}
+
+      <div
+        className="
+          relative
+          flex
+          flex-1
+          flex-col
+          px-5
+          py-5
+          sm:px-6
+          sm:py-6
+        "
+      >
+
+        {/* Title */}
+
+        <h4
+          className="
+            max-w-[390px]
+            text-[21px]
+            font-black
+            leading-[1.08]
+            tracking-[-0.035em]
+            text-[#172018]
+            dark:text-white
+            sm:text-[23px]
+          "
+        >
+          {plan.title}
+        </h4>
+
+
+        {/* Description */}
+
+        <p
+          className="
+            mt-3
+            min-h-[72px]
+            max-w-[400px]
+            text-[11px]
+            leading-[1.75]
+            text-[#69756D]
+            dark:text-white/40
+            sm:text-[12px]
+          "
+        >
+          {plan.description}
+        </p>
+
+
+        {/* =================================================
+            PROTECTION SCOPE
+        ================================================= */}
+
+        <div
+          className="
+            mt-5
+            flex
+            items-center
+            justify-between
+            border-b
+            border-black/[0.07]
+            pb-3
+            dark:border-white/[0.07]
+          "
+        >
+
+          <div className="flex items-center gap-2">
+
+            <ShieldCheck
+              size={13}
+              strokeWidth={1.8}
+              className="
+                text-[#789900]
+                dark:text-[#ADD132]
+              "
+            />
+
+            <span
+              className="
+                text-[7px]
+                font-black
+                uppercase
+                tracking-[0.2em]
+                text-black/35
+                dark:text-white/25
+              "
+            >
+              Protection scope
+            </span>
+
+          </div>
+
+
+          <span
+            className="
+              text-[7px]
+              font-bold
+              uppercase
+              tracking-[0.14em]
+              text-black/25
+              dark:text-white/20
+            "
+          >
+            {plan.features.length} capabilities
+          </span>
+
+        </div>
+
+
+        {/* =================================================
+            FEATURES
+        ================================================= */}
+
+        <div>
+
+          {plan.features.map((feature, featureIndex) => (
+
+            <div
+              key={`${plan.number}-${feature}-${animationKey}`}
+              className="
+                flex
+                min-h-[56px]
+                items-center
+                gap-3
+                border-b
+                border-black/[0.06]
+                py-3
+                dark:border-white/[0.06]
+              "
+            >
+
+              {/* Check */}
+
+              <span
+                className={`
+                  flex
+                  h-5
+                  w-5
+                  shrink-0
+                  items-center
+                  justify-center
+                  rounded-full
+                  border
+                  border-[#ADD132]/35
+                  bg-[#ADD132]/[0.06]
+                  text-[#789900]
+                  transition-all
+                  duration-500
+                  dark:text-[#ADD132]
+
+                  ${
+                    isActive
+                      ? `
+                        scale-110
+                        border-[#ADD132]
+                        bg-[#ADD132]
+                        text-[#101600]
+                      `
+                      : ""
+                  }
+                `}
+              >
+                <Check size={10} strokeWidth={3} />
+              </span>
+
+
+              {/* Feature text */}
+
+              <span
+                className="
+                  flex-1
+                  text-[10px]
+                  font-semibold
+                  leading-5
+                  text-[#435047]
+                  dark:text-white/55
+                  sm:text-[11px]
+                "
+              >
+                <AnimatedText
+                  text={feature}
+                  active={isActive}
+                  animationKey={`${animationKey}-${featureIndex}`}
+                />
+              </span>
+
+
+              {/* Arrow */}
+
+              <ArrowUpRight
+                size={12}
+                className={`
+                  shrink-0
+                  transition-all
+                  duration-500
+
+                  ${
+                    isActive
+                      ? `
+                        -translate-y-0.5
+                        translate-x-0.5
+                        text-[#789900]
+                        opacity-100
+                        dark:text-[#ADD132]
+                      `
+                      : `
+                        text-black/10
+                        opacity-0
+                        dark:text-white/10
+                      `
+                  }
+                `}
+              />
+
+            </div>
+
+          ))}
+
+        </div>
+
+
+        {/* =================================================
+            GET QUOTE
+        ================================================= */}
+
+        <div className="mt-auto pt-6">
+
+          <Link
+            to={`/request-demo?plan=${plan.name.toLowerCase()}`}
+            className={`
+              group/quote
+              relative
+              z-20
+              flex
+              min-h-[62px]
+              w-full
+              items-center
+              justify-between
+              overflow-hidden
+              rounded-xl
+              px-5
+              py-3.5
+              transition-all
+              duration-500
+
+              ${
+                isActive
+                  ? `
+                    bg-[#ADD132]
+                    text-[#101600]
+                    shadow-[0_12px_35px_rgba(173,209,50,0.22)]
+                    hover:bg-[#BDE640]
+                  `
+                  : `
+                    bg-[#172018]
+                    text-white
+                    hover:bg-[#ADD132]
+                    hover:text-[#101600]
+                    dark:bg-[#ADD132]
+                    dark:text-[#101600]
+                    dark:hover:bg-[#BDE640]
+                  `
+              }
+            `}
+          >
+
+            {/* Moving shine */}
+
+            <span
+              className="
+                pointer-events-none
+                absolute
+                inset-y-0
+                left-[-80%]
+                z-0
+                w-[40%]
+                skew-x-[-20deg]
+                bg-white/25
+                transition-all
+                duration-700
+                group-hover/quote:left-[130%]
+              "
+            />
+
+
+            {/* Text */}
+
+            <span
+              className={`
+                relative
+                z-10
+                text-[9px]
+                font-black
+                uppercase
+                tracking-[0.2em]
+
+                ${
+                  isActive
+                    ? "text-[#101600]"
+                    : "text-white"
+                }
+
+                dark:text-[#101600]
+              `}
+            >
+              Get a quote
+            </span>
+
+
+            {/* Arrow */}
+
+            <span
+              className={`
+                relative
+                z-10
+                flex
+                h-7
+                w-7
+                items-center
+                justify-center
+                rounded-full
+                border
+                border-current/25
+                transition-transform
+                duration-300
+                group-hover/quote:translate-x-1
+              `}
+            >
+              <ArrowRight size={12} />
+            </span>
+
+          </Link>
+
+
+          <p
+            className="
+              mt-2
+              text-center
+              text-[7px]
+              text-black/30
+              dark:text-white/20
+            "
+          >
+            Discuss this protection model with TrackOwls
+          </p>
+
+        </div>
+
+      </div>
+
+
+      {/* ===================================================
+          FOOTER
+      =================================================== */}
+
+      <footer
+        className="
+          flex
+          items-center
+          justify-between
+          border-t
+          border-black/[0.06]
+          bg-black/[0.012]
+          px-5
+          py-3
+          dark:border-white/[0.06]
+          dark:bg-white/[0.01]
+          sm:px-6
+        "
+      >
+
+        <span
+          className="
+            text-[7px]
+            font-bold
+            uppercase
+            tracking-[0.15em]
+            text-black/25
+            dark:text-white/20
+          "
+        >
+          TrackOwls protection
+        </span>
+
+        <span
+          className="
+            text-[7px]
+            font-black
+            tracking-[0.15em]
+            text-[#789900]
+            dark:text-[#ADD132]
+          "
+        >
+          {plan.number} / 03
+        </span>
+
+      </footer>
+
+    </article>
+  );
+}
+
+
+/* =========================================================
+   PLAN PAGE
+========================================================= */
+
 function Plan() {
-  const [activePlan, setActivePlan] = useState(1);
-  const [isPaused, setIsPaused] = useState(false);
+
+  const [activePlan, setActivePlan] = useState(0);
+
+  const [animationKey, setAnimationKey] = useState(0);
+
+
+  /* =======================================================
+     AUTOMATIC CARD ROTATION
+     
+     Starter
+        ↓ 4 sec
+     Pro
+        ↓ 4 sec
+     Enterprise
+        ↓ 4 sec
+     Starter
+        ↓
+     repeat
+  ======================================================= */
 
   useEffect(() => {
-    if (isPaused) return;
 
     const timer = setInterval(() => {
-      setActivePlan((current) => (current + 1) % plans.length);
-    }, 5000);
 
-    return () => clearInterval(timer);
-  }, [isPaused]);
+      setActivePlan((current) => {
+        return (current + 1) % plans.length;
+      });
 
-  const selectedPlan = plans[activePlan];
+      setAnimationKey((current) => current + 1);
+
+    }, 4000);
+
+    return () => {
+      clearInterval(timer);
+    };
+
+  }, []);
+
+
+  /* =======================================================
+     MANUAL CARD SELECTION
+  ======================================================= */
+
+  const selectPlan = (index) => {
+
+    setActivePlan(index);
+
+    setAnimationKey((current) => current + 1);
+
+  };
+
 
   return (
     <main
@@ -84,1110 +854,490 @@ function Plan() {
         dark:text-white
       "
     >
-      {/* =========================================================
+
+      {/* ===================================================
           HERO
-      ========================================================== */}
-
-      <section className="relative overflow-hidden">
-        {/* Ambient light */}
-
-        <div className="pointer-events-none absolute inset-0">
-          <div
-            className="
-              absolute
-              -left-40
-              -top-40
-              h-[400px]
-              w-[400px]
-              animate-[pulseGlow_8s_ease-in-out_infinite]
-              rounded-full
-              bg-[#ADD132]/10
-              blur-[130px]
-              dark:bg-[#ADD132]/[0.04]
-            "
-          />
-
-          <div
-            className="
-              absolute
-              -right-40
-              top-[25%]
-              h-[350px]
-              w-[350px]
-              animate-[pulseGlowReverse_10s_ease-in-out_infinite]
-              rounded-full
-              bg-[#DCE9C5]/50
-              blur-[130px]
-              dark:bg-[#ADD132]/[0.035]
-            "
-          />
-        </div>
-
-        <div
-          className="
-            relative
-            mx-auto
-            max-w-[1480px]
-            px-5
-            pb-16
-            pt-16
-            sm:px-7
-            sm:pb-20
-            sm:pt-20
-            md:px-10
-            md:pb-24
-            md:pt-24
-            lg:px-14
-            lg:pb-28
-            lg:pt-28
-            xl:px-16
-          "
-        >
-          <div
-            className="
-              flex
-              flex-col
-              gap-10
-              lg:flex-row
-              lg:items-end
-              lg:justify-between
-              lg:gap-20
-            "
-          >
-            <div className="max-w-[850px]">
-              <div className="mb-5 flex items-center gap-3">
-                <span className="h-px w-9 bg-[#ADD132]" />
-
-                <span
-                  className="
-                    text-[8px]
-                    font-black
-                    uppercase
-                    tracking-[0.35em]
-                    text-[#6E870D]
-                    dark:text-[#ADD132]
-                    sm:text-[9px]
-                  "
-                >
-                  Protection Journey
-                </span>
-              </div>
-
-              <h1
-                className="
-                  max-w-[850px]
-                  text-[34px]
-                  font-black
-                  leading-[0.96]
-                  tracking-[-0.045em]
-                  text-[#172018]
-                  dark:text-white
-                  sm:text-4xl
-                  md:text-5xl
-                  lg:text-6xl
-                "
-              >
-                Protection should evolve
-                <span className="text-[#789900] dark:text-[#ADD132]">
-                  {" "}
-                  with your exposure.
-                </span>
-              </h1>
-            </div>
-
-            <div className="max-w-[410px]">
-              <p
-                className="
-                  text-[13px]
-                  leading-7
-                  text-[#69756D]
-                  dark:text-white/45
-                  sm:text-[14px]
-                "
-              >
-                Choose a protection model based on the scale of your content,
-                brand and digital presence. Your coverage can evolve as your
-                requirements change.
-              </p>
-            </div>
-          </div>
-
-          {/* Intro line */}
-
-          <div
-            className="
-              mt-12
-              flex
-              flex-col
-              gap-4
-              border-t
-              border-black/[0.08]
-              pt-5
-              dark:border-white/[0.09]
-              sm:flex-row
-              sm:items-center
-              sm:justify-between
-            "
-          >
-            <div className="flex items-center gap-3">
-              <ShieldCheck
-                size={16}
-                strokeWidth={1.5}
-                className="text-[#789900] dark:text-[#ADD132]"
-              />
-
-              <span
-                className="
-                  text-[9px]
-                  font-bold
-                  uppercase
-                  tracking-[0.16em]
-                  text-[#69756D]
-                  dark:text-white/40
-                "
-              >
-                Human-reviewed protection workflow
-              </span>
-            </div>
-
-            <span
-              className="
-                text-[8px]
-                font-bold
-                uppercase
-                tracking-[0.2em]
-                text-[#89938B]
-                dark:text-white/25
-              "
-            >
-              TrackOwls / 2026
-            </span>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================
-          PROTECTION STORYLINE
-      ========================================================== */}
-
-      <section
-        className="
-          relative
-          border-y
-          border-black/[0.08]
-          bg-[#F0F4EC]
-          dark:border-white/[0.08]
-          dark:bg-[#080D09]
-        "
-      >
-        <div
-          className="
-            mx-auto
-            max-w-[1480px]
-            px-5
-            sm:px-7
-            md:px-10
-            lg:px-14
-            xl:px-16
-          "
-        >
-          <div
-            className="
-              flex
-              flex-col
-              lg:flex-row
-            "
-          >
-            {/* =================================================
-                LEFT STORYLINE
-            ================================================== */}
-
-            <div
-              className="
-                relative
-                w-full
-                border-b
-                border-black/[0.08]
-                py-12
-                dark:border-white/[0.08]
-                lg:w-[42%]
-                lg:border-b-0
-                lg:border-r
-                lg:py-20
-                lg:pr-16
-              "
-            >
-              <div className="lg:sticky lg:top-32">
-                <div className="flex items-center gap-3">
-                  <span
-                    className="
-                      text-[8px]
-                      font-black
-                      uppercase
-                      tracking-[0.3em]
-                      text-[#789900]
-                      dark:text-[#ADD132]
-                    "
-                  >
-                    The journey
-                  </span>
-
-                  <span className="h-px w-8 bg-[#ADD132]/50" />
-                </div>
-
-                <h2
-                  className="
-                    mt-5
-                    max-w-[480px]
-                    text-[28px]
-                    font-black
-                    leading-[1]
-                    tracking-[-0.04em]
-                    text-[#172018]
-                    dark:text-white
-                    sm:text-[36px]
-                    md:text-[42px]
-                  "
-                >
-                  Three ways to build your protection operation.
-                </h2>
-
-                <p
-                  className="
-                    mt-5
-                    max-w-[440px]
-                    text-[13px]
-                    leading-7
-                    text-[#69756D]
-                    dark:text-white/40
-                    sm:text-[14px]
-                  "
-                >
-                  Each level is designed around a different operational need —
-                  from establishing a baseline to coordinating protection across
-                  a larger catalogue.
-                </p>
-
-                {/* Vertical progress */}
-
-                <div className="mt-10 hidden lg:block">
-                  <div className="relative h-[230px] w-px bg-black/10 dark:bg-white/10">
-                    <div
-                      className="
-                        absolute
-                        left-0
-                        top-0
-                        w-px
-                        bg-[#ADD132]
-                        shadow-[0_0_12px_rgba(173,209,50,0.7)]
-                        transition-all
-                        duration-700
-                      "
-                      style={{
-                        height: `${((activePlan + 1) / plans.length) * 100}%`,
-                      }}
-                    />
-
-                    {plans.map((plan, index) => (
-                      <button
-                        key={plan.number}
-                        type="button"
-                        onClick={() => setActivePlan(index)}
-                        className="
-                          group
-                          absolute
-                          left-1/2
-                          flex
-                          -translate-x-1/2
-                          cursor-pointer
-                          items-center
-                        "
-                        style={{
-                          top: `${(index / (plans.length - 1)) * 100}%`,
-                        }}
-                        aria-label={`Select ${plan.name}`}
-                      >
-                        <span
-                          className={`
-                            flex
-                            h-5
-                            w-5
-                            items-center
-                            justify-center
-                            rounded-full
-                            border
-                            bg-[#F0F4EC]
-                            transition-all
-                            duration-500
-                            dark:bg-[#080D09]
-                            ${
-                              index === activePlan
-                                ? "scale-125 border-[#ADD132] shadow-[0_0_16px_rgba(173,209,50,0.35)]"
-                                : "border-black/15 dark:border-white/15"
-                            }
-                          `}
-                        >
-                          <span
-                            className={`
-                              h-1.5
-                              w-1.5
-                              rounded-full
-                              transition-all
-                              duration-500
-                              ${
-                                index === activePlan
-                                  ? "bg-[#ADD132]"
-                                  : "bg-black/15 dark:bg-white/15"
-                              }
-                            `}
-                          />
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="mt-9 flex items-center gap-2 lg:hidden">
-                  {plans.map((plan, index) => (
-                    <button
-                      key={plan.number}
-                      type="button"
-                      onClick={() => setActivePlan(index)}
-                      className={`
-                        h-1.5
-                        cursor-pointer
-                        transition-all
-                        duration-500
-                        ${
-                          index === activePlan
-                            ? "w-10 bg-[#ADD132]"
-                            : "w-5 bg-black/10 dark:bg-white/10"
-                        }
-                      `}
-                      aria-label={`Select ${plan.name}`}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* =================================================
-                RIGHT CONTENT
-            ================================================== */}
-
-            <div
-              className="
-                relative
-                w-full
-                lg:w-[58%]
-                lg:pl-16
-                xl:pl-20
-              "
-              onMouseEnter={() => setIsPaused(true)}
-              onMouseLeave={() => setIsPaused(false)}
-            >
-              {/* Animated pulse */}
-
-              <div className="pointer-events-none absolute left-0 top-0 hidden h-full w-px overflow-hidden lg:block">
-                <div
-                  className="
-                    absolute
-                    left-0
-                    top-[-120px]
-                    h-[120px]
-                    w-px
-                    animate-[storyPulse_4s_linear_infinite]
-                    bg-gradient-to-b
-                    from-transparent
-                    via-[#ADD132]
-                    to-transparent
-                    shadow-[0_0_15px_rgba(173,209,50,0.8)]
-                  "
-                />
-              </div>
-
-              <div
-                key={selectedPlan.name}
-                className="
-                  relative
-                  min-h-[650px]
-                  animate-[storyEnter_650ms_ease-out]
-                  py-12
-                  sm:py-14
-                  md:py-16
-                  lg:py-20
-                "
-              >
-                {/* Header */}
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="
-                        text-[9px]
-                        font-black
-                        tracking-[0.25em]
-                        text-[#789900]
-                        dark:text-[#ADD132]
-                      "
-                    >
-                      {selectedPlan.number}
-                    </span>
-
-                    <span className="h-px w-7 bg-[#ADD132]/50" />
-
-                    <span
-                      className="
-                        text-[8px]
-                        font-black
-                        uppercase
-                        tracking-[0.25em]
-                        text-[#789900]
-                        dark:text-[#ADD132]
-                      "
-                    >
-                      {selectedPlan.label}
-                    </span>
-                  </div>
-
-                  {selectedPlan.featured && (
-                    <span
-                      className="
-                        flex
-                        items-center
-                        gap-1.5
-                        text-[8px]
-                        font-black
-                        uppercase
-                        tracking-[0.16em]
-                        text-[#789900]
-                        dark:text-[#ADD132]
-                      "
-                    >
-                      <Sparkles size={11} />
-                      Recommended
-                    </span>
-                  )}
-                </div>
-
-                {/* Main heading */}
-
-                <div className="mt-12">
-                  <span
-                    className="
-                      text-[9px]
-                      font-bold
-                      uppercase
-                      tracking-[0.18em]
-                      text-[#89938B]
-                      dark:text-white/25
-                    "
-                  >
-                    {selectedPlan.audience}
-                  </span>
-
-                  <h3
-                    className="
-                      mt-4
-                      max-w-[680px]
-                      text-[30px]
-                      font-black
-                      leading-[1]
-                      tracking-[-0.04em]
-                      text-[#172018]
-                      dark:text-white
-                      sm:text-[38px]
-                      md:text-[46px]
-                      lg:text-[52px]
-                    "
-                  >
-                    {selectedPlan.title}
-                  </h3>
-
-                  <p
-                    className="
-                      mt-5
-                      max-w-[590px]
-                      text-[13px]
-                      leading-7
-                      text-[#69756D]
-                      dark:text-white/45
-                      sm:text-[14px]
-                      sm:leading-8
-                    "
-                  >
-                    {selectedPlan.description}
-                  </p>
-                </div>
-
-                {/* Feature pathway */}
-
-                <div className="mt-12">
-                  <div className="flex items-center justify-between border-b border-black/[0.08] pb-4 dark:border-white/[0.08]">
-                    <span
-                      className="
-                        text-[8px]
-                        font-black
-                        uppercase
-                        tracking-[0.25em]
-                        text-[#7D887F]
-                        dark:text-white/30
-                      "
-                    >
-                      Protection scope
-                    </span>
-
-                    <span
-                      className="
-                        text-[8px]
-                        font-black
-                        uppercase
-                        tracking-[0.16em]
-                        text-[#7D887F]
-                        dark:text-white/25
-                      "
-                    >
-                      {selectedPlan.features.length} capabilities
-                    </span>
-                  </div>
-
-                  <div>
-                    {selectedPlan.features.map((feature, index) => (
-                      <div
-                        key={feature}
-                        className="
-                          group
-                          flex
-                          items-center
-                          gap-4
-                          border-b
-                          border-black/[0.08]
-                          py-5
-                          animate-[featureSlide_500ms_ease-out_both]
-                          dark:border-white/[0.08]
-                          sm:py-6
-                        "
-                        style={{
-                          animationDelay: `${index * 100 + 150}ms`,
-                        }}
-                      >
-                        <span
-                          className="
-                            flex
-                            h-7
-                            w-7
-                            shrink-0
-                            items-center
-                            justify-center
-                            border
-                            border-[#ADD132]/30
-                            text-[#789900]
-                            transition-all
-                            duration-300
-                            group-hover:border-[#ADD132]
-                            group-hover:bg-[#ADD132]
-                            group-hover:text-[#101600]
-                            dark:text-[#ADD132]
-                            dark:group-hover:text-[#101600]
-                          "
-                        >
-                          <Check size={12} strokeWidth={3} />
-                        </span>
-
-                        <span
-                          className="
-                            flex-1
-                            text-[12px]
-                            font-semibold
-                            text-[#435047]
-                            dark:text-white/60
-                            sm:text-[13px]
-                          "
-                        >
-                          {feature}
-                        </span>
-
-                        <ArrowUpRight
-                          size={14}
-                          className="
-                            text-[#A0AAA2]
-                            transition-all
-                            duration-300
-                            group-hover:-translate-y-0.5
-                            group-hover:translate-x-0.5
-                            group-hover:text-[#789900]
-                            dark:group-hover:text-[#ADD132]
-                          "
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* CTA */}
-
-                <div className="mt-10 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-                  <div>
-                    <span
-                      className="
-                        text-[8px]
-                        font-black
-                        uppercase
-                        tracking-[0.2em]
-                        text-[#89938B]
-                        dark:text-white/25
-                      "
-                    >
-                      Investment
-                    </span>
-
-                    <p
-                      className="
-                        mt-1
-                        text-[15px]
-                        font-bold
-                        text-[#172018]
-                        dark:text-white
-                      "
-                    >
-                      Custom protection scope
-                    </p>
-                  </div>
-
-                  <button
-                    type="button"
-                    className="
-                      group
-                      inline-flex
-                      w-fit
-                      cursor-pointer
-                      items-center
-                      gap-3
-                      bg-[#172018]
-                      px-5
-                      py-3.5
-                      text-[9px]
-                      font-black
-                      uppercase
-                      tracking-[0.18em]
-                      text-white
-                      transition-all
-                      duration-300
-                      hover:-translate-y-1
-                      hover:bg-[#ADD132]
-                      hover:text-[#101600]
-                      dark:bg-[#ADD132]
-                      dark:text-[#101600]
-                      dark:hover:bg-[#BDE640]
-                    "
-                  >
-                    Discuss this option
-
-                    <ArrowRight
-                      size={15}
-                      className="
-                        transition-transform
-                        duration-300
-                        group-hover:translate-x-1
-                      "
-                    />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================
-          COMPARISON STRIP
-      ========================================================== */}
-
-      <section
-        className="
-          mx-auto
-          max-w-[1480px]
-          px-5
-          py-16
-          sm:px-7
-          sm:py-20
-          md:px-10
-          md:py-24
-          lg:px-14
-          xl:px-16
-        "
-      >
-        <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-20">
-          <div className="max-w-[470px]">
-            <span
-              className="
-                text-[8px]
-                font-black
-                uppercase
-                tracking-[0.3em]
-                text-[#789900]
-                dark:text-[#ADD132]
-              "
-            >
-              Coverage logic
-            </span>
-
-            <h2
-              className="
-                mt-4
-                text-[28px]
-                font-black
-                leading-[1]
-                tracking-[-0.04em]
-                text-[#172018]
-                dark:text-white
-                sm:text-[34px]
-                md:text-[40px]
-              "
-            >
-              Scale the protection model as the requirement changes.
-            </h2>
-          </div>
-
-          <div className="w-full max-w-[700px]">
-            {[
-              {
-                number: "01",
-                title: "Start focused",
-                text: "Establish visibility and dependable response for your core digital assets.",
-              },
-              {
-                number: "02",
-                title: "Expand coverage",
-                text: "Increase monitoring frequency and introduce broader protection workflows.",
-              },
-              {
-                number: "03",
-                title: "Coordinate at scale",
-                text: "Build a tailored operating model around larger catalogues and organisations.",
-              },
-            ].map((item) => (
-              <div
-                key={item.number}
-                className="
-                  group
-                  flex
-                  gap-5
-                  border-t
-                  border-black/[0.08]
-                  py-6
-                  dark:border-white/[0.09]
-                  sm:gap-7
-                  sm:py-7
-                "
-              >
-                <span
-                  className="
-                    pt-1
-                    text-[9px]
-                    font-black
-                    tracking-[0.2em]
-                    text-[#789900]
-                    dark:text-[#ADD132]
-                  "
-                >
-                  {item.number}
-                </span>
-
-                <div className="flex-1">
-                  <h3
-                    className="
-                      text-[15px]
-                      font-bold
-                      text-[#172018]
-                      dark:text-white
-                      sm:text-[17px]
-                    "
-                  >
-                    {item.title}
-                  </h3>
-
-                  <p
-                    className="
-                      mt-2
-                      max-w-[580px]
-                      text-[12px]
-                      leading-6
-                      text-[#758078]
-                      dark:text-white/40
-                      sm:text-[13px]
-                    "
-                  >
-                    {item.text}
-                  </p>
-                </div>
-
-                <CircleCheck
-                  size={17}
-                  strokeWidth={1.5}
-                  className="
-                    mt-1
-                    text-[#B0B9B1]
-                    transition-colors
-                    duration-300
-                    group-hover:text-[#789900]
-                    dark:text-white/20
-                    dark:group-hover:text-[#ADD132]
-                  "
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================
-          FINAL CTA
-      ========================================================== */}
+      =================================================== */}
 
       <section
         className="
           relative
           overflow-hidden
-          border-t
-          border-black/[0.08]
-          bg-[#EAF0E5]
-          dark:border-white/[0.08]
-          dark:bg-[#090F0B]
+          border-b
+          border-black/[0.06]
+          dark:border-white/[0.07]
         "
       >
+
+        {/* Background glow */}
+
         <div
           className="
             pointer-events-none
             absolute
-            left-1/2
-            top-[-160px]
-            h-[350px]
-            w-[650px]
-            -translate-x-1/2
-            animate-[finalGlow_7s_ease-in-out_infinite]
+            -left-40
+            -top-40
+            h-[400px]
+            w-[400px]
             rounded-full
             bg-[#ADD132]/10
-            blur-[140px]
+            blur-[130px]
             dark:bg-[#ADD132]/[0.04]
           "
         />
 
         <div
           className="
+            pointer-events-none
+            absolute
+            -right-40
+            top-[20%]
+            h-[350px]
+            w-[350px]
+            rounded-full
+            bg-[#DCE9C5]/50
+            blur-[130px]
+            dark:bg-[#ADD132]/[0.035]
+          "
+        />
+
+
+        <div
+          className="
             relative
             mx-auto
-            flex
             max-w-[1480px]
-            flex-col
-            gap-8
             px-5
-            py-16
+            pb-12
+            pt-12
             sm:px-7
-            sm:py-20
+            sm:pb-14
+            sm:pt-14
             md:px-10
-            lg:flex-row
-            lg:items-end
-            lg:justify-between
-            lg:px-14
-            lg:py-24
-            xl:px-16
+            md:pb-16
+            md:pt-16
+            lg:px-12
+            xl:px-14
           "
         >
-          <div className="max-w-[760px]">
-            <div className="flex items-center gap-3">
-              <Zap
-                size={15}
-                strokeWidth={1.5}
-                className="text-[#789900] dark:text-[#ADD132]"
-              />
 
-              <span
-                className="
-                  text-[8px]
-                  font-black
-                  uppercase
-                  tracking-[0.3em]
-                  text-[#789900]
-                  dark:text-[#ADD132]
-                "
-              >
-                Find your protection model
-              </span>
-            </div>
+          {/* Eyebrow */}
 
-            <h2
+          <div className="mb-4 flex items-center gap-3">
+
+            <span className="h-px w-8 bg-[#ADD132]" />
+
+            <span
               className="
-                mt-5
-                text-[30px]
+                text-[8px]
+                font-black
+                uppercase
+                tracking-[0.3em]
+                text-[#6E870D]
+                dark:text-[#ADD132]
+              "
+            >
+              Protection journey
+            </span>
+
+          </div>
+
+
+          {/* Main heading */}
+
+          <div
+            className="
+              flex
+              flex-col
+              gap-5
+              lg:flex-row
+              lg:items-end
+              lg:justify-between
+            "
+          >
+
+            <h1
+              className="
+                max-w-[720px]
+                text-[32px]
                 font-black
                 leading-[1]
                 tracking-[-0.045em]
                 text-[#172018]
                 dark:text-white
-                sm:text-[40px]
-                md:text-[48px]
-                lg:text-[54px]
+                sm:text-[38px]
+                md:text-[44px]
+                lg:text-[48px]
               "
             >
-              Let's build the right level of coverage for your operation.
-            </h2>
+              Protection should evolve{" "}
+              <span className="text-[#789900] dark:text-[#ADD132]">
+                with your exposure.
+              </span>
+            </h1>
+
 
             <p
               className="
-                mt-5
-                max-w-[620px]
-                text-[13px]
-                leading-7
+                max-w-[400px]
+                text-[11px]
+                leading-6
                 text-[#69756D]
                 dark:text-white/40
-                sm:text-[14px]
+                sm:text-[12px]
               "
             >
-              Tell us about your content, brand or catalogue and we can discuss
-              the protection scope that fits your requirements.
+              Choose a protection model based on the scale of your content,
+              brand and digital presence. Your coverage can evolve as your
+              requirements change.
             </p>
+
           </div>
 
-          <button
-            type="button"
-            className="
-              group
-              inline-flex
-              w-fit
-              cursor-pointer
-              items-center
-              gap-3
-              bg-[#172018]
-              px-6
-              py-3.5
-              text-[9px]
-              font-black
-              uppercase
-              tracking-[0.2em]
-              text-white
-              transition-all
-              duration-300
-              hover:-translate-y-1
-              hover:bg-[#ADD132]
-              hover:text-[#101600]
-              dark:bg-[#ADD132]
-              dark:text-[#101600]
-              dark:hover:bg-[#BDE640]
-            "
-          >
-            Talk to TrackOwls
 
-            <ArrowUpRight
-              size={16}
-              className="
-                transition-transform
-                duration-300
-                group-hover:-translate-y-0.5
-                group-hover:translate-x-0.5
-              "
-            />
-          </button>
+          
+
         </div>
+
       </section>
 
+
+      {/* ===================================================
+          PLAN CARDS
+      =================================================== */}
+
+      <section
+        className="
+          border-b
+          border-black/[0.08]
+          bg-[#EFF4EA]
+          dark:border-white/[0.07]
+          dark:bg-[#080D09]
+        "
+      >
+
+        <div
+          className="
+            mx-auto
+            max-w-[1380px]
+            px-5
+            py-10
+            sm:px-7
+            sm:py-12
+            md:px-10
+            md:py-14
+            lg:px-12
+            xl:px-14
+          "
+        >
+
+          {/* Section heading */}
+
+          <div
+            className="
+              mb-7
+              flex
+              flex-col
+              gap-3
+              sm:flex-row
+              sm:items-end
+              sm:justify-between
+            "
+          >
+
+            <div>
+
+              <div className="mb-2 flex items-center gap-2.5">
+
+                <span
+                  className="
+                    text-[8px]
+                    font-black
+                    tracking-[0.2em]
+                    text-[#789900]
+                    dark:text-[#ADD132]
+                  "
+                >
+                  01
+                </span>
+
+                <span className="h-px w-6 bg-[#ADD132]/60" />
+
+                <span
+                  className="
+                    text-[8px]
+                    font-black
+                    uppercase
+                    tracking-[0.2em]
+                    text-black/35
+                    dark:text-white/30
+                  "
+                >
+                  Protection models
+                </span>
+
+              </div>
+
+
+              <h2
+                className="
+                  text-[23px]
+                  font-black
+                  tracking-[-0.035em]
+                  text-[#172018]
+                  dark:text-white
+                  sm:text-[27px]
+                "
+              >
+                Choose your level of protection.
+              </h2>
+
+            </div>
+
+
+            {/* Auto status */}
+
+            <div className="flex items-center gap-2">
+
+              <span
+                className="
+                  h-1.5
+                  w-1.5
+                  animate-pulse
+                  rounded-full
+                  bg-[#ADD132]
+                  shadow-[0_0_9px_rgba(173,209,50,0.7)]
+                "
+              />
+
+              <span
+                className="
+                  text-[7px]
+                  font-bold
+                  uppercase
+                  tracking-[0.15em]
+                  text-black/30
+                  dark:text-white/25
+                "
+              >
+                Automatic selection
+              </span>
+
+            </div>
+
+          </div>
+
+
+          {/* =================================================
+              CARDS
+          ================================================= */}
+
+          <div
+            className="
+              flex
+              flex-col
+              gap-5
+              lg:flex-row
+              lg:items-stretch
+            "
+          >
+
+            {plans.map((plan, index) => (
+
+              <div
+                key={plan.number}
+                className="
+                  flex
+                  w-full
+                  lg:w-1/3
+                "
+              >
+
+                <PlanCard
+                  plan={plan}
+                  index={index}
+                  activeIndex={activePlan}
+                  setActiveIndex={selectPlan}
+                  animationKey={animationKey}
+                />
+
+              </div>
+
+            ))}
+
+          </div>
+
+
+          {/* =================================================
+              MOBILE / MANUAL INDICATORS
+          ================================================= */}
+
+          <div className="mt-6 flex justify-center gap-2">
+
+            {plans.map((plan, index) => (
+
+              <button
+                key={plan.number}
+                type="button"
+                onClick={() => selectPlan(index)}
+                aria-label={`Select ${plan.name}`}
+                className={`
+                  h-1.5
+                  cursor-pointer
+                  rounded-full
+                  transition-all
+                  duration-500
+
+                  ${
+                    activePlan === index
+                      ? "w-9 bg-[#ADD132]"
+                      : "w-2 bg-black/10 dark:bg-white/10"
+                  }
+                `}
+              />
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+
+
+
+      {/* ===================================================
+          ANIMATIONS
+      =================================================== */}
+
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800;900&display=swap');
 
-        @keyframes pulseGlow {
-          0%,
-          100% {
-            transform: translate3d(0, 0, 0) scale(1);
-            opacity: 0.55;
-          }
+        /* ================================================
+           CARD ENTRANCE
+        ================================================= */
 
-          50% {
-            transform: translate3d(35px, 25px, 0) scale(1.12);
-            opacity: 0.9;
-          }
+        .plan-card {
+          opacity: 0;
+          animation:
+            planCardEntrance
+            700ms
+            cubic-bezier(0.22, 1, 0.36, 1)
+            forwards;
         }
 
-        @keyframes pulseGlowReverse {
-          0%,
-          100% {
-            transform: translate3d(0, 0, 0) scale(1);
-            opacity: 0.45;
-          }
+        @keyframes planCardEntrance {
 
-          50% {
-            transform: translate3d(-30px, -25px, 0) scale(1.1);
-            opacity: 0.8;
-          }
-        }
-
-        @keyframes storyPulse {
           0% {
-            transform: translateY(-140px);
             opacity: 0;
+            transform: translateY(30px) scale(0.97);
           }
 
-          15% {
+          65% {
             opacity: 1;
-          }
-
-          80% {
-            opacity: 1;
+            transform: translateY(-3px) scale(1.01);
           }
 
           100% {
-            transform: translateY(760px);
-            opacity: 0;
+            opacity: 1;
+            transform: translateY(0) scale(1);
           }
+
         }
 
-        @keyframes storyEnter {
-          from {
-            opacity: 0;
-            transform: translateY(18px);
+
+        /* ================================================
+           SCANNER
+        ================================================= */
+
+        @keyframes planScanner {
+
+          0% {
+            left: -50%;
           }
 
-          to {
+          100% {
+            left: 120%;
+          }
+
+        }
+
+
+        /* ================================================
+           LETTER BY LETTER
+        ================================================= */
+
+        .plan-letter {
+          display: inline-block;
+          opacity: 0;
+          transform: translateY(7px);
+          filter: blur(2px);
+
+          animation:
+            planLetterReveal
+            420ms
+            cubic-bezier(0.22, 1, 0.36, 1)
+            forwards;
+        }
+
+        @keyframes planLetterReveal {
+
+          0% {
+            opacity: 0;
+            transform: translateY(7px);
+            filter: blur(3px);
+          }
+
+          55% {
+            opacity: 0.8;
+            transform: translateY(-1px);
+            filter: blur(0.5px);
+          }
+
+          100% {
             opacity: 1;
             transform: translateY(0);
+            filter: blur(0);
           }
+
         }
 
-        @keyframes featureSlide {
-          from {
-            opacity: 0;
-            transform: translateX(14px);
-          }
 
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
+        /* ================================================
+           BUTTON SHINE
+        ================================================= */
+
+        .plan-card a:hover {
+          box-shadow:
+            0 10px 32px
+            rgba(173, 209, 50, 0.18);
         }
 
-        @keyframes finalGlow {
-          0%,
-          100% {
-            transform: translateX(-50%) scale(1);
-            opacity: 0.4;
-          }
 
-          50% {
-            transform: translateX(-50%) scale(1.18);
-            opacity: 0.75;
-          }
-        }
+        /* ================================================
+           REDUCED MOTION
+        ================================================= */
 
         @media (prefers-reduced-motion: reduce) {
-          *,
-          *::before,
-          *::after {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            scroll-behavior: auto !important;
-            transition-duration: 0.01ms !important;
+
+          .plan-card {
+            animation: none !important;
+            opacity: 1 !important;
           }
+
+          .plan-letter {
+            animation: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+            filter: none !important;
+          }
+
         }
+
       `}</style>
+
     </main>
   );
 }
