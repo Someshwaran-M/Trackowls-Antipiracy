@@ -49,13 +49,11 @@ const processSteps = [
 
 export default function HowItWorks() {
   const [activeStep, setActiveStep] = useState(0);
-  const [hoveredStep, setHoveredStep] = useState(null);
-  const [isDark, setIsDark] = useState(false);
-  const [animationKey, setAnimationKey] = useState(0);
+  const [isDark, setIsDark] = useState(true);
 
-  /* =====================================================
+  /* =========================================================
      THEME
-  ===================================================== */
+  ========================================================= */
 
   useEffect(() => {
     const root = document.documentElement;
@@ -76,69 +74,73 @@ export default function HowItWorks() {
     return () => observer.disconnect();
   }, []);
 
-  /* =====================================================
-     CURRENT STEP
-  ===================================================== */
-
-  const previewIndex =
-    hoveredStep !== null ? hoveredStep : activeStep;
-
-  const currentStep = processSteps[previewIndex];
-
-  /* =====================================================
-     AUTOMATIC ANIMATION
-  ===================================================== */
+  /* =========================================================
+     AUTO SLIDE
+  ========================================================= */
 
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveStep((current) => {
         return (current + 1) % processSteps.length;
       });
-
-      setHoveredStep(null);
-      setAnimationKey((key) => key + 1);
     }, 5000);
 
     return () => clearInterval(interval);
   }, []);
 
-  /* =====================================================
-     SELECT STEP
-  ===================================================== */
+  /* =========================================================
+     NAVIGATION
+  ========================================================= */
 
-  const selectStep = (index) => {
-    setActiveStep(index);
-    setHoveredStep(null);
-    setAnimationKey((key) => key + 1);
+  const nextStep = () => {
+    setActiveStep((current) => (current + 1) % processSteps.length);
   };
+
+  const previousStep = () => {
+    setActiveStep((current) =>
+      current === 0 ? processSteps.length - 1 : current - 1
+    );
+  };
+
+  const currentStep = processSteps[activeStep];
+
+  const getImage = (step) => {
+    return isDark ? step.darkImage : step.lightImage;
+  };
+
+  /* =========================================================
+     RETURN
+  ========================================================= */
 
   return (
     <section
+      id="how-it-works"
       className="
         relative
-        mt-8
         w-full
         overflow-hidden
-        py-12
-        
+        bg-white dark:bg-[#071006]
+        py-16
+        text-[#152019] dark:text-white
+        sm:py-20
+        lg:py-24
       "
     >
       {/* =====================================================
-          BACKGROUND GLOW
+          BACKGROUND
       ===================================================== */}
 
       <div
         className="
           pointer-events-none
           absolute
-          -right-40
-          top-10
-          h-[320px]
-          w-[320px]
+          -left-40
+          top-20
+          h-[420px]
+          w-[420px]
           rounded-full
-          bg-[#ADD132]/[0.04]
-          blur-[110px]
-          dark:bg-[#ADD132]/[0.06]
+          bg-[#ADD132]/[0.06]
+          blur-[120px]
         "
       />
 
@@ -146,14 +148,48 @@ export default function HowItWorks() {
         className="
           pointer-events-none
           absolute
-          -bottom-40
-          -left-40
-          h-[300px]
-          w-[300px]
+          -right-40
+          bottom-0
+          h-[460px]
+          w-[460px]
           rounded-full
-          bg-[#ADD132]/[0.025]
-          blur-[110px]
-          dark:bg-[#ADD132]/[0.035]
+          bg-[#ADD132]/[0.045]
+          blur-[130px]
+        "
+      />
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-1/2
+          h-[500px]
+          w-[700px]
+          -translate-x-1/2
+          -translate-y-1/2
+          rounded-full
+          bg-[#0A4264]/20
+          blur-[120px]
+        "
+      />
+
+      {/* =====================================================
+          TOP LINE
+      ===================================================== */}
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          left-0
+          right-0
+          top-0
+          h-px
+          bg-gradient-to-r
+          from-transparent
+          via-[#ADD132]/50
+          to-transparent
         "
       />
 
@@ -164,182 +200,307 @@ export default function HowItWorks() {
       <div
         className="
           relative
+          z-10
           mx-auto
           w-full
-          max-w-[1420px]
+          max-w-[1450px]
           px-5
           sm:px-8
           lg:px-10
-          xl:px-12
+          xl:px-14
         "
       >
         {/* ===================================================
             HEADER
         =================================================== */}
 
-        <div
-          className="
-            flex
-            flex-col
-            gap-5
-            lg:flex-row
-            lg:items-end
-            lg:justify-between
-          "
-        >
-          <div>
-            <div className="flex items-center gap-2.5">
-              <span
-                className="
-                  h-px
-                  w-8
-                  bg-[#ADD132]
-                  sm:w-10
-                "
-              />
+        <div className="mx-auto max-w-[950px] text-center">
+          {/* Small Label */}
 
-              <span
-                className="
-                  text-[9px]
-                  font-black
-                  uppercase
-                  tracking-[0.25em]
-                  text-[#6D900B]
-                  dark:text-[#ADD132]
-                "
-              >
-                How TrackOwls works
-              </span>
-            </div>
+          <div className="mb-5 flex items-center justify-center gap-3">
+            <span className="h-px w-8 bg-[#ADD132] sm:w-12" />
 
-            <h3
-                className="
-                  max-w-3xl
-                  text-[34px]
-                  font-black
-                  leading-[0.95]
-                  tracking-[-0.05em]
-                  text-[#152019]
-                  dark:text-white
-                  sm:text-2xl
-                  md:text-4xl
-                  lg:text-5xl
-                "
-              >
-                See it.
-                <span className="text-[#6D900B] dark:text-[#ADD132]">
-                  {" "}
-                  Understand it.
-                </span>
-                <br />
-                Protect it.
-              </h3>
+            <span
+              className="
+                text-[9px]
+                font-black
+                uppercase
+                tracking-[0.28em]
+                text-[#ADD132]
+              "
+            >
+              How TrackOwls Works
+            </span>
+
+            <span className="h-px w-8 bg-[#ADD132] sm:w-12" />
           </div>
+
+          {/* Heading */}
+
+          <h2
+            className="
+              text-[32px]
+              font-black
+              leading-[1.05]
+              tracking-[-0.045em]
+              text-[#152019] dark:text-white
+              sm:text-[40px]
+              md:text-[48px]
+              lg:text-[54px]
+              xl:text-[58px]
+            "
+          >
+            See it.
+            <span className="text-[#ADD132]"> Understand it.</span>
+            <br />
+            Protect it.
+          </h2>
+
+          {/* Description */}
 
           <p
             className="
-              max-w-[440px]
+              mx-auto
+              mt-5
+              max-w-[820px]
               text-[12px]
               leading-6
-              text-[#69746C]
-              dark:text-white/45
+              text-[#5f6b64] dark:text-white/60
               sm:text-[13px]
+              sm:leading-7
+              md:text-[14px]
             "
           >
             Discover threats, verify what matters, take action and keep
-            watching — one continuous protection process.
+            watching — one continuous protection process built around your
+            digital assets.
           </p>
         </div>
 
         {/* ===================================================
-            FIXED PROCESS AREA
+            PROCESS SHOWCASE
         =================================================== */}
 
-        <div
-          className="
-            mt-9
-            overflow-hidden
-            border-y
-            border-black/[0.06]
-            dark:border-white/[0.07]
-            lg:mt-11
-          "
-        >
+        <div className="relative mt-12 sm:mt-14 lg:mt-16">
+          {/* TOP INFORMATION */}
+
+          <div
+            className="
+              mb-5
+              flex
+              flex-col
+              gap-4
+              sm:flex-row
+              sm:items-center
+              sm:justify-between
+            "
+          >
+            {/* Current stage */}
+
+            <div className="flex items-center gap-3">
+              <span
+                className="
+                  flex
+                  h-8
+                  w-8
+                  items-center
+                  justify-center
+                  rounded-full
+                  border
+                  border-[#ADD132]/50
+                  bg-[#ADD132]/10
+                  text-[9px]
+                  font-black
+                  text-[#ADD132]
+                "
+              >
+                {currentStep.number}
+              </span>
+
+              <div>
+                <p
+                  className="
+                    text-[8px]
+                    font-black
+                    uppercase
+                    tracking-[0.22em]
+                    text-[#ADD132]
+                  "
+                >
+                  {currentStep.status}
+                </p>
+
+                <p
+                  className="
+                    mt-0.5
+                    text-[11px]
+                    font-semibold
+                    text-[#68756d] dark:text-white/40
+                  "
+                >
+                  {currentStep.signal}
+                </p>
+              </div>
+            </div>
+
+            {/* Arrows */}
+
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={previousStep}
+                aria-label="Previous stage"
+                className="
+                  flex
+                  h-10
+                  w-10
+                  items-center
+                  justify-center
+                  rounded-full
+                  border
+                  border-black/10 dark:border-white/15
+                  bg-black/[0.03] dark:bg-white/[0.04]
+                  text-[#5f6b64] dark:text-white/60
+                  transition-all
+                  duration-300
+                  hover:border-[#ADD132]
+                  hover:bg-[#ADD132]
+                  hover:text-[#071006]
+                "
+              >
+                <span className="text-[20px] leading-none">←</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={nextStep}
+                aria-label="Next stage"
+                className="
+                  flex
+                  h-10
+                  w-10
+                  items-center
+                  justify-center
+                  rounded-full
+                  border
+                  border-black/10 dark:border-white/15
+                  bg-black/[0.03] dark:bg-white/[0.04]
+                  text-[#5f6b64] dark:text-white/60
+                  transition-all
+                  duration-300
+                  hover:border-[#ADD132]
+                  hover:bg-[#ADD132]
+                  hover:text-[#071006]
+                "
+              >
+                <span className="text-[20px] leading-none">→</span>
+              </button>
+            </div>
+          </div>
+
+          {/* =================================================
+              IMAGE STRIP
+          ================================================= */}
+
           <div
             className="
               grid
-              w-full
-              lg:h-[540px]
-              lg:grid-cols-[42%_58%]
+              grid-cols-1
+              gap-3
+              sm:grid-cols-2
+              lg:grid-cols-4
             "
           >
-            {/* =================================================
-                LEFT SIDE — FIXED 540px
-            ================================================= */}
+            {processSteps.map((step, index) => {
+              const active = activeStep === index;
 
-            <div
-              className="
-                flex
-                h-full
-                min-w-0
-                flex-col
-              "
-            >
-              {processSteps.map((step, index) => {
-                const isActive = activeStep === index;
-                const isPreview = previewIndex === index;
+              return (
+                <button
+                  key={step.number}
+                  type="button"
+                  onClick={() => setActiveStep(index)}
+                  className="
+                    group
+                    relative
+                    overflow-hidden
+                    text-left
+                    outline-none
+                  "
+                >
+                  {/* Image */}
 
-                return (
-                  <button
-                    key={step.number}
-                    type="button"
-                    onClick={() => selectStep(index)}
-                    onMouseEnter={() => setHoveredStep(index)}
-                    onMouseLeave={() => setHoveredStep(null)}
-                    onFocus={() => setHoveredStep(index)}
-                    onBlur={() => setHoveredStep(null)}
+                  <div
                     className={`
-                      group
                       relative
-                      flex
-                      h-1/4
-                      min-h-0
-                      w-full
-                      flex-1
-                      items-center
-                      gap-4
-                      px-1
-                      text-left
-                      outline-none
+                      aspect-[16/9]
+                      overflow-hidden
+                      border
                       transition-all
-                      duration-300
-                      sm:gap-5
-
+                      duration-500
                       ${
-                        index !== processSteps.length - 1
-                          ? "border-b border-black/[0.05] dark:border-white/[0.06]"
-                          : ""
+                        active
+                          ? "border-[#ADD132]/70"
+                          : "border-black/[0.10] dark:border-white/[0.10]"
                       }
                     `}
                   >
-                    {/* Active line */}
+                    <img
+                      src={getImage(step)}
+                      alt={step.imageAlt}
+                      className={`
+                        h-full
+                        w-full
+                        object-cover
+                        object-center
+                        transition-all
+                        duration-700
+                        ${
+                          active
+                            ? "scale-[1.04] opacity-100"
+                            : "scale-100 opacity-65 group-hover:scale-[1.03] group-hover:opacity-90"
+                        }
+                      `}
+                    />
 
-                    <span
+                    {/* Dark Overlay */}
+
+                    <div
                       className={`
                         absolute
-                        left-0
-                        top-1/2
-                        h-10
-                        w-[2px]
-                        -translate-y-1/2
-                        bg-[#ADD132]
-                        transition-all
+                        inset-0
+                        bg-gradient-to-t
+                        from-[#020B14]
+                        via-[#020B14]/15
+                        to-transparent
+                        transition-opacity
                         duration-500
-
                         ${
-                          isPreview
-                            ? "scale-y-100 opacity-100"
-                            : "scale-y-0 opacity-0"
+                          active
+                            ? "opacity-80"
+                            : "opacity-70 group-hover:opacity-75"
+                        }
+                      `}
+                    />
+
+                    {/* Lime Glow */}
+
+                    <div
+                      className={`
+                        pointer-events-none
+                        absolute
+                        -right-10
+                        -top-10
+                        h-24
+                        w-24
+                        rounded-full
+                        bg-[#ADD132]/20
+                        blur-[40px]
+                        transition-opacity
+                        duration-500
+                        ${
+                          active
+                            ? "opacity-100"
+                            : "opacity-0 group-hover:opacity-70"
                         }
                       `}
                     />
@@ -348,12 +509,12 @@ export default function HowItWorks() {
 
                     <span
                       className={`
-                        relative
-                        ml-1
+                        absolute
+                        left-4
+                        top-4
                         flex
-                        h-9
-                        w-9
-                        shrink-0
+                        h-8
+                        w-8
                         items-center
                         justify-center
                         rounded-full
@@ -362,611 +523,329 @@ export default function HowItWorks() {
                         font-black
                         transition-all
                         duration-500
-
                         ${
-                          isPreview
-                            ? "border-[#ADD132] bg-[#ADD132]/10 text-[#6D900B] dark:text-[#ADD132]"
-                            : "border-black/[0.09] text-[#8B958D] dark:border-white/[0.11] dark:text-white/30"
+                          active
+                            ? "border-[#ADD132] bg-[#ADD132] text-[#071006]"
+                            : "border-black/10 dark:border-white/20 bg-black/5 dark:bg-black/20 text-[#4f5d54] dark:text-white/65"
                         }
                       `}
                     >
                       {step.number}
-
-                      {isActive && (
-                        <span
-                          className="
-                            absolute
-                            inset-[-4px]
-                            rounded-full
-                            border
-                            border-[#ADD132]/20
-                            animate-ping
-                          "
-                        />
-                      )}
                     </span>
 
-                    {/* Content */}
+                    {/* Active Indicator */}
 
-                    <span className="min-w-0 flex-1">
+                    {active && (
                       <span
-                        className={`
-                          block
-                          text-[9px]
+                        className="
+                          absolute
+                          right-4
+                          top-4
+                          h-2
+                          w-2
+                          rounded-full
+                          bg-[#ADD132]
+                          shadow-[0_0_18px_rgba(173,209,50,0.9)]
+                        "
+                      />
+                    )}
+
+                    {/* Bottom Text */}
+
+                    <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
+                      <p
+                        className="
+                          text-[8px]
                           font-black
                           uppercase
                           tracking-[0.22em]
-                          transition-colors
-                          duration-300
-
-                          ${
-                            isPreview
-                              ? "text-[#6D900B] dark:text-[#ADD132]"
-                              : "text-[#7E8880] dark:text-white/35"
-                          }
-                        `}
+                          text-[#ADD132]
+                        "
                       >
                         {step.title}
-                      </span>
+                      </p>
 
-                      <span
-                        className={`
+                      <h3
+                        className="
                           mt-1
-                          block
                           text-[16px]
                           font-black
                           leading-tight
                           tracking-[-0.025em]
-                          transition-all
-                          duration-300
+                          text-[#152019] dark:text-white
                           sm:text-[18px]
-
-                          ${
-                            isPreview
-                              ? "text-[#152019] dark:text-white"
-                              : "text-[#4F5A53] dark:text-white/50"
-                          }
-                        `}
+                        "
                       >
                         {step.heading}
-                      </span>
-                    </span>
+                      </h3>
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
 
-                    {/* Arrow */}
+          {/* =================================================
+              ACTIVE CONTENT
+          ================================================= */}
 
-                    <span
-                      className={`
-                        mr-3
-                        text-[17px]
-                        transition-all
-                        duration-300
-
-                        ${
-                          isPreview
-                            ? "translate-x-0 text-[#ADD132] opacity-100"
-                            : "-translate-x-2 opacity-0"
-                        }
-                      `}
-                    >
-                      →
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* =================================================
-                RIGHT SIDE — FIXED 540px
-            ================================================= */}
-
+          <div
+            className="
+              mt-5
+              border-y
+              border-black/[0.08] dark:border-white/[0.08]
+              py-5
+              sm:py-6
+            "
+          >
             <div
               className="
-                relative
-                h-full
-                min-w-0
-                overflow-hidden
-                bg-[#F4F7F1]
-                dark:bg-[#080C09]
-                lg:border-l
-                lg:border-black/[0.05]
-                dark:lg:border-white/[0.06]
+                flex
+                flex-col
+                gap-4
+                md:flex-row
+                md:items-center
+                md:justify-between
               "
             >
-              {/* =================================================
-                  IMAGE
-              ================================================= */}
-
-              <div
-                key={`${previewIndex}-${animationKey}`}
-                className="
-                  absolute
-                  inset-0
-                  animate-[howVisualIn_800ms_ease-out]
-                "
-              >
-                <img
-                  src={
-                    isDark
-                      ? currentStep.darkImage
-                      : currentStep.lightImage
-                  }
-                  alt={currentStep.imageAlt}
-                  className="
-                    h-full
-                    w-full
-                    object-cover
-                    object-center
-                    animate-[howVisualZoom_5s_ease-out_forwards]
-                  "
-                />
-              </div>
-
-              {/* =================================================
-                  BOTTOM OVERLAY
-              ================================================= */}
-
-              <div
-                className="
-                  pointer-events-none
-                  absolute
-                  inset-x-0
-                  bottom-0
-                  z-10
-                  h-[48%]
-                  bg-gradient-to-t
-                  from-black/85
-                  via-black/35
-                  to-transparent
-                "
-              />
-
-              {/* =================================================
-                  LIME GLOW
-              ================================================= */}
-
-              <div
-                className="
-                  pointer-events-none
-                  absolute
-                  -right-20
-                  -top-20
-                  z-20
-                  h-56
-                  w-56
-                  rounded-full
-                  bg-[#ADD132]/20
-                  blur-[90px]
-                  animate-[howGlow_4s_ease-in-out_infinite]
-                "
-              />
-
-              {/* =================================================
-                  LIGHT SWEEP
-              ================================================= */}
-
-              <div
-                key={`light-${previewIndex}-${animationKey}`}
-                className="
-                  pointer-events-none
-                  absolute
-                  -left-[25%]
-                  top-[-20%]
-                  z-20
-                  h-[140%]
-                  w-[16%]
-                  rotate-[15deg]
-                  bg-gradient-to-r
-                  from-transparent
-                  via-[#ADD132]/20
-                  to-transparent
-                  blur-[20px]
-                  animate-[howSweep_4s_ease-in-out_infinite]
-                "
-              />
-
-              {/* =================================================
-                  SIGNAL
-              ================================================= */}
-
-              <span
-                className="
-                  pointer-events-none
-                  absolute
-                  left-[20%]
-                  top-[27%]
-                  z-30
-                  h-2.5
-                  w-2.5
-                  rounded-full
-                  bg-[#ADD132]
-                  shadow-[0_0_25px_rgba(173,209,50,0.9)]
-                  animate-pulse
-                "
-              />
-
-              <span
-                className="
-                  pointer-events-none
-                  absolute
-                  left-[20%]
-                  top-[27%]
-                  z-20
-                  h-10
-                  w-10
-                  -translate-x-[15px]
-                  -translate-y-[15px]
-                  rounded-full
-                  border
-                  border-[#ADD132]/40
-                  animate-[howSignal_2s_ease-out_infinite]
-                "
-              />
-
-              {/* =================================================
-                  LIVE STATUS
-              ================================================= */}
-
-              <div
-                className="
-                  absolute
-                  right-5
-                  top-5
-                  z-40
-                  flex
-                  items-center
-                  gap-2
-                "
-              >
-                <span className="relative flex h-2 w-2">
-                  <span
-                    className="
-                      absolute
-                      inset-0
-                      animate-ping
-                      rounded-full
-                      bg-[#ADD132]
-                    "
-                  />
+              <div className="max-w-[760px]">
+                <div className="flex items-center gap-2">
+                  <span className="h-px w-6 bg-[#ADD132]" />
 
                   <span
                     className="
-                      relative
-                      h-2
-                      w-2
-                      rounded-full
-                      bg-[#ADD132]
+                      text-[8px]
+                      font-black
+                      uppercase
+                      tracking-[0.2em]
+                      text-[#ADD132]
                     "
-                  />
-                </span>
+                  >
+                    {currentStep.status}
+                  </span>
+                </div>
 
-                <span
+                <h3
                   className="
-                    text-[8px]
-                    font-bold
-                    uppercase
-                    tracking-[0.18em]
-                    text-white/70
+                    mt-2
+                    text-[20px]
+                    font-black
+                    leading-tight
+                    tracking-[-0.03em]
+                    text-[#152019] dark:text-white
+                    sm:text-[24px]
                   "
                 >
-                  Live intelligence
-                </span>
+                  {currentStep.heading}
+                </h3>
+
+                <p
+                  className="
+                    mt-2
+                    max-w-[720px]
+                    text-[11px]
+                    leading-5
+                    text-[#66736b] dark:text-white/50
+                    sm:text-[12px]
+                    sm:leading-6
+                  "
+                >
+                  {currentStep.body}
+                </p>
               </div>
 
-              {/* =================================================
-                  DESCRIPTION
-              ================================================= */}
+              {/* Progress */}
 
-              <div
-                key={`description-${previewIndex}-${animationKey}`}
-                className="
-                  absolute
-                  bottom-0
-                  left-0
-                  right-0
-                  z-40
-                  p-5
-                  animate-[howDescription_600ms_ease-out]
-                  sm:p-6
-                  lg:p-7
-                "
-              >
-                <div className="max-w-[680px]">
-                  <div className="flex items-center gap-2">
-                    <span
-                      className="
-                        text-[8px]
-                        font-black
-                        uppercase
-                        tracking-[0.2em]
-                        text-[#ADD132]
-                      "
-                    >
-                      {currentStep.status}
-                    </span>
-
-                    <span
-                      className="
-                        h-px
-                        w-6
-                        bg-[#ADD132]/50
-                      "
-                    />
-
-                    <span
-                      className="
-                        text-[8px]
-                        font-bold
-                        uppercase
-                        tracking-[0.15em]
-                        text-white/40
-                      "
-                    >
-                      {currentStep.signal}
-                    </span>
-                  </div>
-
-                  <h3
+              <div className="shrink-0">
+                <div className="mb-2 flex items-center justify-between gap-4">
+                  <span
                     className="
-                      mt-2
-                      text-[22px]
+                      text-[8px]
+                      font-bold
+                      uppercase
+                      tracking-[0.18em]
+                      text-[#748078] dark:text-white/35
+                    "
+                  >
+                    Protection process
+                  </span>
+
+                  <span
+                    className="
+                      text-[9px]
                       font-black
-                      leading-tight
-                      tracking-[-0.035em]
-                      text-white
-                      sm:text-[26px]
+                      tracking-[0.12em]
+                      text-[#ADD132]
                     "
                   >
-                    {currentStep.heading}
-                  </h3>
+                    {currentStep.number} / 04
+                  </span>
+                </div>
 
-                  <p
-                    className="
-                      mt-2
-                      max-w-[650px]
-                      text-[11px]
-                      leading-5
-                      text-white/65
-                      sm:text-[12px]
-                      sm:leading-6
-                    "
-                  >
-                    {currentStep.body}
-                  </p>
+                <div className="flex gap-1.5">
+                  {processSteps.map((step, index) => (
+                    <button
+                      key={step.number}
+                      type="button"
+                      onClick={() => setActiveStep(index)}
+                      aria-label={`Go to ${step.title}`}
+                      className={`
+                        h-1
+                        w-10
+                        rounded-full
+                        transition-all
+                        duration-500
+                        sm:w-14
+                        ${
+                          index === activeStep
+                            ? "bg-[#ADD132]"
+                            : "bg-black/10 dark:bg-white/15 hover:bg-black/20 dark:hover:bg-white/30"
+                        }
+                      `}
+                    />
+                  ))}
                 </div>
               </div>
-
-              {/* =================================================
-                  CORNER MARKS
-              ================================================= */}
-
-              <span
-                className="
-                  pointer-events-none
-                  absolute
-                  left-5
-                  top-5
-                  z-30
-                  h-6
-                  w-6
-                  border-l
-                  border-t
-                  border-[#ADD132]/40
-                "
-              />
-
-              <span
-                className="
-                  pointer-events-none
-                  absolute
-                  bottom-5
-                  right-5
-                  z-30
-                  h-6
-                  w-6
-                  border-b
-                  border-r
-                  border-[#ADD132]/40
-                "
-              />
-
-              <span
-                className="
-                  absolute
-                  bottom-6
-                  right-7
-                  z-40
-                  hidden
-                  text-[8px]
-                  font-black
-                  tracking-[0.18em]
-                  text-white/35
-                  sm:block
-                "
-              >
-                {currentStep.number} / 04
-              </span>
             </div>
           </div>
         </div>
 
         {/* ===================================================
-            MOBILE HINT
+            STAGE NAVIGATION
         =================================================== */}
 
-        <div
-          className="
-            mt-4
-            flex
-            items-center
-            gap-2
-            lg:hidden
-          "
-        >
-          <span
+        <div className="mt-8 flex justify-center">
+          <div
             className="
-              h-1.5
-              w-1.5
-              rounded-full
-              bg-[#ADD132]
-            "
-          />
-
-          <span
-            className="
-              text-[8px]
-              font-bold
-              uppercase
-              tracking-[0.18em]
-              text-[#8A938C]
-              dark:text-white/30
+              flex
+              flex-wrap
+              items-center
+              justify-center
+              gap-x-4
+              gap-y-2
+              sm:gap-x-6
             "
           >
-            Tap a stage to explore
-          </span>
+            {processSteps.map((step, index) => (
+              <React.Fragment key={step.number}>
+                <button
+                  type="button"
+                  onClick={() => setActiveStep(index)}
+                  className={`
+                    text-[8px]
+                    font-black
+                    uppercase
+                    tracking-[0.2em]
+                    transition-colors
+                    duration-300
+                    ${
+                      activeStep === index
+                        ? "text-[#ADD132]"
+                        : "text-[#7c8880] dark:text-white/30 hover:text-[#4f5d54] dark:hover:text-white/65"
+                    }
+                  `}
+                >
+                  {step.title}
+                </button>
+
+                {index !== processSteps.length - 1 && (
+                  <span className="h-px w-4 bg-black/10 dark:bg-white/10 sm:w-6" />
+                )}
+              </React.Fragment>
+            ))}
+          </div>
         </div>
 
         {/* ===================================================
-            PROCESS LABELS
+            BOTTOM CTA
         =================================================== */}
 
-        <div
-          className="
-            mt-7
-            flex
-            flex-wrap
-            items-center
-            gap-x-3
-            gap-y-2
-          "
-        >
-          {processSteps.map((step, index) => (
-            <React.Fragment key={step.number}>
-              <button
-                type="button"
-                onClick={() => selectStep(index)}
-                className={`
-                  text-[8px]
-                  font-black
-                  uppercase
-                  tracking-[0.2em]
-                  transition-colors
-                  duration-300
+        <div className="mt-10 flex justify-center">
+          <button
+            type="button"
+            onClick={() => {
+              const element = document.getElementById("services");
 
-                  ${
-                    activeStep === index
-                      ? "text-[#6D900B] dark:text-[#ADD132]"
-                      : "text-[#909991] dark:text-white/25"
-                  }
-                `}
-              >
-                {step.title}
-              </button>
+              if (element) {
+                const position =
+                  element.getBoundingClientRect().top +
+                  window.scrollY -
+                  90;
 
-              {index !== processSteps.length - 1 && (
-                <span
-                  className="
-                    h-px
-                    w-5
-                    bg-black/[0.10]
-                    dark:bg-white/[0.10]
-                  "
-                />
-              )}
-            </React.Fragment>
-          ))}
+                window.scrollTo({
+                  top: Math.max(0, position),
+                  behavior: "smooth",
+                });
+              }
+            }}
+            className="
+              group
+              inline-flex
+              h-[46px]
+              items-center
+              gap-3
+              rounded-full
+              bg-[#ADD132]
+              pl-5
+              pr-1.5
+              text-[12px]
+              font-black
+              text-[#071006]
+              shadow-[0_10px_30px_rgba(173,209,50,0.18)]
+              transition-all
+              duration-300
+              hover:-translate-y-0.5
+              hover:bg-[#C9EF48]
+              hover:shadow-[0_14px_38px_rgba(173,209,50,0.30)]
+            "
+          >
+            <span>Explore our protection services</span>
+
+            <span
+              className="
+                flex
+                h-9
+                w-9
+                items-center
+                justify-center
+                rounded-full
+                bg-[#071006]
+                text-white
+                transition-transform
+                duration-300
+                group-hover:translate-x-0.5
+              "
+            >
+              →
+            </span>
+          </button>
         </div>
       </div>
+
+      {/* =====================================================
+          BOTTOM LINE
+      ===================================================== */}
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          bottom-0
+          left-0
+          right-0
+          h-px
+          bg-gradient-to-r
+          from-transparent
+          via-[#ADD132]/40
+          to-transparent
+        "
+      />
 
       {/* =====================================================
           ANIMATIONS
       ===================================================== */}
 
       <style>{`
-        @keyframes howVisualIn {
-          0% {
-            opacity: 0;
-            transform: scale(1.035);
-          }
-
-          100% {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-
-        @keyframes howVisualZoom {
-          0% {
-            transform: scale(1);
-          }
-
-          100% {
-            transform: scale(1.035);
-          }
-        }
-
-        @keyframes howDescription {
-          0% {
-            opacity: 0;
-            transform: translateY(14px);
-          }
-
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes howGlow {
-          0%,
-          100% {
-            transform: scale(0.9);
-            opacity: 0.35;
-          }
-
-          50% {
-            transform: scale(1.12);
-            opacity: 0.65;
-          }
-        }
-
-        @keyframes howSweep {
-          0% {
-            left: -30%;
-            opacity: 0;
-          }
-
-          15% {
-            opacity: 1;
-          }
-
-          70% {
-            opacity: 0.55;
-          }
-
-          100% {
-            left: 125%;
-            opacity: 0;
-          }
-        }
-
-        @keyframes howSignal {
-          0% {
-            transform: translate(-15px, -15px) scale(0.4);
-            opacity: 0.8;
-          }
-
-          100% {
-            transform: translate(-15px, -15px) scale(2);
-            opacity: 0;
-          }
-        }
-
-        @media (max-width: 1023px) {
-          .how-it-works-fixed {
-            height: auto !important;
-          }
-        }
-
         @media (prefers-reduced-motion: reduce) {
           *,
           *::before,
@@ -974,6 +853,7 @@ export default function HowItWorks() {
             animation-duration: 0.01ms !important;
             animation-iteration-count: 1 !important;
             transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
           }
         }
       `}</style>

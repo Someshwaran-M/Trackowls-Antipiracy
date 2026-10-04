@@ -1,17 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800;900&display=swap");
+
 @import "tailwindcss";
 
 /* =========================================================
    TRACKOWLS FIXED LOGO
-   No CSS animation
+   Normalized global size
 ========================================================= */
-
 
 .track-logo-fixed {
   position: relative;
 
-  width: 120px;
-  height: 80px;
+  width: 110px;
+  height: 72px;
 
   display: flex;
   align-items: center;
@@ -20,9 +20,7 @@
   flex-shrink: 0;
 
   text-decoration: none;
-
   overflow: visible;
-
   cursor: pointer;
 }
 
@@ -31,8 +29,8 @@
 .track-logo-fixed-video {
   display: block;
 
-  width: 100px;
-  height: 68px;
+  width: 92px;
+  height: 62px;
 
   object-fit: contain;
 
@@ -64,13 +62,13 @@
 
 @media (max-width: 1024px) {
   .track-logo-fixed {
-    width: 110px;
-    height: 76px;
+    width: 102px;
+    height: 70px;
   }
 
   .track-logo-fixed-video {
     width: 84px;
-    height: 64px;
+    height: 60px;
   }
 }
 
@@ -79,22 +77,20 @@
 @media (max-width: 640px) {
   .track-logo-fixed {
     width: 88px;
-    height: 68px;
+    height: 64px;
   }
 
   .track-logo-fixed-video {
-    width: 70px;
+    width: 72px;
     height: 54px;
   }
 }
-
 
 /* =========================================================
    TAILWIND V4 — CLASS BASED DARK MODE
 ========================================================= */
 
 @custom-variant dark (&:where(.dark, .dark *));
-
 
 /* =========================================================
    TRACKOWLS THEME VARIABLES
@@ -127,10 +123,9 @@
   --track-shadow-large:
     0 25px 70px rgba(25, 55, 30, 0.1);
 
-  --track-section-max: 48rem;
+  --track-section-max: 44rem;
   --track-section-kicker: 0.7rem;
 }
-
 
 /* =========================================================
    DARK THEME VARIABLES
@@ -164,7 +159,6 @@ html.dark {
     0 25px 80px rgba(0, 0, 0, 0.48);
 }
 
-
 /* =========================================================
    ROOT
 ========================================================= */
@@ -179,14 +173,12 @@ html.dark {
   -moz-osx-font-smoothing: grayscale;
 }
 
-
 html,
 body,
 #root,
 * {
   font-family: "Roboto", "Segoe UI", sans-serif;
 }
-
 
 html {
   min-width: 320px;
@@ -195,18 +187,15 @@ html {
   scroll-behavior: smooth;
 
   background: var(--track-bg);
-
   color-scheme: light;
 
   transition:
     background-color 300ms ease;
 }
 
-
 html.dark {
   color-scheme: dark;
 }
-
 
 /* =========================================================
    BODY
@@ -228,7 +217,6 @@ body {
     color 300ms ease;
 }
 
-
 /* =========================================================
    ROOT
 ========================================================= */
@@ -244,7 +232,6 @@ body {
     color 300ms ease;
 }
 
-
 /* =========================================================
    GLOBAL ELEMENT RESET
 ========================================================= */
@@ -255,7 +242,6 @@ body {
   box-sizing: border-box;
 }
 
-
 button,
 input,
 textarea,
@@ -263,17 +249,14 @@ select {
   font: inherit;
 }
 
-
 button {
   cursor: pointer;
 }
-
 
 a {
   color: inherit;
   text-decoration: none;
 }
-
 
 img,
 video,
@@ -281,12 +264,10 @@ svg {
   display: block;
 }
 
-
 img,
 video {
   max-width: 100%;
 }
-
 
 /* =========================================================
    TEXT SYSTEM
@@ -295,41 +276,54 @@ video {
 .track-section-kicker {
   display: inline-flex;
   align-items: center;
+
   gap: 0.6rem;
+
   letter-spacing: 0.24em;
   text-transform: uppercase;
+
   font-size: var(--track-section-kicker);
   font-weight: 700;
+
   color: var(--track-accent-dark);
 }
 
-
 .track-section-kicker::before {
   content: "";
+
   display: inline-block;
+
   width: 0.5rem;
   height: 0.5rem;
+
   border-radius: 999px;
+
   background: var(--track-accent);
-  box-shadow: 0 0 18px rgba(173, 209, 50, 0.8);
+
+  box-shadow:
+    0 0 18px rgba(173, 209, 50, 0.8);
 }
 
+/* Normalized section heading */
 
 .track-section-heading {
   max-width: var(--track-section-max);
-  font-size: clamp(2.125rem, 4vw, 3.75rem);
-  line-height: 0.95;
-  letter-spacing: -0.05em;
+
+  font-size: clamp(1.9rem, 3.2vw, 3rem);
+
+  line-height: 1;
+
+  letter-spacing: -0.04em;
+
   font-weight: 900;
+
   color: var(--track-heading);
 }
-
 
 html.dark .track-section-heading,
 html.dark .track-section-heading * {
   color: #ffffff;
 }
-
 
 .track-heading {
   color: var(--track-heading);
@@ -338,14 +332,12 @@ html.dark .track-section-heading * {
     color 300ms ease;
 }
 
-
 .track-text {
   color: var(--track-text);
 
   transition:
     color 300ms ease;
 }
-
 
 .track-secondary {
   color: var(--track-text-secondary);
@@ -354,7 +346,6 @@ html.dark .track-section-heading * {
     color 300ms ease;
 }
 
-
 .track-muted {
   color: var(--track-text-muted);
 
@@ -362,14 +353,12 @@ html.dark .track-section-heading * {
     color 300ms ease;
 }
 
-
 .track-faint {
   color: var(--track-text-faint);
 
   transition:
     color 300ms ease;
 }
-
 
 /* =========================================================
    BACKGROUND SYSTEM
@@ -384,14 +373,12 @@ html.dark .track-section-heading * {
     color 300ms ease;
 }
 
-
 .track-soft {
   background: var(--track-bg-soft);
 
   transition:
     background-color 300ms ease;
 }
-
 
 .track-card {
   background: var(--track-bg-card);
@@ -409,7 +396,6 @@ html.dark .track-section-heading * {
     transform 300ms ease;
 }
 
-
 .track-elevated {
   background: var(--track-bg-elevated);
   color: var(--track-text);
@@ -422,7 +408,6 @@ html.dark .track-section-heading * {
     border-color 300ms ease;
 }
 
-
 /* =========================================================
    BORDER SYSTEM
 ========================================================= */
@@ -434,14 +419,12 @@ html.dark .track-section-heading * {
     border-color 300ms ease;
 }
 
-
 .track-border-soft {
   border-color: var(--track-border-soft);
 
   transition:
     border-color 300ms ease;
 }
-
 
 /* =========================================================
    INPUT SYSTEM
@@ -464,11 +447,9 @@ html.dark .track-section-heading * {
     box-shadow 300ms ease;
 }
 
-
 .track-input::placeholder {
   color: var(--track-text-muted);
 }
-
 
 .track-input:focus {
   border-color: var(--track-accent);
@@ -476,7 +457,6 @@ html.dark .track-section-heading * {
   box-shadow:
     0 0 0 3px rgba(173, 209, 50, 0.12);
 }
-
 
 /* =========================================================
    PREMIUM GLASS
@@ -496,13 +476,10 @@ html.dark .track-section-heading * {
     color 300ms ease;
 }
 
-
 html.dark .track-glass {
   background: rgba(7, 13, 9, 0.78);
-
   border-color: rgba(173, 209, 50, 0.14);
 }
-
 
 /* =========================================================
    NAVBAR GLASS
@@ -526,7 +503,6 @@ html.dark .track-glass {
     color 300ms ease;
 }
 
-
 html.dark .track-navbar {
   background: rgba(5, 8, 5, 0.92);
 
@@ -535,7 +511,6 @@ html.dark .track-navbar {
   box-shadow:
     0 18px 60px rgba(0, 0, 0, 0.45);
 }
-
 
 /* =========================================================
    GRID BACKGROUND
@@ -556,7 +531,6 @@ html.dark .track-navbar {
   background-size: 45px 45px;
 }
 
-
 html.dark .trackowls-grid {
   background-image:
     linear-gradient(
@@ -570,7 +544,6 @@ html.dark .trackowls-grid {
     );
 }
 
-
 /* =========================================================
    ACCENT
 ========================================================= */
@@ -579,17 +552,14 @@ html.dark .trackowls-grid {
   color: var(--track-accent);
 }
 
-
 .track-accent-bg {
   background: var(--track-accent);
   color: #101800;
 }
 
-
 .track-accent-border {
   border-color: var(--track-accent);
 }
-
 
 /* =========================================================
    PREMIUM GLOW
@@ -600,26 +570,25 @@ html.dark .trackowls-grid {
     0 0 40px rgba(173, 209, 50, 0.1);
 }
 
-
 .track-glow-strong {
   box-shadow:
     0 0 70px rgba(173, 209, 50, 0.18);
 }
-
 
 .track-text-glow {
   text-shadow:
     0 0 25px rgba(173, 209, 50, 0.18);
 }
 
-
 /* =========================================================
    PAGE CONTAINER
+   Normalized from 1480px to 1360px
 ========================================================= */
 
 .trackowls-container {
   width: 100%;
-  max-width: 1480px;
+
+  max-width: 1360px;
 
   margin-left: auto;
   margin-right: auto;
@@ -628,14 +597,12 @@ html.dark .trackowls-grid {
   padding-right: 20px;
 }
 
-
 @media (min-width: 640px) {
   .trackowls-container {
     padding-left: 28px;
     padding-right: 28px;
   }
 }
-
 
 @media (min-width: 1024px) {
   .trackowls-container {
@@ -644,7 +611,6 @@ html.dark .trackowls-grid {
   }
 }
 
-
 @media (min-width: 1280px) {
   .trackowls-container {
     padding-left: 48px;
@@ -652,22 +618,20 @@ html.dark .trackowls-grid {
   }
 }
 
-
 /* =========================================================
    NAVBAR SPACE
+   Normalized from 90px to 76px
 ========================================================= */
 
 .trackowls-navbar-space {
-  height: 90px;
+  height: 76px;
 }
-
 
 @media (max-width: 767px) {
   .trackowls-navbar-space {
-    height: 78px;
+    height: 68px;
   }
 }
-
 
 /* =========================================================
    BUTTON — PRIMARY
@@ -697,14 +661,12 @@ html.dark .trackowls-grid {
     box-shadow 300ms ease;
 }
 
-
 .track-primary-btn:hover {
   transform: translateY(-2px);
 
   box-shadow:
     0 12px 32px rgba(173, 209, 50, 0.3);
 }
-
 
 /* =========================================================
    BUTTON — SECONDARY
@@ -731,7 +693,6 @@ html.dark .trackowls-grid {
     transform 300ms ease;
 }
 
-
 .track-secondary-btn:hover {
   background: rgba(173, 209, 50, 0.1);
 
@@ -739,7 +700,6 @@ html.dark .trackowls-grid {
 
   transform: translateY(-2px);
 }
-
 
 /* =========================================================
    FLOAT ANIMATION
@@ -756,12 +716,10 @@ html.dark .trackowls-grid {
   }
 }
 
-
 .trackowls-float {
   animation:
     trackowls-float 5s ease-in-out infinite;
 }
-
 
 /* =========================================================
    SOFT PULSE
@@ -784,12 +742,10 @@ html.dark .trackowls-grid {
   }
 }
 
-
 .trackowls-pulse {
   animation:
     trackowls-pulse 2.5s ease-in-out infinite;
 }
-
 
 /* =========================================================
    WHATSAPP PULSE
@@ -812,12 +768,10 @@ html.dark .trackowls-grid {
   }
 }
 
-
 .trackowls-whatsapp-pulse {
   animation:
     trackowls-whatsapp 2.2s ease-out infinite;
 }
-
 
 /* =========================================================
    SHIMMER
@@ -833,12 +787,10 @@ html.dark .trackowls-grid {
   }
 }
 
-
 .trackowls-shimmer {
   position: relative;
   overflow: hidden;
 }
-
 
 .trackowls-shimmer::after {
   content: "";
@@ -847,7 +799,6 @@ html.dark .trackowls-grid {
 
   top: 0;
   bottom: 0;
-
   left: 0;
 
   width: 50%;
@@ -866,7 +817,6 @@ html.dark .trackowls-grid {
     trackowls-shimmer 3s ease-in-out infinite;
 }
 
-
 /* =========================================================
    FADE UP
 ========================================================= */
@@ -883,12 +833,10 @@ html.dark .trackowls-grid {
   }
 }
 
-
 .trackowls-fade-up {
   animation:
     trackowls-fade-up 700ms ease-out both;
 }
-
 
 /* =========================================================
    SCALE IN
@@ -906,12 +854,10 @@ html.dark .trackowls-grid {
   }
 }
 
-
 .trackowls-scale {
   animation:
     trackowls-scale 500ms ease-out both;
 }
-
 
 /* =========================================================
    STATUS DOT
@@ -930,7 +876,6 @@ html.dark .trackowls-grid {
   background: #add132;
 }
 
-
 .trackowls-status::before {
   content: "";
 
@@ -946,7 +891,6 @@ html.dark .trackowls-grid {
     trackowls-status-pulse 2s ease-out infinite;
 }
 
-
 @keyframes trackowls-status-pulse {
   0% {
     transform: scale(0.7);
@@ -959,7 +903,6 @@ html.dark .trackowls-grid {
   }
 }
 
-
 /* =========================================================
    SELECTION
 ========================================================= */
@@ -968,7 +911,6 @@ html.dark .trackowls-grid {
   background: #add132;
   color: #101800;
 }
-
 
 /* =========================================================
    SCROLLBAR — LIGHT
@@ -979,11 +921,9 @@ html.dark .trackowls-grid {
   height: 8px;
 }
 
-
 ::-webkit-scrollbar-track {
   background: #eef2eb;
 }
-
 
 ::-webkit-scrollbar-thumb {
   background: #aab79f;
@@ -991,11 +931,9 @@ html.dark .trackowls-grid {
   border-radius: 999px;
 }
 
-
 ::-webkit-scrollbar-thumb:hover {
   background: #add132;
 }
-
 
 /* =========================================================
    SCROLLBAR — DARK
@@ -1005,16 +943,13 @@ html.dark ::-webkit-scrollbar-track {
   background: #070a07;
 }
 
-
 html.dark ::-webkit-scrollbar-thumb {
   background: #35442c;
 }
 
-
 html.dark ::-webkit-scrollbar-thumb:hover {
   background: #add132;
 }
-
 
 /* =========================================================
    FOCUS
@@ -1025,7 +960,6 @@ html.dark ::-webkit-scrollbar-thumb:hover {
   outline-offset: 3px;
 }
 
-
 /* =========================================================
    MOBILE
 ========================================================= */
@@ -1034,8 +968,18 @@ html.dark ::-webkit-scrollbar-thumb:hover {
   body {
     overflow-x: hidden;
   }
-}
 
+  .trackowls-container {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .track-section-heading {
+    font-size: clamp(1.75rem, 8vw, 2.35rem);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+  }
+}
 
 /* =========================================================
    TABLET
@@ -1045,8 +989,36 @@ html.dark ::-webkit-scrollbar-thumb:hover {
   body {
     overflow-x: hidden;
   }
+
+  .trackowls-container {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  .track-section-heading {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+  }
 }
 
+/* =========================================================
+   DESKTOP NORMALIZATION
+========================================================= */
+
+@media (min-width: 1024px) {
+  .track-section-heading {
+    font-size: clamp(2.1rem, 3vw, 3rem);
+  }
+}
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1440px) {
+  .trackowls-container {
+    max-width: 1360px;
+  }
+}
 
 /* =========================================================
    REDUCED MOTION
@@ -1065,4 +1037,3 @@ html.dark ::-webkit-scrollbar-thumb:hover {
     transition-duration: 0.01ms !important;
   }
 }
-
