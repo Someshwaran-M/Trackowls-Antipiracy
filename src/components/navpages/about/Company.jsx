@@ -270,15 +270,15 @@ function Company() {
               "
             >
               <img
-                src="/images/company-protection.jpg"
-                alt="TrackOwls Digital Protection"
-                className="
-                  h-full
-                  w-full
-                  object-cover
-                  object-center
-                "
-              />
+  src="/company-protection.png"
+  alt="TrackOwls Digital Protection"
+  className="
+    h-full
+    w-full
+    object-cover
+    object-center
+  "
+/>
             </div>
 
             {/* =================================================
