@@ -1,1344 +1,1307 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
 import {
-  FiArrowUpRight,
-  FiMonitor,
-  FiShield,
-  FiServer,
-  FiCpu,
-} from "react-icons/fi";
+  FileSearch,
+  Target,
+  Gavel,
+  ShieldCheck,
+  BarChart3,
+} from "lucide-react";
 
-/* =========================================================
+/* ============================================================
    SERVICES DATA
-========================================================= */
+============================================================ */
 
 const services = [
   {
     number: "01",
-    title: "IT Consulting",
+    label: "TRACK",
+    title: "Content Protection",
     description:
-      "Strategic technology consulting to help your business make smarter decisions.",
-    icon: FiMonitor,
-    stage: "Strategy",
-    accent: "#C98562",
+      "Track your digital content across online platforms and identify unauthorized usage before it impacts your brand.",
+    icon: FileSearch,
+    side: "left",
   },
   {
     number: "02",
-    title: "Cybersecurity",
+    label: "DETECT",
+    title: "Threat Detection",
     description:
-      "Protect your business with reliable cybersecurity solutions and services.",
-    icon: FiShield,
-    stage: "Protection",
-    accent: "#B96E4C",
+      "Advanced monitoring helps discover piracy, unauthorized distribution and suspicious digital activity.",
+    icon: Target,
+    side: "right",
   },
   {
     number: "03",
-    title: "Infrastructure",
+    label: "REMOVE",
+    title: "Copyright Enforcement",
     description:
-      "Build secure, scalable, and reliable technology infrastructure.",
-    icon: FiServer,
-    stage: "Foundation",
-    accent: "#D28D67",
+      "Identify infringing content and streamline the removal process across websites, platforms and digital channels.",
+    icon: Gavel,
+    side: "left",
   },
   {
     number: "04",
-    title: "Technology Solutions",
+    label: "PROTECT",
+    title: "Brand Protection",
     description:
-      "Modern technology solutions designed around your business requirements.",
-    icon: FiCpu,
-    stage: "Innovation",
-    accent: "#A95E43",
+      "Protect your brand identity from unauthorized usage, impersonation and misleading digital presence.",
+    icon: ShieldCheck,
+    side: "right",
+  },
+  {
+    number: "05",
+    label: "WATCH",
+    title: "Continuous Monitoring",
+    description:
+      "Keep your digital ecosystem protected with continuous monitoring and intelligent threat discovery.",
+    icon: BarChart3,
+    side: "left",
   },
 ];
 
-/* =========================================================
-   CARD ANIMATION
-========================================================= */
+/* ============================================================
+   CURVED CENTER PATH
+============================================================ */
 
-const cardVariants = {
-  hidden: {
-    opacity: 0,
-    y: 70,
-    scale: 0.96,
-  },
+const DESKTOP_PATH =
+  "M310 0 C110 100 100 220 280 315 C500 430 500 525 285 630 C105 720 105 835 295 930 C500 1035 500 1140 285 1240 C125 1315 135 1420 310 1550";
 
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-
-    transition: {
-      duration: 0.9,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-/* =========================================================
-   HEADER ANIMATION
-========================================================= */
-
-const headerVariants = {
-  hidden: {
-    opacity: 0,
-    y: 40,
-  },
-
-  visible: {
-    opacity: 1,
-    y: 0,
-
-    transition: {
-      duration: 0.9,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-/* =========================================================
+/* ============================================================
    OWL
-   Pure SVG - no external image required
-========================================================= */
+============================================================ */
 
-const JourneyOwl = () => {
+const Owl = ({ mobile = false }) => {
   return (
-    <svg
-      className="journey-owl"
-      viewBox="0 0 100 100"
-      aria-hidden="true"
+    <div
+      className={`
+        owl-scroll-character
+        relative
+        flex
+        items-center
+        justify-center
+        ${
+          mobile
+            ? "h-[58px] w-[58px]"
+            : "h-[76px] w-[76px] sm:h-[82px] sm:w-[82px]"
+        }
+      `}
     >
-      {/* OWL BODY */}
+      {/* Glow */}
+      <div
+        className="
+          absolute
+          -inset-3
+          rounded-full
+          bg-lime-400/20
+          blur-xl
+          dark:bg-lime-400/15
+        "
+      />
 
-      <g>
-        {/* BODY */}
-        <ellipse
-          cx="50"
-          cy="56"
-          rx="28"
-          ry="31"
-          fill="#34221F"
-        />
+      {/* Outer white circle */}
+      <div
+        className="
+          absolute
+          inset-0
+          rounded-full
+          border-[4px]
+          border-white
+          bg-white/95
+          shadow-[0_10px_35px_rgba(80,130,0,.28)]
+          dark:border-[#101b12]
+          dark:bg-[#101b12]/95
+        "
+      />
 
-        {/* BELLY */}
-        <ellipse
-          cx="50"
-          cy="63"
-          rx="18"
-          ry="20"
-          fill="#F2D9B8"
-        />
+      {/* Green circle */}
+      <div
+        className="
+          absolute
+          inset-[7px]
+          rounded-full
+          bg-gradient-to-br
+          from-[#7cab00]
+          via-[#4c8100]
+          to-[#274d00]
+        "
+      />
 
-        {/* LEFT WING */}
+      {/* Owl SVG */}
+      <svg
+        viewBox="0 0 100 100"
+        className="
+          relative
+          z-10
+          h-[46px]
+          w-[46px]
+          drop-shadow-[0_3px_6px_rgba(0,0,0,.25)]
+          sm:h-[52px]
+          sm:w-[52px]
+        "
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {/* Head */}
         <path
-          d="M27 48 C10 53 13 76 31 79 C37 72 38 57 27 48Z"
-          fill="#4A302B"
+          d="
+            M22 42
+            L28 20
+            L42 29
+            C47 27 53 27 58 29
+            L72 20
+            L78 42
+            C82 47 84 54 84 61
+            C84 77 71 87 50 87
+            C29 87 16 77 16 61
+            C16 54 18 47 22 42Z
+          "
+          fill="white"
+          stroke="white"
+          strokeWidth="2"
         />
 
-        {/* RIGHT WING */}
-        <path
-          d="M73 48 C90 53 87 76 69 79 C63 72 62 57 73 48Z"
-          fill="#4A302B"
-        />
-
-        {/* HEAD */}
+        {/* Eyes */}
         <circle
-          cx="50"
-          cy="34"
-          r="29"
-          fill="#3A2723"
-        />
-
-        {/* EAR LEFT */}
-        <path
-          d="M28 20 L21 4 L39 13 Z"
-          fill="#3A2723"
-        />
-
-        {/* EAR RIGHT */}
-        <path
-          d="M72 20 L79 4 L61 13 Z"
-          fill="#3A2723"
-        />
-
-        {/* FACE LEFT */}
-        <circle
-          cx="39"
-          cy="34"
+          cx="35"
+          cy="53"
           r="13"
-          fill="#F0D9BA"
+          fill="#d9ff75"
+          stroke="white"
+          strokeWidth="2"
         />
 
-        {/* FACE RIGHT */}
         <circle
-          cx="61"
-          cy="34"
+          cx="65"
+          cy="53"
           r="13"
-          fill="#F0D9BA"
+          fill="#d9ff75"
+          stroke="white"
+          strokeWidth="2"
         />
 
-        {/* EYES */}
-        <circle
-          cx="40"
-          cy="34"
-          r="6"
-          fill="#FFFFFF"
-        />
+        {/* Pupils */}
+        <circle cx="36" cy="54" r="5" fill="#263c05" />
+        <circle cx="64" cy="54" r="5" fill="#263c05" />
 
-        <circle
-          cx="60"
-          cy="34"
-          r="6"
-          fill="#FFFFFF"
-        />
+        {/* Eye highlights */}
+        <circle cx="38" cy="51" r="1.8" fill="white" />
+        <circle cx="66" cy="51" r="1.8" fill="white" />
 
-        {/* PUPILS */}
-        <circle
-          cx="40"
-          cy="34"
-          r="2.5"
-          fill="#1F1715"
-        />
-
-        <circle
-          cx="60"
-          cy="34"
-          r="2.5"
-          fill="#1F1715"
-        />
-
-        {/* BEAK */}
+        {/* Beak */}
         <path
-          d="M50 38 L43 47 L50 50 L57 47 Z"
-          fill="#C98562"
+          d="M50 57 L43 66 L50 70 L57 66 Z"
+          fill="#b8d956"
         />
 
-        {/* FEET */}
+        {/* Body */}
         <path
-          d="M38 84 L31 91 M38 84 L38 93 M38 84 L45 91"
-          stroke="#C98562"
-          strokeWidth="4"
+          d="
+            M30 73
+            C36 69 42 68 50 68
+            C58 68 64 69 70 73
+            C68 82 61 87 50 87
+            C39 87 32 82 30 73Z
+          "
+          fill="#f7fff0"
+        />
+
+        {/* Chest */}
+        <path
+          d="M43 74 C45 78 48 80 50 81 C52 80 55 78 57 74"
+          stroke="#6d9900"
+          strokeWidth="2"
           strokeLinecap="round"
-          fill="none"
+        />
+
+        {/* Feet */}
+        <path
+          d="M38 87 L34 92 M44 87 L42 93"
+          stroke="#d9ff75"
+          strokeWidth="3"
+          strokeLinecap="round"
         />
 
         <path
-          d="M62 84 L55 91 M62 84 L62 93 M62 84 L69 91"
-          stroke="#C98562"
-          strokeWidth="4"
+          d="M62 87 L66 92 M56 87 L58 93"
+          stroke="#d9ff75"
+          strokeWidth="3"
           strokeLinecap="round"
-          fill="none"
         />
-
-        {/* CHEEK DETAILS */}
-        <circle
-          cx="32"
-          cy="43"
-          r="3"
-          fill="#D88E6C"
-          opacity="0.55"
-        />
-
-        <circle
-          cx="68"
-          cy="43"
-          r="3"
-          fill="#D88E6C"
-          opacity="0.55"
-        />
-      </g>
-    </svg>
+      </svg>
+    </div>
   );
 };
 
-/* =========================================================
-   SERVICES COMPONENT
-========================================================= */
+/* ============================================================
+   SERVICE NODE
+============================================================ */
+
+const ServiceNode = ({ Icon, index, mobile = false }) => {
+  return (
+    <div
+      className={`
+        service-node
+        relative
+        flex
+        items-center
+        justify-center
+        ${
+          mobile
+            ? "h-[78px] w-[78px]"
+            : "h-[142px] w-[142px] sm:h-[156px] sm:w-[156px]"
+        }
+      `}
+      style={{
+        animationDelay: `${index * 160}ms`,
+      }}
+    >
+      {/* Outer ring */}
+      <div
+        className="
+          service-node-ring
+          absolute
+          inset-0
+          rounded-full
+          border
+          border-lime-500/25
+          dark:border-lime-400/25
+        "
+      />
+
+      {/* Dashed ring */}
+      <div
+        className="
+          service-node-ring-reverse
+          absolute
+          -inset-3
+          rounded-full
+          border
+          border-dashed
+          border-lime-500/20
+          dark:border-lime-400/20
+        "
+      />
+
+      {/* Glow */}
+      <div
+        className="
+          absolute
+          -inset-7
+          rounded-full
+          bg-lime-400/10
+          blur-2xl
+          dark:bg-lime-500/10
+        "
+      />
+
+      {/* Main node */}
+      <div
+        className={`
+          service-node-main
+          relative
+          flex
+          items-center
+          justify-center
+          rounded-full
+          border
+          border-lime-500/20
+          bg-white/95
+          shadow-[0_18px_55px_rgba(70,120,0,.20)]
+          backdrop-blur-xl
+          dark:border-lime-400/20
+          dark:bg-[#0b170d]/95
+          ${
+            mobile
+              ? "h-[64px] w-[64px]"
+              : "h-[126px] w-[126px] sm:h-[138px] sm:w-[138px]"
+          }
+        `}
+      >
+        {/* Inner border */}
+        <div className="absolute inset-3 rounded-full border border-lime-500/10 dark:border-lime-400/10" />
+
+        {/* Icon */}
+        <div
+          className={`
+            relative
+            flex
+            items-center
+            justify-center
+            rounded-full
+            bg-gradient-to-br
+            from-[#faffef]
+            via-[#efffd1]
+            to-[#dff5ae]
+            shadow-inner
+            dark:from-[#1a301a]
+            dark:via-[#102213]
+            dark:to-[#09120b]
+            ${
+              mobile
+                ? "h-12 w-12"
+                : "h-[88px] w-[88px] sm:h-[96px] sm:w-[96px]"
+            }
+          `}
+        >
+          <Icon
+            size={mobile ? 25 : 43}
+            strokeWidth={1.7}
+            className="text-[#477400] dark:text-lime-400"
+          />
+        </div>
+      </div>
+
+      {/* Connection dot */}
+      {!mobile && (
+        <span
+          className="
+            absolute
+            right-[-7px]
+            top-1/2
+            z-30
+            h-4
+            w-4
+            -translate-y-1/2
+            rounded-full
+            border-2
+            border-white
+            bg-lime-500
+            shadow-[0_0_20px_rgba(140,210,0,.95)]
+            dark:border-[#071009]
+          "
+        />
+      )}
+    </div>
+  );
+};
+
+/* ============================================================
+   SERVICE CONTENT
+   NO BACKGROUND CARD
+============================================================ */
+
+const ServiceContent = ({ service }) => {
+  return (
+    <div
+      className={`
+        service-content
+        relative
+        w-full
+        max-w-[450px]
+        px-6
+        py-7
+        sm:px-8
+        sm:py-8
+        ${
+          service.side === "left"
+            ? "text-left"
+            : "text-left"
+        }
+      `}
+    >
+      {/* Number */}
+      <div className="mb-3 flex items-center gap-4">
+        <span
+          className="
+            text-[64px]
+            font-black
+            leading-none
+            tracking-[-0.07em]
+            text-[#dce6c9]
+            dark:text-[#26351e]
+            sm:text-[72px]
+          "
+        >
+          {service.number}
+        </span>
+
+        <span className="h-[2px] w-12 bg-lime-700/40 dark:bg-lime-400/40" />
+      </div>
+
+      {/* Label */}
+      <div
+        className="
+          mb-3
+          text-[11px]
+          font-bold
+          tracking-[0.38em]
+          text-[#4f7900]
+          dark:text-lime-400
+        "
+      >
+        {service.label}
+      </div>
+
+      {/* Title */}
+      <h3
+        className="
+          text-[25px]
+          font-extrabold
+          leading-tight
+          tracking-[-0.035em]
+          text-[#071426]
+          dark:text-white
+          sm:text-[28px]
+        "
+      >
+        {service.title}
+      </h3>
+
+      {/* Small line */}
+      <div className="my-4 h-[2px] w-8 bg-lime-700 dark:bg-lime-400" />
+
+      {/* Description */}
+      <p
+        className="
+          max-w-[390px]
+          text-[15px]
+          leading-7
+          text-gray-600
+          dark:text-gray-400
+          sm:text-[16px]
+        "
+      >
+        {service.description}
+      </p>
+    </div>
+  );
+};
+
+/* ============================================================
+   SERVICES
+============================================================ */
 
 const Services = () => {
+  const sectionRef = useRef(null);
+
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  /* ==========================================================
+     SCROLL CONTROLLED OWL
+  ========================================================== */
+
+  useEffect(() => {
+    let ticking = false;
+
+    const updateProgress = () => {
+      if (!sectionRef.current) {
+        ticking = false;
+        return;
+      }
+
+      const section = sectionRef.current;
+      const rect = section.getBoundingClientRect();
+
+      const viewportHeight = window.innerHeight;
+
+      const startPoint = viewportHeight * 0.82;
+      const endPoint = -rect.height + viewportHeight * 0.18;
+
+      const totalDistance = startPoint - endPoint;
+
+      const travelled = startPoint - rect.top;
+
+      let progress = travelled / totalDistance;
+
+      progress = Math.max(0, Math.min(1, progress));
+
+      setScrollProgress(progress);
+
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateProgress);
+        ticking = true;
+      }
+    };
+
+    updateProgress();
+
+    window.addEventListener("scroll", onScroll, {
+      passive: true,
+    });
+
+    window.addEventListener("resize", updateProgress);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", updateProgress);
+    };
+  }, []);
+
+  /* ==========================================================
+     OWL DESKTOP POSITION
+  ========================================================== */
+
+  const owlDesktopStyle = {
+    offsetPath: `path("${DESKTOP_PATH}")`,
+    offsetDistance: `${scrollProgress * 100}%`,
+  };
+
   return (
     <section
+      ref={sectionRef}
+      id="services"
       className="
-        services-journey
         relative
         overflow-hidden
-        bg-[#F7E7C5]
-        text-[#35231F]
-        dark:bg-[#090806]
-        dark:text-[#F5E9D4]
+        bg-[#fbfcf6]
+        text-[#081522]
+        dark:bg-[#050b07]
+        dark:text-white
       "
     >
-      {/* =====================================================
-          CUSTOM CSS
-      ===================================================== */}
-
-      <style>{`
-        /* =====================================================
-           ROOT
-        ===================================================== */
-
-        .services-journey {
-          min-height: 100vh;
-          position: relative;
-          isolation: isolate;
-        }
-
-        /* =====================================================
-           BACKGROUND
-        ===================================================== */
-
-        .journey-background {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          z-index: -1;
-          overflow: hidden;
-        }
-
-        .journey-background::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background:
-            radial-gradient(
-              circle at 12% 18%,
-              rgba(201, 133, 98, 0.10),
-              transparent 24%
-            ),
-            radial-gradient(
-              circle at 85% 70%,
-              rgba(201, 133, 98, 0.08),
-              transparent 25%
-            );
-        }
-
-        .dark .journey-background::before {
-          background:
-            radial-gradient(
-              circle at 12% 18%,
-              rgba(201, 133, 98, 0.08),
-              transparent 24%
-            ),
-            radial-gradient(
-              circle at 85% 70%,
-              rgba(201, 133, 98, 0.06),
-              transparent 25%
-            );
-        }
-
-        /* =====================================================
-           DECORATIVE DOTS
-        ===================================================== */
-
-        .journey-dot {
-          position: absolute;
-          width: 11px;
-          height: 11px;
-          border-radius: 50%;
-          background: #D98D68;
-          opacity: 0.85;
-          animation: dotPulse 3s ease-in-out infinite;
-        }
-
-        .journey-dot.one {
-          left: 14%;
-          top: 25%;
-        }
-
-        .journey-dot.two {
-          right: 13%;
-          top: 48%;
-          animation-delay: 0.8s;
-        }
-
-        .journey-dot.three {
-          left: 18%;
-          bottom: 15%;
-          animation-delay: 1.5s;
-        }
-
-        @keyframes dotPulse {
-          0%,
-          100% {
-            transform: scale(0.8);
-            opacity: 0.35;
-          }
-
-          50% {
-            transform: scale(1.25);
-            opacity: 1;
-          }
-        }
-
-        /* =====================================================
-           MAIN CONTAINER
-        ===================================================== */
-
-        .journey-container {
-          width: min(1380px, 100%);
-          margin: 0 auto;
-          padding: 90px 42px 130px;
-        }
-
-        /* =====================================================
-           HEADER
-        ===================================================== */
-
-        .journey-header {
-          position: relative;
-          z-index: 10;
-          max-width: 900px;
-        }
-
-        .journey-label {
-          display: flex;
-          align-items: center;
-          gap: 18px;
-          color: #D58B68;
-          font-size: 12px;
-          font-weight: 800;
-          letter-spacing: 0.34em;
-          text-transform: uppercase;
-        }
-
-        .journey-label-line {
-          width: 38px;
-          height: 2px;
-          background: #D58B68;
-        }
-
-        .journey-title {
-          margin-top: 22px;
-          font-family:
-            "Manrope",
-            "Inter",
-            Arial,
-            sans-serif;
-          font-size: clamp(54px, 7vw, 105px);
-          font-weight: 800;
-          line-height: 0.88;
-          letter-spacing: -0.075em;
-          color: #35231F;
-        }
-
-        .dark .journey-title {
-          color: #F4E7D1;
-        }
-
-        .journey-title-script {
-          color: #D58B68;
-          font-family:
-            Georgia,
-            "Times New Roman",
-            serif;
-          font-style: italic;
-          font-weight: 400;
-          letter-spacing: -0.065em;
-        }
-
-        .journey-intro {
-          margin-top: 30px;
-          max-width: 570px;
-          color: rgba(53, 35, 31, 0.62);
-          font-size: 15px;
-          line-height: 1.9;
-        }
-
-        .dark .journey-intro {
-          color: rgba(244, 231, 209, 0.56);
-        }
-
-        /* =====================================================
-           JOURNEY AREA
-        ===================================================== */
-
-        .journey-area {
-          position: relative;
-          margin-top: 80px;
-          min-height: 1350px;
-        }
-
-        /* =====================================================
-           SVG PATH
-        ===================================================== */
-
-        .journey-path {
-          position: absolute;
-          top: 0;
-          left: 50%;
-          width: 500px;
-          height: 100%;
-          transform: translateX(-50%);
-          overflow: visible;
-          pointer-events: none;
-          z-index: 1;
-        }
-
-        .journey-path-main {
-          fill: none;
-          stroke: rgba(166, 130, 93, 0.22);
-          stroke-width: 5;
-          stroke-linecap: round;
-        }
-
-        .journey-path-inner {
-          fill: none;
-          stroke: rgba(166, 130, 93, 0.12);
-          stroke-width: 2.5;
-          stroke-linecap: round;
-        }
-
-        .dark .journey-path-main {
-          stroke: rgba(211, 151, 111, 0.22);
-        }
-
-        .dark .journey-path-inner {
-          stroke: rgba(211, 151, 111, 0.12);
-        }
-
-        /* =====================================================
-           OWL
-        ===================================================== */
-
-        .owl-motion-wrapper {
-          width: 90px;
-          height: 90px;
-          margin-left: -45px;
-          margin-top: -45px;
-          filter:
-            drop-shadow(
-              0 15px 20px rgba(74, 48, 43, 0.20)
-            );
-        }
-
-        .journey-owl {
-          width: 90px;
-          height: 90px;
-          display: block;
-          animation: owlFloat 1.8s ease-in-out infinite;
-        }
-
-        @keyframes owlFloat {
-          0%,
-          100% {
-            transform: translateY(0) rotate(-2deg);
-          }
-
-          50% {
-            transform: translateY(-7px) rotate(2deg);
-          }
-        }
-
-        /* =====================================================
-           SERVICE ITEMS
-        ===================================================== */
-
-        .journey-items {
-          position: relative;
-          z-index: 5;
-          display: flex;
-          flex-direction: column;
-          gap: 55px;
-        }
-
-        .journey-item {
-          position: relative;
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          min-height: 260px;
-          align-items: center;
-        }
-
-        .journey-item.left .journey-card {
-          grid-column: 1;
-          margin-right: 70px;
-        }
-
-        .journey-item.right .journey-card {
-          grid-column: 2;
-          margin-left: 70px;
-        }
-
-        /* =====================================================
-           YEAR / NUMBER BADGE
-        ===================================================== */
-
-        .journey-number {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          z-index: 8;
-          transform: translate(-50%, -50%);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          min-width: 105px;
-          height: 42px;
-          padding: 0 18px;
-          border-radius: 999px;
-          background: #39241F;
-          border: 3px solid #F7E7C5;
-          box-shadow:
-            0 10px 30px rgba(70, 42, 33, 0.16);
-          color: #F8EEDC;
-          font-size: 12px;
-          font-weight: 800;
-          letter-spacing: 0.18em;
-        }
-
-        .dark .journey-number {
-          border-color: #090806;
-          background: #E6B28F;
-          color: #2C1C19;
-        }
-
-        .journey-number::before,
-        .journey-number::after {
-          content: "";
-          width: 5px;
-          height: 5px;
-          border-radius: 50%;
-          background: #D98D68;
-        }
-
-        .journey-number::before {
-          margin-right: 10px;
-        }
-
-        .journey-number::after {
-          margin-left: 10px;
-        }
-
-        /* =====================================================
-           CARD
-        ===================================================== */
-
-        .journey-card {
-          position: relative;
-          overflow: hidden;
-          min-height: 245px;
-          padding: 34px 40px 36px;
-          border-radius: 28px;
-          background: rgba(255, 255, 255, 0.92);
-          border: 1px solid rgba(116, 78, 61, 0.10);
-          box-shadow:
-            0 20px 55px rgba(76, 49, 37, 0.10);
-          backdrop-filter: blur(8px);
-          transition:
-            transform 0.5s ease,
-            box-shadow 0.5s ease,
-            border-color 0.5s ease;
-        }
-
-        .journey-card:hover {
-          transform: translateY(-8px);
-          border-color: rgba(201, 133, 98, 0.35);
-          box-shadow:
-            0 28px 70px rgba(76, 49, 37, 0.16);
-        }
-
-        .dark .journey-card {
-          background: rgba(28, 22, 19, 0.90);
-          border-color: rgba(255, 255, 255, 0.08);
-          box-shadow:
-            0 25px 70px rgba(0, 0, 0, 0.30);
-        }
-
-        .dark .journey-card:hover {
-          border-color: rgba(211, 151, 111, 0.35);
-          box-shadow:
-            0 30px 80px rgba(0, 0, 0, 0.45);
-        }
-
-        .journey-card::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 5px;
-          background:
-            linear-gradient(
-              90deg,
-              #D58B68,
-              #E7B292,
-              transparent
-            );
-        }
-
-        .journey-card-glow {
-          position: absolute;
-          right: -70px;
-          bottom: -70px;
-          width: 190px;
-          height: 190px;
-          border-radius: 50%;
-          background: rgba(213, 139, 104, 0.10);
-          filter: blur(25px);
-          pointer-events: none;
-        }
-
-        /* =====================================================
-           CARD TOP
-        ===================================================== */
-
-        .journey-card-top {
-          display: flex;
-          align-items: flex-start;
-          justify-content: space-between;
-          gap: 20px;
-        }
-
-        .journey-stage {
-          color: #D17F5A;
-          font-size: 10px;
-          font-weight: 800;
-          letter-spacing: 0.24em;
-          text-transform: uppercase;
-        }
-
-        .journey-icon {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 52px;
-          height: 52px;
-          flex-shrink: 0;
-          border-radius: 50%;
-          color: #B96749;
-          background: rgba(201, 133, 98, 0.11);
-          border: 1px solid rgba(201, 133, 98, 0.20);
-          font-size: 22px;
-          transition:
-            transform 0.45s ease,
-            background 0.45s ease;
-        }
-
-        .journey-card:hover .journey-icon {
-          transform: rotate(-8deg) scale(1.08);
-          background: #C98562;
-          color: white;
-        }
-
-        .dark .journey-icon {
-          color: #E0A47F;
-          background: rgba(201, 133, 98, 0.08);
-        }
-
-        /* =====================================================
-           CARD TITLE
-        ===================================================== */
-
-        .journey-card-title {
-          margin-top: 16px;
-          color: #34221F;
-          font-family:
-            "Manrope",
-            "Inter",
-            Arial,
-            sans-serif;
-          font-size: clamp(27px, 3vw, 42px);
-          font-weight: 800;
-          line-height: 1;
-          letter-spacing: -0.055em;
-        }
-
-        .dark .journey-card-title {
-          color: #F5E8D4;
-        }
-
-        .journey-card-description {
-          max-width: 520px;
-          margin-top: 17px;
-          color: rgba(53, 35, 31, 0.62);
-          font-size: 14px;
-          line-height: 1.8;
-        }
-
-        .dark .journey-card-description {
-          color: rgba(245, 232, 212, 0.55);
-        }
-
-        /* =====================================================
-           CARD FOOTER
-        ===================================================== */
-
-        .journey-card-footer {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 20px;
-          margin-top: 24px;
-          padding-top: 18px;
-          border-top: 1px solid rgba(91, 59, 46, 0.10);
-        }
-
-        .dark .journey-card-footer {
-          border-top-color: rgba(255, 255, 255, 0.08);
-        }
-
-        .journey-card-label {
-          color: rgba(53, 35, 31, 0.40);
-          font-size: 9px;
-          font-weight: 800;
-          letter-spacing: 0.20em;
-          text-transform: uppercase;
-        }
-
-        .dark .journey-card-label {
-          color: rgba(245, 232, 212, 0.35);
-        }
-
-        .journey-arrow {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 34px;
-          height: 34px;
-          border-radius: 50%;
-          color: #7D5140;
-          border: 1px solid rgba(125, 81, 64, 0.20);
-          transition:
-            transform 0.35s ease,
-            background 0.35s ease,
-            color 0.35s ease;
-        }
-
-        .journey-card:hover .journey-arrow {
-          transform: rotate(45deg);
-          background: #C98562;
-          border-color: #C98562;
-          color: white;
-        }
-
-        /* =====================================================
-           BOTTOM CTA
-        ===================================================== */
-
-        .journey-bottom {
-          position: relative;
-          z-index: 10;
-          margin-top: 90px;
-          padding-top: 30px;
-          border-top: 1px solid rgba(91, 59, 46, 0.13);
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 30px;
-        }
-
-        .dark .journey-bottom {
-          border-top-color: rgba(255, 255, 255, 0.08);
-        }
-
-        .journey-bottom-label {
-          color: rgba(53, 35, 31, 0.42);
-          font-size: 10px;
-          font-weight: 800;
-          letter-spacing: 0.25em;
-          text-transform: uppercase;
-        }
-
-        .dark .journey-bottom-label {
-          color: rgba(245, 232, 212, 0.35);
-        }
-
-        .journey-bottom-text {
-          margin-top: 8px;
-          color: #51362E;
-          font-size: 15px;
-          font-weight: 600;
-        }
-
-        .dark .journey-bottom-text {
-          color: #E9D8C1;
-        }
-
-        .journey-button {
-          display: inline-flex;
-          align-items: center;
-          gap: 12px;
-          padding: 14px 22px;
-          border-radius: 999px;
-          color: white;
-          background: #39241F;
-          font-size: 13px;
-          font-weight: 700;
-          text-decoration: none;
-          transition:
-            transform 0.35s ease,
-            background 0.35s ease,
-            box-shadow 0.35s ease;
-        }
-
-        .journey-button:hover {
-          transform: translateY(-3px);
-          background: #C98562;
-          box-shadow:
-            0 15px 35px rgba(201, 133, 98, 0.28);
-        }
-
-        .dark .journey-button {
-          background: #D58B68;
-          color: #2B1C18;
-        }
-
-        .dark .journey-button:hover {
-          background: #E3A57F;
-        }
-
-        /* =====================================================
-           TABLET
-        ===================================================== */
-
-        @media (max-width: 900px) {
-          .journey-container {
-            padding: 75px 28px 100px;
-          }
-
-          .journey-area {
-            min-height: 1300px;
-          }
-
-          .journey-path {
-            width: 330px;
-          }
-
-          .journey-item.left .journey-card {
-            margin-right: 45px;
-          }
-
-          .journey-item.right .journey-card {
-            margin-left: 45px;
-          }
-
-          .journey-card {
-            padding: 28px 28px 30px;
-          }
-        }
-
-        /* =====================================================
-           MOBILE
-        ===================================================== */
-
-        @media (max-width: 680px) {
-          .journey-container {
-            padding: 58px 18px 80px;
-          }
-
-          .journey-label {
-            font-size: 9px;
-            letter-spacing: 0.25em;
-          }
-
-          .journey-label-line {
-            width: 27px;
-          }
-
-          .journey-title {
-            margin-top: 18px;
-            font-size: clamp(46px, 14vw, 72px);
-          }
-
-          .journey-intro {
-            margin-top: 22px;
-            font-size: 13px;
-            line-height: 1.75;
-          }
-
-          .journey-area {
-            margin-top: 55px;
-            min-height: auto;
-            padding-left: 32px;
-          }
-
-          /*
-             On mobile the winding path moves to the left.
-          */
-
-          .journey-path {
-            left: 38px;
-            width: 105px;
-            height: calc(100% - 20px);
-            transform: none;
-          }
-
-          .journey-items {
-            gap: 28px;
-          }
-
-          .journey-item {
-            display: block;
-            min-height: auto;
-            padding-left: 24px;
-          }
-
-          .journey-item.left .journey-card,
-          .journey-item.right .journey-card {
-            margin: 0;
-          }
-
-          .journey-number {
-            left: -4px;
-            top: 30px;
-            min-width: 67px;
-            height: 32px;
-            padding: 0 9px;
-            font-size: 8px;
-            letter-spacing: 0.10em;
-            transform: translate(-50%, 0);
-          }
-
-          .journey-number::before,
-          .journey-number::after {
-            width: 3px;
-            height: 3px;
-          }
-
-          .journey-number::before {
-            margin-right: 5px;
-          }
-
-          .journey-number::after {
-            margin-left: 5px;
-          }
-
-          .journey-card {
-            min-height: 0;
-            padding: 24px 21px 23px;
-            border-radius: 22px;
-          }
-
-          .journey-card-title {
-            font-size: 27px;
-          }
-
-          .journey-card-description {
-            font-size: 12px;
-            line-height: 1.75;
-          }
-
-          .journey-icon {
-            width: 43px;
-            height: 43px;
-            font-size: 18px;
-          }
-
-          .journey-card-footer {
-            margin-top: 18px;
-            padding-top: 14px;
-          }
-
-          .journey-card-label {
-            font-size: 8px;
-          }
-
-          .journey-bottom {
-            margin-top: 60px;
-            align-items: flex-start;
-            flex-direction: column;
-          }
-
-          .journey-button {
-            width: 100%;
-            justify-content: center;
-          }
-
-          .owl-motion-wrapper {
-            width: 58px;
-            height: 58px;
-            margin-left: -29px;
-            margin-top: -29px;
-          }
-
-          .journey-owl {
-            width: 58px;
-            height: 58px;
-          }
-        }
-
-        /* =====================================================
-           REDUCED MOTION
-        ===================================================== */
-
-        @media (prefers-reduced-motion: reduce) {
-          .journey-dot,
-          .journey-owl {
-            animation: none !important;
-          }
-        }
-      `}</style>
-
       {/* =====================================================
           BACKGROUND
       ===================================================== */}
 
-      <div className="journey-background">
-        <span className="journey-dot one" />
-        <span className="journey-dot two" />
-        <span className="journey-dot three" />
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        {/* Top left glow */}
+        <div
+          className="
+            absolute
+            -left-40
+            -top-40
+            h-[500px]
+            w-[500px]
+            rounded-full
+            bg-lime-300/10
+            blur-[140px]
+            dark:bg-lime-500/5
+          "
+        />
+
+        {/* Right glow */}
+        <div
+          className="
+            absolute
+            -right-48
+            top-[30%]
+            h-[650px]
+            w-[650px]
+            rounded-full
+            bg-lime-300/10
+            blur-[150px]
+            dark:bg-lime-500/5
+          "
+        />
+
+        {/* Bottom glow */}
+        <div
+          className="
+            absolute
+            bottom-[-200px]
+            left-1/2
+            h-[600px]
+            w-[900px]
+            -translate-x-1/2
+            rounded-full
+            bg-lime-200/10
+            blur-[160px]
+            dark:bg-lime-500/5
+          "
+        />
+
+        {/* Dot pattern */}
+        <div
+          className="
+            absolute
+            inset-0
+            opacity-[0.12]
+            [background-image:radial-gradient(circle_at_1px_1px,rgba(80,120,20,.35)_1px,transparent_0)]
+            [background-size:42px_42px]
+            dark:opacity-[0.04]
+          "
+        />
+
+        {/* Decorative circles */}
+        <div
+          className="
+            absolute
+            -left-[250px]
+            top-[12%]
+            h-[600px]
+            w-[600px]
+            rounded-full
+            border
+            border-lime-300/20
+            dark:border-lime-600/10
+          "
+        />
+
+        <div
+          className="
+            absolute
+            -right-[280px]
+            bottom-[8%]
+            h-[650px]
+            w-[650px]
+            rounded-full
+            border
+            border-lime-300/20
+            dark:border-lime-600/10
+          "
+        />
       </div>
 
       {/* =====================================================
           MAIN CONTAINER
       ===================================================== */}
 
-      <div className="journey-container">
-
+      <div
+        className="
+          relative
+          z-10
+          mx-auto
+          max-w-[1400px]
+          px-5
+          pb-32
+          pt-20
+          sm:px-8
+          lg:px-12
+          xl:px-16
+        "
+      >
         {/* ===================================================
             HEADER
         =================================================== */}
 
-        <motion.header
-          className="journey-header"
-          variants={headerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{
-            once: true,
-            amount: 0.2,
-          }}
-        >
-          <div className="journey-label">
-            <span className="journey-label-line" />
-            <span>Our Journey</span>
+        <div className="mx-auto max-w-[900px] text-center">
+          {/* Small heading */}
+          <div className="mb-5 flex items-center justify-center gap-5">
+            <span className="h-[2px] w-14 bg-lime-700 dark:bg-lime-400" />
+
+            <span
+              className="
+                text-[11px]
+                font-bold
+                tracking-[0.45em]
+                text-[#4d7800]
+                dark:text-lime-400
+              "
+            >
+              SERVICES
+            </span>
+
+            <span className="h-[2px] w-14 bg-lime-700 dark:bg-lime-400" />
           </div>
 
-          <h2 className="journey-title">
-            The Journey{" "}
-            <span className="journey-title-script">
-              So Far
-            </span>
-          </h2>
+          {/* Main heading */}
+          <h1
+            className="
+              text-5xl
+              font-black
+              leading-[0.9]
+              tracking-[-0.065em]
+              text-[#071426]
+              dark:text-white
+              sm:text-6xl
+              lg:text-[78px]
+            "
+          >
+            Protection
+            <br />
 
-          <p className="journey-intro">
-            From strategic planning to secure infrastructure and
-            modern technology, every service is part of a larger
-            journey toward smarter and more reliable digital
-            experiences.
+            <span className="text-[#4f8200] dark:text-lime-400">
+              Built Around You
+            </span>
+          </h1>
+
+          {/* Heading line */}
+          <div className="mx-auto mt-6 h-[3px] w-10 bg-lime-700 dark:bg-lime-400" />
+
+          {/* Description */}
+          <p
+            className="
+              mx-auto
+              mt-6
+              max-w-[720px]
+              text-base
+              leading-8
+              text-gray-600
+              dark:text-gray-400
+              sm:text-lg
+            "
+          >
+            Powerful digital protection designed to discover threats,
+            protect content, enforce rights and keep your brand one step
+            ahead.
           </p>
-        </motion.header>
+        </div>
 
         {/* ===================================================
-            JOURNEY AREA
+            DESKTOP SERVICES
         =================================================== */}
 
-        <div className="journey-area">
+        <div className="relative mt-20 hidden lg:block">
+          <div className="relative h-[1550px]">
+            {/* =================================================
+                CENTER CURVED LINE
+            ================================================= */}
 
-          {/* =================================================
-              WINDING SVG PATH
-          ================================================= */}
-
-          <svg
-            className="journey-path"
-            viewBox="0 0 500 1450"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
-            {/* Main Path */}
-
-            <path
-              id="servicesJourneyPath"
-              className="journey-path-main"
-              d="
-                M 260 0
-                C 260 130,
-                  120 180,
-                  135 320
-                C 150 455,
-                  390 475,
-                  370 625
-                C 350 770,
-                  100 770,
-                  125 920
-                C 150 1060,
-                  405 1070,
-                  370 1210
-                C 350 1300,
-                  270 1370,
-                  260 1450
+            <div
+              className="
+                pointer-events-none
+                absolute
+                left-1/2
+                top-0
+                z-0
+                h-full
+                w-[620px]
+                -translate-x-1/2
               "
-            />
+            >
+              <svg
+                viewBox="0 0 620 1550"
+                className="h-full w-full overflow-visible"
+                preserveAspectRatio="none"
+              >
+                <defs>
+                  {/* Green gradient */}
+                  <linearGradient
+                    id="serviceLineGradient"
+                    x1="0"
+                    y1="0"
+                    x2="1"
+                    y2="1"
+                  >
+                    <stop offset="0%" stopColor="#426c00" />
+                    <stop offset="25%" stopColor="#83b91e" />
+                    <stop offset="50%" stopColor="#c9ef70" />
+                    <stop offset="75%" stopColor="#75a915" />
+                    <stop offset="100%" stopColor="#355900" />
+                  </linearGradient>
 
-            {/* Inner Decorative Path */}
+                  {/* Glow */}
+                  <filter id="serviceLineGlow">
+                    <feGaussianBlur stdDeviation="12" />
+                  </filter>
+                </defs>
 
-            <path
-              className="journey-path-inner"
-              d="
-                M 275 0
-                C 275 125,
-                  140 190,
-                  155 315
-                C 175 440,
-                  410 480,
-                  390 620
-                C 370 755,
-                  125 780,
-                  150 910
-                C 180 1050,
-                  425 1080,
-                  390 1205
-                C 365 1300,
-                  290 1375,
-                  275 1450
-              "
-            />
+                {/* Glow line */}
+                <path
+                  d={DESKTOP_PATH}
+                  fill="none"
+                  stroke="#a8d64b"
+                  strokeWidth="60"
+                  strokeOpacity=".13"
+                  filter="url(#serviceLineGlow)"
+                />
+
+                {/* White separation */}
+                <path
+                  d={DESKTOP_PATH}
+                  fill="none"
+                  stroke="rgba(255,255,255,.92)"
+                  strokeWidth="22"
+                  strokeLinecap="round"
+                  className="dark:stroke-[#071009]"
+                />
+
+                {/* Main line */}
+                <path
+                  d={DESKTOP_PATH}
+                  fill="none"
+                  stroke="url(#serviceLineGradient)"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  className="service-path"
+                />
+
+                {/* Moving highlight */}
+                <path
+                  d={DESKTOP_PATH}
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="1.5"
+                  strokeOpacity=".8"
+                  strokeDasharray="3 18"
+                  className="service-path-highlight"
+                />
+
+                {/* Top point */}
+                <circle
+                  cx="310"
+                  cy="0"
+                  r="8"
+                  fill="#74a900"
+                />
+
+                {/* Bottom point */}
+                <circle
+                  cx="310"
+                  cy="1550"
+                  r="8"
+                  fill="#74a900"
+                />
+              </svg>
+
+              {/* Automatic light */}
+              <div className="service-moving-light" />
+
+              {/* =================================================
+                  SCROLL CONTROLLED OWL
+              ================================================= */}
+
+              <div
+                className="
+                  pointer-events-none
+                  absolute
+                  left-0
+                  top-0
+                  z-50
+                  h-[76px]
+                  w-[76px]
+                  will-change-transform
+                "
+                style={owlDesktopStyle}
+              >
+                <Owl />
+              </div>
+            </div>
 
             {/* =================================================
-                ANIMATED OWL
-            ================================================== */}
-
-            <g>
-              <animateMotion
-                dur="18s"
-                repeatCount="indefinite"
-                rotate="auto"
-                keyPoints="0;0.2;0.4;0.6;0.8;1"
-                keyTimes="0;0.2;0.4;0.6;0.8;1"
-                calcMode="linear"
-              >
-                <mpath href="#servicesJourneyPath" />
-              </animateMotion>
-
-              <g transform="translate(-45,-45)">
-                <JourneyOwl />
-              </g>
-            </g>
-          </svg>
-
-          {/* =================================================
-              SERVICE ITEMS
-          ================================================== */}
-
-          <div className="journey-items">
+                SERVICE ITEMS
+            ================================================= */}
 
             {services.map((service, index) => {
               const Icon = service.icon;
 
+              const positions = [
+                0,
+                310,
+                620,
+                930,
+                1240,
+              ];
+
               return (
-                <motion.article
+                <div
                   key={service.number}
-                  className={`
-                    journey-item
-                    ${index % 2 === 0 ? "left" : "right"}
-                  `}
-                  variants={cardVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{
-                    once: true,
-                    amount: 0.22,
-                  }}
-                  transition={{
-                    delay: index * 0.12,
+                  className="
+                    absolute
+                    left-0
+                    right-0
+                    z-20
+                  "
+                  style={{
+                    top: `${positions[index]}px`,
                   }}
                 >
-                  {/* =========================================
-                      NUMBER
-                  ========================================== */}
-
-                  <div className="journey-number">
-                    {service.number}
-                  </div>
-
-                  {/* =========================================
-                      CARD
-                  ========================================== */}
-
-                  <div className="journey-card">
-
-                    <div className="journey-card-glow" />
-
-                    {/* CARD TOP */}
-
-                    <div className="journey-card-top">
-
-                      <div>
-                        <div className="journey-stage">
-                          {service.stage}
+                  <div className="relative grid grid-cols-2">
+                    {/* LEFT SERVICE */}
+                    {service.side === "left" ? (
+                      <>
+                        <div className="flex justify-end pr-[135px]">
+                          <ServiceContent service={service} />
                         </div>
-                      </div>
 
-                      <div className="journey-icon">
-                        <Icon />
-                      </div>
+                        <div />
+                      </>
+                    ) : (
+                      <>
+                        <div />
 
-                    </div>
-
-                    {/* TITLE */}
-
-                    <h3 className="journey-card-title">
-                      {service.title}
-                    </h3>
-
-                    {/* DESCRIPTION */}
-
-                    <p className="journey-card-description">
-                      {service.description}
-                    </p>
-
-                    {/* FOOTER */}
-
-                    <div className="journey-card-footer">
-
-                      <span className="journey-card-label">
-                        TrackOwls Service
-                      </span>
-
-                      <span className="journey-arrow">
-                        <FiArrowUpRight />
-                      </span>
-
-                    </div>
+                        {/* RIGHT SERVICE */}
+                        <div className="pl-[135px]">
+                          <ServiceContent service={service} />
+                        </div>
+                      </>
+                    )}
                   </div>
-                </motion.article>
+
+                  {/* Center node */}
+                  <div
+                    className="
+                      absolute
+                      left-1/2
+                      top-1/2
+                      z-40
+                      -translate-x-1/2
+                      -translate-y-1/2
+                    "
+                  >
+                    <ServiceNode
+                      Icon={Icon}
+                      index={index}
+                    />
+                  </div>
+                </div>
               );
             })}
-
           </div>
         </div>
 
         {/* ===================================================
-            BOTTOM CTA
+            MOBILE SERVICES
         =================================================== */}
 
-        <motion.div
-          className="journey-bottom"
-          initial={{
-            opacity: 0,
-            y: 25,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{
-            once: true,
-            amount: 0.2,
-          }}
-          transition={{
-            duration: 0.8,
-          }}
-        >
-          <div>
-            <div className="journey-bottom-label">
-              Technology Expertise
-            </div>
+        <div className="relative mt-16 lg:hidden">
+          {/* Vertical line */}
+          <div
+            className="
+              absolute
+              bottom-8
+              left-[39px]
+              top-0
+              z-0
+              w-[3px]
+              rounded-full
+              bg-gradient-to-b
+              from-[#416d00]
+              via-[#a8d94c]
+              to-[#416d00]
+              dark:from-lime-500
+              dark:via-lime-300
+              dark:to-lime-500
+            "
+          />
 
-            <div className="journey-bottom-text">
-              Practical technology. Meaningful outcomes.
-            </div>
+          {/* Line glow */}
+          <div
+            className="
+              pointer-events-none
+              absolute
+              bottom-8
+              left-[39px]
+              top-0
+              z-0
+              w-[14px]
+              -translate-x-1/2
+              rounded-full
+              bg-lime-400/10
+              blur-md
+            "
+          />
+
+          {/* Mobile owl */}
+          <div
+            className="
+              pointer-events-none
+              absolute
+              left-[1px]
+              top-0
+              z-40
+              h-[76px]
+              w-[76px]
+              will-change-transform
+            "
+            style={{
+              transform: `translateY(${scrollProgress * 100}%)`,
+            }}
+          >
+            <Owl mobile />
           </div>
 
-          <a
-            href="/services"
-            className="journey-button"
-          >
-            Explore All Services
+          {/* Services */}
+          <div className="relative z-10 space-y-16">
+            {services.map((service, index) => {
+              const Icon = service.icon;
 
-            <FiArrowUpRight />
-          </a>
-        </motion.div>
+              return (
+                <div
+                  key={service.number}
+                  className="
+                    relative
+                    min-h-[220px]
+                    pl-[88px]
+                  "
+                  style={{
+                    animation:
+                      "serviceMobileReveal .8s ease both",
+                    animationDelay: `${index * 130}ms`,
+                  }}
+                >
+                  {/* Node */}
+                  <div
+                    className="
+                      absolute
+                      left-0
+                      top-0
+                      z-30
+                    "
+                  >
+                    <ServiceNode
+                      Icon={Icon}
+                      index={index}
+                      mobile
+                    />
+                  </div>
+
+                  {/* Text */}
+                  <div className="relative z-20 pt-1">
+                    {/* Number */}
+                    <div className="mb-2 flex items-center gap-4">
+                      <span
+                        className="
+                          text-4xl
+                          font-black
+                          leading-none
+                          tracking-[-0.05em]
+                          text-lime-700
+                          dark:text-lime-400
+                        "
+                      >
+                        {service.number}
+                      </span>
+
+                      <span className="h-px w-10 bg-lime-700/30 dark:bg-lime-400/30" />
+                    </div>
+
+                    {/* Label */}
+                    <div
+                      className="
+                        mb-2
+                        text-[10px]
+                        font-bold
+                        tracking-[0.35em]
+                        text-[#4d7800]
+                        dark:text-lime-400
+                      "
+                    >
+                      {service.label}
+                    </div>
+
+                    {/* Title */}
+                    <h3
+                      className="
+                        text-2xl
+                        font-extrabold
+                        tracking-tight
+                        text-[#071426]
+                        dark:text-white
+                      "
+                    >
+                      {service.title}
+                    </h3>
+
+                    {/* Small line */}
+                    <div className="my-3 h-[2px] w-8 bg-lime-700 dark:bg-lime-400" />
+
+                    {/* Description */}
+                    <p
+                      className="
+                        max-w-[500px]
+                        text-sm
+                        leading-7
+                        text-gray-600
+                        dark:text-gray-400
+                      "
+                    >
+                      {service.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
+
+      {/* =====================================================
+          ANIMATIONS
+      ===================================================== */}
+
+      <style>{`
+        /* ====================================================
+           CURVED LINE
+        ==================================================== */
+
+        .service-path {
+          stroke-dasharray: 18 9;
+          animation: serviceDash 4s linear infinite;
+        }
+
+        .service-path-highlight {
+          animation: serviceHighlight 2.4s linear infinite;
+        }
+
+        @keyframes serviceDash {
+          from {
+            stroke-dashoffset: 0;
+          }
+
+          to {
+            stroke-dashoffset: -108;
+          }
+        }
+
+        @keyframes serviceHighlight {
+          0% {
+            stroke-dashoffset: 0;
+            opacity: .25;
+          }
+
+          50% {
+            stroke-dashoffset: -60;
+            opacity: 1;
+          }
+
+          100% {
+            stroke-dashoffset: -120;
+            opacity: .25;
+          }
+        }
+
+        /* ====================================================
+           AUTOMATIC LIGHT
+        ==================================================== */
+
+        .service-moving-light {
+          position: absolute;
+          left: 50%;
+          top: 0;
+          width: 15px;
+          height: 15px;
+          transform: translateX(-50%);
+          border-radius: 9999px;
+          background: #d9ff77;
+          box-shadow:
+            0 0 14px 5px rgba(150, 215, 35, .55),
+            0 0 32px 10px rgba(150, 215, 35, .25);
+          animation: serviceMovingLight 5s linear infinite;
+        }
+
+        @keyframes serviceMovingLight {
+          0% {
+            top: 0;
+            opacity: 0;
+          }
+
+          8% {
+            opacity: 1;
+          }
+
+          90% {
+            opacity: 1;
+          }
+
+          100% {
+            top: calc(100% - 15px);
+            opacity: 0;
+          }
+        }
+
+        /* ====================================================
+           NODE ROTATION
+        ==================================================== */
+
+        .service-node-ring {
+          animation:
+            serviceNodeRotate
+            11s
+            linear
+            infinite;
+        }
+
+        .service-node-ring-reverse {
+          animation:
+            serviceNodeRotateReverse
+            15s
+            linear
+            infinite;
+        }
+
+        @keyframes serviceNodeRotate {
+          from {
+            transform: rotate(0deg);
+          }
+
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        @keyframes serviceNodeRotateReverse {
+          from {
+            transform: rotate(360deg);
+          }
+
+          to {
+            transform: rotate(0deg);
+          }
+        }
+
+        /* ====================================================
+           NODE PULSE
+        ==================================================== */
+
+        .service-node-main {
+          animation:
+            serviceNodePulse
+            3.5s
+            ease-in-out
+            infinite;
+        }
+
+        @keyframes serviceNodePulse {
+          0%,
+          100% {
+            transform: scale(1);
+          }
+
+          50% {
+            transform: scale(1.035);
+          }
+        }
+
+        /* ====================================================
+           OWL
+        ==================================================== */
+
+        .owl-scroll-character {
+          animation:
+            owlFloat
+            2.6s
+            ease-in-out
+            infinite;
+        }
+
+        @keyframes owlFloat {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+
+          50% {
+            transform: translateY(-4px);
+          }
+        }
+
+        /* ====================================================
+           MOBILE REVEAL
+        ==================================================== */
+
+        @keyframes serviceMobileReveal {
+          from {
+            opacity: 0;
+            transform: translateY(28px);
+          }
+
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* ====================================================
+           REDUCED MOTION
+        ==================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+          .service-path,
+          .service-path-highlight,
+          .service-moving-light,
+          .service-node-ring,
+          .service-node-ring-reverse,
+          .service-node-main,
+          .owl-scroll-character {
+            animation: none !important;
+          }
+        }
+      `}</style>
     </section>
   );
 };
