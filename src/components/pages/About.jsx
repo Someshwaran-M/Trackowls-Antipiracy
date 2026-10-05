@@ -5,7 +5,9 @@ import WhatWeDo from "../navpages/about/WhatWeDo";
 import WhoWeProtect from "../navpages/about/WhoWeProtect";
 import WhoWeAre from "../navpages/about/WhoWeAre";
 import VisionMission from "../navpages/about/VisionMission";
-import WhyTrackOwls from "../navpages/about/WhyTrackowls";
+
+import Direction from "../navpages/about/Direction";
+import Leadership from "../navpages/about/Leadership";
 
 function About() {
   const horizontalSectionRef = useRef(null);
@@ -17,35 +19,30 @@ function About() {
 
     if (!section || !track) return;
 
-    const isMobile = () => window.innerWidth <= 768;
-
     const updateHeight = () => {
-      if (isMobile()) {
-        section.style.height = "auto";
-        track.style.transform = "translate3d(0, 0, 0)";
-        return;
-      }
-
-      const maxScroll =
-        track.scrollWidth - window.innerWidth;
+      const maxScroll = Math.max(
+        track.scrollWidth - window.innerWidth,
+        0
+      );
 
       section.style.height = `${window.innerHeight + maxScroll}px`;
     };
 
     const handleScroll = () => {
-      if (isMobile()) return;
-
       const rect = section.getBoundingClientRect();
 
-      const maxHorizontal =
-        track.scrollWidth - window.innerWidth;
+      const maxHorizontal = Math.max(
+        track.scrollWidth - window.innerWidth,
+        0
+      );
 
       if (maxHorizontal <= 0) return;
 
       /*
-        Vertical scroll position inside the horizontal section
+        Vertical page scroll position
         becomes horizontal movement.
       */
+
       const progress = Math.min(
         Math.max(-rect.top / maxHorizontal, 0),
         1
@@ -78,10 +75,10 @@ function About() {
 
   return (
     <div className="about-page bg-[#F7FAF4] text-[#152019] dark:bg-[#070A07] dark:text-white">
-
       {/* =========================================================
           ABOUT TYPOGRAPHY
       ========================================================= */}
+
       <style>
         {`
           @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
@@ -124,13 +121,13 @@ function About() {
           }
 
           .about-fixed-panel {
-  flex: 0 0 100vw;
-  width: 100vw;
-  min-width: 100vw;
-  height: 100vh;
-  position: relative;
-  z-index: 20;
-}
+            flex: 0 0 100vw;
+            width: 100vw;
+            min-width: 100vw;
+            height: 100vh;
+            position: relative;
+            z-index: 20;
+          }
 
           .about-moving-content {
             display: flex;
@@ -138,13 +135,13 @@ function About() {
             height: 100vh;
           }
 
-        .about-moving-item {
-  flex: 0 0 100vw;
-  width: 100vw;
-  min-width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
+          .about-moving-item {
+            flex: 0 0 100vw;
+            width: 100vw;
+            min-width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+          }
 
           /* =====================================================
              DESKTOP
@@ -158,43 +155,56 @@ function About() {
 
           /* =====================================================
              TABLET / MOBILE
+             KEEP HORIZONTAL EXPERIENCE
           ===================================================== */
 
           @media (max-width: 768px) {
             .about-horizontal-section {
-              height: auto !important;
+              position: relative;
+              width: 100%;
             }
 
             .about-horizontal-sticky {
-              position: relative;
-              height: auto;
-              overflow: visible;
+              position: sticky;
+              top: 0;
+              width: 100%;
+              height: 100vh;
+              overflow: hidden;
             }
 
             .about-horizontal-track {
-              display: block;
-              width: 100%;
-              height: auto;
-              transform: none !important;
+              display: flex;
+              width: max-content;
+              height: 100%;
+              will-change: transform;
+              transform: translate3d(0, 0, 0);
             }
 
             .about-fixed-panel {
-              width: 100%;
-              min-width: 0;
-              height: auto;
+              flex: 0 0 100vw;
+              width: 100vw;
+              min-width: 100vw;
+              height: 100vh;
             }
 
             .about-moving-content {
-              display: block;
-              height: auto;
+              display: flex;
+              flex: 0 0 auto;
+              height: 100vh;
             }
 
             .about-moving-item {
-              width: 100%;
-              min-width: 0;
-              height: auto;
+              flex: 0 0 100vw;
+              width: 100vw;
+              min-width: 100vw;
+              height: 100vh;
+              overflow: hidden;
             }
           }
+
+          /* =====================================================
+             MOBILE HERO
+          ===================================================== */
 
           @media (max-width: 640px) {
             .about-hero-title {
@@ -206,7 +216,6 @@ function About() {
         `}
       </style>
 
-
       {/* =========================================================
           HORIZONTAL SCROLL EXPERIENCE
       ========================================================= */}
@@ -215,20 +224,16 @@ function About() {
         ref={horizontalSectionRef}
         className="about-horizontal-section"
       >
-
         <div className="about-horizontal-sticky">
-
           <div
             ref={trackRef}
             className="about-horizontal-track"
           >
-
             {/* ===================================================
                 FIXED ABOUT PANEL
             =================================================== */}
 
             <div className="about-fixed-panel">
-
               <section
                 className="
                   relative
@@ -237,8 +242,9 @@ function About() {
                   bg-[#020502]
                 "
               >
-
-                {/* BACKGROUND VIDEO */}
+                {/* =================================================
+                    BACKGROUND VIDEO
+                ================================================= */}
 
                 <video
                   src="/about-video.mp4"
@@ -256,8 +262,9 @@ function About() {
                   "
                 />
 
-
-                {/* DARK OVERLAY */}
+                {/* =================================================
+                    DARK OVERLAY
+                ================================================= */}
 
                 <div
                   className="
@@ -268,8 +275,9 @@ function About() {
                   "
                 />
 
-
-                {/* LEFT GRADIENT */}
+                {/* =================================================
+                    LEFT GRADIENT
+                ================================================= */}
 
                 <div
                   className="
@@ -283,8 +291,9 @@ function About() {
                   "
                 />
 
-
-                {/* BOTTOM GRADIENT */}
+                {/* =================================================
+                    BOTTOM GRADIENT
+                ================================================= */}
 
                 <div
                   className="
@@ -300,28 +309,48 @@ function About() {
                   "
                 />
 
-
-                {/* HERO CONTENT */}
+                {/* =================================================
+                    HERO CONTENT
+                    CENTERED ONLY
+                ================================================= */}
 
                 <div
                   className="
-                    relative
+                    absolute
+                    inset-0
                     z-10
                     flex
-                    h-full
                     items-center
+                    justify-center
                     px-8
                     md:px-10
                     lg:px-14
                   "
                 >
+                  <div
+                    className="
+                      flex
+                      w-full
+                      max-w-[900px]
+                      flex-col
+                      items-center
+                      justify-center
+                      text-center
+                    "
+                  >
+                    {/* =================================================
+                        LABEL
+                    ================================================= */}
 
-                  <div className="max-w-[600px]">
-
-                    {/* LABEL */}
-
-                    <div className="mb-5 flex items-center gap-3">
-
+                    <div
+                      className="
+                        mb-5
+                        flex
+                        items-center
+                        justify-center
+                        gap-3
+                      "
+                    >
                       <span
                         className="
                           h-px
@@ -346,40 +375,50 @@ function About() {
                         About TrackOwls
                       </span>
 
+                      <span
+                        className="
+                          h-px
+                          w-10
+                          bg-[#ADD132]
+                          sm:w-14
+                        "
+                      />
                     </div>
 
-
-                    {/* TITLE */}
+                    {/* =================================================
+                        TITLE
+                    ================================================= */}
 
                     <h1
                       className="
                         about-hero-title
+                        max-w-[900px]
+                        text-center
                         font-extrabold
                         text-white
                       "
                     >
                       Protecting the
-
                       <br />
-
                       <span className="text-[#ADD132]">
                         digital ecosystem.
                       </span>
                     </h1>
 
-
-                    {/* SCROLL INDICATOR */}
+                    {/* =================================================
+                        SCROLL INDICATOR
+                    ================================================= */}
 
                     <div
                       className="
                         mt-10
                         flex
                         items-center
+                        justify-center
                         gap-4
                         text-white/70
                       "
                     >
-
                       <div
                         className="
                           flex
@@ -407,24 +446,17 @@ function About() {
                       >
                         Scroll to explore
                       </span>
-
                     </div>
-
                   </div>
-
                 </div>
-
               </section>
-
             </div>
-
 
             {/* ===================================================
                 MOVING CONTENT
             =================================================== */}
 
             <div className="about-moving-content">
-
               {/* =================================================
                   COMPANY
               ================================================= */}
@@ -433,6 +465,21 @@ function About() {
                 <Company />
               </div>
 
+              {/* =================================================
+                  LEADERSHIP
+              ================================================= */}
+
+              <div className="about-moving-item">
+                <Leadership />
+              </div>
+
+              {/* =================================================
+                  DIRECTION
+              ================================================= */}
+
+              <div className="about-moving-item">
+                <Direction />
+              </div>
 
               {/* =================================================
                   WHO WE ARE
@@ -442,7 +489,6 @@ function About() {
                 <WhoWeAre />
               </div>
 
-
               {/* =================================================
                   VISION / MISSION
               ================================================= */}
@@ -450,16 +496,6 @@ function About() {
               <div className="about-moving-item">
                 <VisionMission />
               </div>
-
-
-              {/* =================================================
-                  WHY TRACKOWLS
-              ================================================= */}
-
-              <div className="about-moving-item">
-                <WhyTrackOwls />
-              </div>
-
 
               {/* =================================================
                   WHAT WE DO
@@ -469,7 +505,6 @@ function About() {
                 <WhatWeDo />
               </div>
 
-
               {/* =================================================
                   WHO WE PROTECT
               ================================================= */}
@@ -477,15 +512,10 @@ function About() {
               <div className="about-moving-item">
                 <WhoWeProtect />
               </div>
-
             </div>
-
           </div>
-
         </div>
-
       </section>
-
     </div>
   );
 }
