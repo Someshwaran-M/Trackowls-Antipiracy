@@ -4,9 +4,6 @@ import {
   Mail,
   Phone,
   MapPin,
-  Clock3,
-  Send,
-  CheckCircle2,
   Globe,
 } from "lucide-react";
 
@@ -88,413 +85,323 @@ function Contact() {
   return (
     <div className="min-h-screen w-full overflow-x-hidden bg-[#F7FAF4] text-[#152019] transition-colors duration-300 dark:bg-[#070A07] dark:text-white">
 
+      <style>{`
+        .contact-video {
+          animation: contactVideoZoom 16s ease-in-out infinite alternate;
+        }
+
+        @keyframes contactVideoZoom {
+          from {
+            transform: scale(1);
+          }
+
+          to {
+            transform: scale(1.07);
+          }
+        }
+
+        .contact-video-line {
+          animation: contactVideoLine 5s ease-in-out infinite;
+        }
+
+        @keyframes contactVideoLine {
+          0% {
+            transform: translateX(-130%);
+            opacity: 0;
+          }
+
+          15% {
+            opacity: 1;
+          }
+
+          70% {
+            opacity: .65;
+          }
+
+          100% {
+            transform: translateX(480%);
+            opacity: 0;
+          }
+        }
+
+        .contact-scan {
+          animation: contactScan 5s ease-in-out infinite;
+        }
+
+        @keyframes contactScan {
+          0% {
+            transform: translateY(-100%);
+            opacity: 0;
+          }
+
+          15% {
+            opacity: .75;
+          }
+
+          50% {
+            opacity: .35;
+          }
+
+          85% {
+            opacity: .75;
+          }
+
+          100% {
+            transform: translateY(700px);
+            opacity: 0;
+          }
+        }
+
+        .contact-pulse {
+          animation: contactPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes contactPulse {
+          0%,
+          100% {
+            box-shadow:
+              0 0 0 0 rgba(173, 209, 50, .16),
+              0 0 0 1px rgba(173, 209, 50, .35);
+          }
+
+          50% {
+            box-shadow:
+              0 0 0 10px rgba(173, 209, 50, 0),
+              0 0 0 1px rgba(173, 209, 50, .8);
+          }
+        }
+
+        .contact-detail-line {
+          transition:
+            width .35s ease,
+            opacity .35s ease;
+        }
+
+        .contact-detail-item:hover .contact-detail-line {
+          width: 70px;
+          opacity: 1;
+        }
+
+        .contact-detail-item {
+          transition:
+            background-color .35s ease,
+            transform .35s ease;
+        }
+
+        .contact-detail-item:hover {
+          background-color: rgba(173, 209, 50, .035);
+        }
+
+        .contact-map-grid {
+          background-image:
+            linear-gradient(rgba(173, 209, 50, .12) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(173, 209, 50, .12) 1px, transparent 1px);
+          background-size: 42px 42px;
+        }
+
+        .contact-map-ring {
+          animation: contactMapRing 3s ease-out infinite;
+        }
+
+        @keyframes contactMapRing {
+          0% {
+            transform: scale(.65);
+            opacity: .8;
+          }
+
+          100% {
+            transform: scale(1.8);
+            opacity: 0;
+          }
+        }
+
+        .contact-map-ring-two {
+          animation: contactMapRingTwo 3s ease-out infinite .9s;
+        }
+
+        @keyframes contactMapRingTwo {
+          0% {
+            transform: scale(.65);
+            opacity: .65;
+          }
+
+          100% {
+            transform: scale(1.8);
+            opacity: 0;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .contact-video,
+          .contact-video-line,
+          .contact-scan,
+          .contact-pulse,
+          .contact-map-ring,
+          .contact-map-ring-two {
+            animation: none !important;
+          }
+        }
+      `}</style>
+
       {/* =====================================================
           CONTACT DETAILS
-          NO CARDS
       ===================================================== */}
 
-      <section className="relative overflow-hidden border-y border-[#1C281C]/10 bg-[#EEF3E9] dark:border-white/[0.06] dark:bg-[#080C08]">
+      <section className="relative min-h-[650px] overflow-hidden bg-[#020502]">
 
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -left-32 top-0 h-72 w-72 rounded-full bg-[#ADD132]/10 blur-3xl dark:bg-[#ADD132]/5" />
+        {/* VIDEO */}
 
-          <div className="absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-[#ADD132]/10 blur-3xl dark:bg-[#ADD132]/5" />
+        <video
+          src="/contact-video.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="contact-video absolute inset-0 h-full w-full object-cover"
+        />
 
-          <div
-            className="absolute inset-0 opacity-40 dark:opacity-20"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(80,100,70,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(80,100,70,0.05) 1px, transparent 1px)",
-              backgroundSize: "48px 48px",
-            }}
-          />
+        {/* VIDEO OVERLAYS */}
+
+        <div className="absolute inset-0 bg-black/65" />
+
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/65 to-black/25" />
+
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/35" />
+
+        {/* LIME GLOW */}
+
+        <div className="pointer-events-none absolute -left-[15%] top-[5%] h-[500px] w-[500px] rounded-full bg-[#ADD132]/10 blur-[150px]" />
+
+        <div className="pointer-events-none absolute -right-[15%] bottom-[-10%] h-[500px] w-[500px] rounded-full bg-[#ADD132]/10 blur-[160px]" />
+
+        {/* GRID */}
+
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[.12]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(173,209,50,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(173,209,50,.12) 1px, transparent 1px)",
+            backgroundSize: "70px 70px",
+          }}
+        />
+
+        {/* SCAN */}
+
+        <div className="contact-scan pointer-events-none absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-[#ADD132] to-transparent shadow-[0_0_18px_rgba(173,209,50,.8)]" />
+
+        {/* MOVING TOP LINE */}
+
+        <div className="absolute left-0 right-0 top-0 h-px overflow-hidden bg-white/10">
+          <div className="contact-video-line h-full w-[25%] bg-gradient-to-r from-transparent via-[#ADD132] to-transparent" />
         </div>
 
-        <div className="relative mx-auto max-w-[1420px] px-4 py-10 sm:px-7 sm:py-14 md:px-10 md:py-16 lg:px-12">
+        {/* CONTENT */}
 
-          {/* Section heading */}
+        <div className="relative z-10 mx-auto flex min-h-[650px] max-w-[1420px] items-end px-4 pb-14 pt-28 sm:px-7 sm:pb-16 md:px-10 lg:px-12 lg:pb-20">
 
-          <div className="mb-8 flex items-center gap-3 sm:mb-10">
-            <span className="h-px w-10 bg-[#ADD132] sm:w-14" />
+          <div className="w-full">
 
-            <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#6F8D08] dark:text-[#ADD132] sm:text-[10px]">
-              Contact Details
-            </p>
-          </div>
+            {/* LABEL */}
 
-          {/* Contact details — completely cardless */}
+            <div className="mb-8 flex items-center gap-3">
+              <span className="h-px w-12 bg-[#ADD132] sm:w-16" />
 
-          <div className="grid md:grid-cols-3">
-
-            {contactDetails.map((item, index) => {
-              const Icon = item.icon;
-
-              return (
-                <a
-                  key={item.title}
-                  href={item.href}
-                  className={`
-                    group relative
-                    py-2
-                    md:px-7
-                    md:py-3
-                    lg:px-10
-                    ${index !== 0
-                      ? "mt-7 border-t border-[#253125]/10 pt-7 dark:border-white/[0.08] md:mt-0 md:border-l md:border-t-0 md:pt-3"
-                      : ""}
-                  `}
-                >
-
-                  <div className="flex items-start gap-4">
-
-                    {/* Icon without card */}
-
-                    <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center border-l-2 border-[#ADD132] text-[#6F8D08] transition-transform duration-300 group-hover:translate-x-1 dark:text-[#ADD132] sm:h-11 sm:w-11">
-                      <Icon size={20} />
-                    </div>
-
-                    <div className="min-w-0">
-
-                      <div className="flex items-center gap-3">
-                        <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#7B857B] dark:text-white/35 sm:text-[10px]">
-                          {item.title}
-                        </p>
-
-                        <ArrowUpRight
-                          size={14}
-                          className="text-[#6F8D08]/40 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#6F8D08] dark:text-[#ADD132]/40 dark:group-hover:text-[#ADD132]"
-                        />
-                      </div>
-
-                      <p className="mt-2 break-words text-sm font-bold tracking-[-0.02em] text-[#172017] dark:text-white sm:text-base">
-                        {item.value}
-                      </p>
-
-                      <p className="mt-1.5 text-[10px] leading-5 text-[#788278] dark:text-white/40 sm:text-xs sm:leading-6">
-                        {item.description}
-                      </p>
-
-                    </div>
-                  </div>
-
-                  <div className="mt-6 flex items-center gap-2 md:mt-8">
-                    <span className="h-1 w-1 rounded-full bg-[#ADD132]" />
-
-                    <span className="h-px w-8 bg-[#ADD132]/30 transition-all duration-300 group-hover:w-14" />
-
-                    <span className="text-[8px] font-bold tracking-[0.18em] text-[#9AA39A] dark:text-white/20">
-                      0{index + 1}
-                    </span>
-                  </div>
-
-                </a>
-              );
-            })}
-
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================
-          CONTACT FORM
-      ===================================================== */}
-
-      <section
-        id="contact-form"
-        className="relative overflow-hidden px-4 py-16 sm:px-7 sm:py-20 md:px-10 md:py-24 lg:px-12"
-      >
-        <div className="pointer-events-none absolute left-1/2 top-20 h-96 w-96 -translate-x-1/2 rounded-full bg-[#ADD132]/5 blur-[120px] dark:bg-[#ADD132]/[0.025]" />
-
-        <div className="relative mx-auto max-w-[1350px]">
-
-          <div className="grid gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:items-start lg:gap-16 xl:gap-24">
-
-            {/* FORM INTRO */}
-
-            <div className="lg:sticky lg:top-28">
-
-              <div className="flex items-center gap-3">
-                <span className="h-px w-10 bg-[#ADD132]" />
-
-                <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#6F8D08] dark:text-[#ADD132] sm:text-[10px]">
-                  Start a Conversation
-                </p>
-              </div>
-
-              <h2 className="mt-5 max-w-xl text-[34px] font-black leading-[0.98] tracking-[-0.055em] text-[#152019] dark:text-white sm:text-5xl md:text-6xl">
-                Tell us what you need to protect.
-              </h2>
-
-              <p className="mt-6 max-w-xl text-[12px] leading-6 text-[#687368] dark:text-white/45 sm:text-sm sm:leading-7 md:text-base md:leading-8">
-                Whether you're protecting digital content, intellectual
-                property, a brand or an online platform, share a few details
-                and we'll understand your requirements.
+              <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#ADD132] sm:text-[10px]">
+                Contact Details
               </p>
-
-              {/* Reasons */}
-
-              <div className="mt-8 border-t border-[#253125]/10 dark:border-white/[0.08]">
-                {reasons.map((reason, index) => (
-                  <div
-                    key={reason}
-                    className="group flex items-center gap-3 border-b border-[#253125]/10 py-3.5 dark:border-white/[0.08] sm:py-4"
-                  >
-                    <span className="w-5 text-[8px] font-bold tracking-[0.15em] text-[#9AA39A] dark:text-white/20">
-                      0{index + 1}
-                    </span>
-
-                    <CheckCircle2
-                      size={15}
-                      className="shrink-0 text-[#6F8D08] transition-transform duration-300 group-hover:scale-110 dark:text-[#ADD132]"
-                    />
-
-                    <span className="text-[11px] text-[#536053] dark:text-white/55 sm:text-sm">
-                      {reason}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Conversation Note */}
-
-              <div className="mt-8 border-l-2 border-[#ADD132] bg-[#ADD132]/5 p-4 dark:bg-[#ADD132]/[0.035] sm:mt-10 sm:p-5">
-                <div className="flex items-start gap-3">
-
-                  <Clock3
-                    size={18}
-                    className="mt-0.5 shrink-0 text-[#6F8D08] dark:text-[#ADD132]"
-                  />
-
-                  <div>
-                    <p className="text-xs font-bold text-[#172017] dark:text-white sm:text-sm">
-                      Let's start with a conversation.
-                    </p>
-
-                    <p className="mt-1.5 text-[10px] leading-5 text-[#687368] dark:text-white/40 sm:text-xs sm:leading-6">
-                      Share your requirements and we'll discuss the next
-                      steps with you.
-                    </p>
-                  </div>
-
-                </div>
-              </div>
             </div>
 
-            {/* FORM */}
+            {/* DETAILS */}
 
-            <div className="relative">
+            <div className="grid border-y border-white/10 md:grid-cols-3">
 
-              <div className="pointer-events-none absolute -inset-5 bg-[#ADD132]/5 blur-3xl dark:bg-[#ADD132]/[0.025]" />
+              {contactDetails.map((item, index) => {
+                const Icon = item.icon;
 
-              <form
-                onSubmit={handleSubmit}
-                className="relative overflow-hidden border border-[#253125]/10 bg-white dark:border-white/[0.08] dark:bg-[#0A0E0A]"
-              >
+                return (
+                  <a
+                    key={item.title}
+                    href={item.href}
+                    className={`
+                      contact-detail-item group relative py-7 sm:py-8 md:px-7 md:py-9 lg:px-10
+                      ${
+                        index !== 0
+                          ? "border-t border-white/10 md:border-l md:border-t-0"
+                          : ""
+                      }
+                    `}
+                  >
 
-                <div className="h-1 w-full bg-[#ADD132]" />
+                    {/* ACTIVE LINE */}
 
-                <div className="p-5 sm:p-7 md:p-9 lg:p-10">
+                    <div className="absolute left-0 top-0 h-full w-px bg-[#ADD132]/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-                  {/* Form Header */}
+                    <div className="flex items-start gap-4">
 
-                  <div className="flex items-start justify-between gap-5 border-b border-[#253125]/10 pb-6 dark:border-white/[0.08] sm:pb-7">
+                      {/* ICON */}
 
-                    <div>
-                      <p className="text-lg font-black tracking-[-0.03em] text-[#172017] dark:text-white sm:text-xl">
-                        Send an enquiry
-                      </p>
-
-                      <p className="mt-1.5 text-[9px] text-[#788278] dark:text-white/35 sm:text-xs">
-                        All fields marked with * are required.
-                      </p>
-                    </div>
-
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center border border-[#6F8D08]/20 bg-[#ADD132]/10 dark:border-[#ADD132]/20">
-                      <Send
-                        size={18}
-                        className="text-[#6F8D08] dark:text-[#ADD132]"
-                      />
-                    </div>
-
-                  </div>
-
-                  {/* Success */}
-
-                  {submitted && (
-                    <div className="mt-6 flex items-start gap-3 border border-[#6F8D08]/20 bg-[#ADD132]/10 p-4 dark:border-[#ADD132]/20 dark:bg-[#ADD132]/10">
-
-                      <CheckCircle2
-                        size={18}
-                        className="mt-0.5 shrink-0 text-[#6F8D08] dark:text-[#C7EB45]"
-                      />
-
-                      <div>
-                        <p className="text-xs font-bold text-[#6F8D08] dark:text-[#C7EB45] sm:text-sm">
-                          Message received
-                        </p>
-
-                        <p className="mt-1 text-[10px] leading-5 text-[#687368] dark:text-white/45 sm:text-sm">
-                          Thank you for contacting TrackOwls. Your enquiry has
-                          been submitted.
-                        </p>
+                      <div className="mt-1 flex h-11 w-11 shrink-0 items-center justify-center border border-white/10 bg-black/20 text-[#ADD132] backdrop-blur-md transition-all duration-300 group-hover:border-[#ADD132]/40 group-hover:bg-[#ADD132]/10">
+                        <Icon size={19} strokeWidth={1.6} />
                       </div>
 
-                    </div>
-                  )}
+                      <div className="min-w-0">
 
-                  {/* Form Fields */}
+                        <div className="flex items-center gap-3">
 
-                  <div className="mt-7 grid gap-5 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-6">
+                          <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-white/40 sm:text-[10px]">
+                            {item.title}
+                          </p>
 
-                    <FormField label="Full Name *" htmlFor="name">
-                      <input
-                        id="name"
-                        name="name"
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={handleChange}
-                        placeholder="Your name"
-                        className={inputClass}
-                      />
-                    </FormField>
+                          <ArrowUpRight
+                            size={13}
+                            className="text-[#ADD132]/40 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#ADD132]"
+                          />
 
-                    <FormField label="Company" htmlFor="company">
-                      <input
-                        id="company"
-                        name="company"
-                        type="text"
-                        value={formData.company}
-                        onChange={handleChange}
-                        placeholder="Company name"
-                        className={inputClass}
-                      />
-                    </FormField>
+                        </div>
 
-                    <FormField label="Email Address *" htmlFor="email">
-                      <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="you@company.com"
-                        className={inputClass}
-                      />
-                    </FormField>
+                        <p className="mt-3 break-words text-sm font-bold tracking-[-0.02em] text-white sm:text-base">
+                          {item.value}
+                        </p>
 
-                    <FormField label="Phone Number" htmlFor="phone">
-                      <input
-                        id="phone"
-                        name="phone"
-                        type="tel"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        placeholder="+91 00000 00000"
-                        className={inputClass}
-                      />
-                    </FormField>
+                        <p className="mt-1.5 text-[10px] leading-5 text-white/40 sm:text-xs sm:leading-6">
+                          {item.description}
+                        </p>
 
-                    <div className="sm:col-span-2">
-                      <label
-                        htmlFor="subject"
-                        className={labelClass}
-                      >
-                        What can we help with? *
-                      </label>
-
-                      <select
-                        id="subject"
-                        name="subject"
-                        required
-                        value={formData.subject}
-                        onChange={handleChange}
-                        className={inputClass}
-                      >
-                        <option value="" disabled>
-                          Select a topic
-                        </option>
-
-                        <option value="Anti-Piracy">
-                          Anti-Piracy
-                        </option>
-
-                        <option value="IP Protection">
-                          IP Protection
-                        </option>
-
-                        <option value="Brand Protection">
-                          Brand Protection
-                        </option>
-
-                        <option value="Online Monitoring">
-                          Online Monitoring
-                        </option>
-
-                        <option value="Threat Detection">
-                          Threat Detection
-                        </option>
-
-                        <option value="Digital Investigation">
-                          Digital Investigation
-                        </option>
-
-                        <option value="Partnership">
-                          Partnership
-                        </option>
-
-                        <option value="Other">
-                          Other
-                        </option>
-                      </select>
+                      </div>
                     </div>
 
-                    <div className="sm:col-span-2">
-                      <label
-                        htmlFor="message"
-                        className={labelClass}
-                      >
-                        Message *
-                      </label>
+                    {/* DETAIL LINE */}
 
-                      <textarea
-                        id="message"
-                        name="message"
-                        required
-                        rows="6"
-                        value={formData.message}
-                        onChange={handleChange}
-                        placeholder="Tell us about your requirements..."
-                        className={`${inputClass} min-h-[140px] resize-none sm:min-h-[160px]`}
-                      />
+                    <div className="mt-7 flex items-center gap-2 md:mt-8">
+                      <span className="h-1 w-1 rounded-full bg-[#ADD132]" />
+
+                      <span className="contact-detail-line h-px w-8 bg-[#ADD132]/40" />
+
+                      <span className="text-[8px] font-bold tracking-[0.18em] text-white/20">
+                        0{index + 1}
+                      </span>
                     </div>
-                  </div>
 
-                  {/* Submit */}
+                  </a>
+                );
+              })}
 
-                  <div className="mt-6 sm:mt-7">
-                    <button
-                      type="submit"
-                      className="group flex w-full items-center justify-center gap-3 bg-[#ADD132] px-5 py-3.5 text-xs font-bold text-[#101800] transition-all duration-300 hover:bg-[#C7EB45] hover:shadow-[0_0_35px_rgba(173,209,50,0.18)] sm:py-4 sm:text-sm"
-                    >
-                      Send Message
-
-                      <ArrowUpRight
-                        size={18}
-                        className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"
-                      />
-                    </button>
-                  </div>
-
-                  <p className="mt-3 text-center text-[8px] leading-5 text-[#8A948A] dark:text-white/25 sm:mt-4 sm:text-xs">
-                    By submitting this form, you agree to be contacted
-                    regarding your enquiry.
-                  </p>
-
-                </div>
-              </form>
             </div>
+          </div>
+        </div>
+
+        {/* BOTTOM BAR */}
+
+        <div className="absolute bottom-0 left-0 right-0 border-t border-white/10">
+          <div className="mx-auto flex max-w-[1420px] items-center justify-between px-4 py-4 sm:px-7 md:px-10 lg:px-12">
+            <span className="text-[7px] font-black uppercase tracking-[0.23em] text-white/25">
+              Contact Details
+            </span>
+
+            <span className="hidden text-[7px] font-black uppercase tracking-[0.2em] text-[#ADD132] sm:block">
+              TrackOwls
+            </span>
           </div>
         </div>
       </section>
@@ -505,9 +412,16 @@ function Contact() {
 
       <section
         id="location"
-        className="border-y border-[#1C281C]/10 bg-[#EEF3E9] px-4 py-14 dark:border-white/[0.06] dark:bg-[#080C08] sm:px-7 sm:py-20 md:px-10 md:py-24 lg:px-12"
+        className="relative overflow-hidden border-y border-[#1C281C]/10 bg-[#EEF3E9] px-4 py-14 dark:border-white/[0.06] dark:bg-[#080C08] sm:px-7 sm:py-20 md:px-10 md:py-24 lg:px-12"
       >
-        <div className="mx-auto max-w-[1350px]">
+
+        <div className="pointer-events-none absolute -left-40 top-0 h-[500px] w-[500px] rounded-full bg-[#ADD132]/[0.045] blur-[150px]" />
+
+        <div className="pointer-events-none absolute -right-40 bottom-0 h-[500px] w-[500px] rounded-full bg-[#ADD132]/[0.04] blur-[150px]" />
+
+        <div className="relative mx-auto max-w-[1350px]">
+
+          {/* LOCATION FRAME */}
 
           <div className="grid overflow-hidden border border-[#253125]/10 bg-white dark:border-white/[0.08] dark:bg-[#0A0E0A] lg:grid-cols-[0.72fr_1.28fr]">
 
@@ -515,7 +429,7 @@ function Contact() {
 
             <div className="relative p-6 sm:p-8 md:p-10 lg:p-12">
 
-              <div className="absolute left-0 top-0 h-full w-1 bg-[#ADD132]" />
+              <div className="absolute left-0 top-0 h-full w-[3px] bg-[#ADD132]" />
 
               <div className="flex h-12 w-12 items-center justify-center border border-[#6F8D08]/20 bg-[#ADD132]/10 dark:border-[#ADD132]/20 sm:h-14 sm:w-14">
                 <MapPin
@@ -558,38 +472,39 @@ function Contact() {
 
             {/* MAP VISUAL */}
 
-            <div className="relative min-h-[300px] overflow-hidden border-t border-[#253125]/10 dark:border-white/[0.07] sm:min-h-[370px] md:min-h-[430px] lg:border-l lg:border-t-0">
+            <div className="relative min-h-[320px] overflow-hidden border-t border-[#253125]/10 dark:border-white/[0.07] sm:min-h-[400px] md:min-h-[460px] lg:border-l lg:border-t-0">
 
-              <div
-                className="absolute inset-0 opacity-30 dark:opacity-25"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(rgba(173,209,50,0.16) 1px, transparent 1px), linear-gradient(90deg, rgba(173,209,50,0.16) 1px, transparent 1px)",
-                  backgroundSize: "42px 42px",
-                }}
-              />
+              {/* GRID */}
 
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(173,209,50,0.13),transparent_58%)]" />
+              <div className="contact-map-grid absolute inset-0 opacity-30 dark:opacity-25" />
 
-              <div className="absolute left-[12%] top-[25%] h-px w-[75%] rotate-[17deg] bg-[#6F8D08]/15 dark:bg-[#ADD132]/15" />
+              {/* CENTER GLOW */}
 
-              <div className="absolute left-[18%] top-[60%] h-px w-[70%] -rotate-[24deg] bg-[#6F8D08]/15 dark:bg-[#ADD132]/15" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(173,209,50,0.15),transparent_58%)]" />
+
+              {/* MAP LINES */}
+
+              <div className="absolute left-[10%] top-[24%] h-px w-[78%] rotate-[17deg] bg-[#6F8D08]/15 dark:bg-[#ADD132]/15" />
+
+              <div className="absolute left-[17%] top-[60%] h-px w-[72%] -rotate-[24deg] bg-[#6F8D08]/15 dark:bg-[#ADD132]/15" />
 
               <div className="absolute left-[43%] top-[7%] h-[86%] w-px rotate-[22deg] bg-[#6F8D08]/10 dark:bg-[#ADD132]/10" />
 
               <div className="absolute left-[64%] top-[8%] h-[82%] w-px -rotate-[30deg] bg-[#6F8D08]/10 dark:bg-[#ADD132]/10" />
 
-              {/* Location */}
+              {/* LOCATION */}
 
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
 
-                <div className="relative flex h-24 w-24 items-center justify-center rounded-full border border-[#6F8D08]/20 bg-[#ADD132]/5 dark:border-[#ADD132]/20">
+                <div className="relative flex h-28 w-28 items-center justify-center rounded-full border border-[#6F8D08]/20 bg-[#ADD132]/5 dark:border-[#ADD132]/20">
+
+                  <div className="contact-map-ring absolute inset-4 rounded-full border border-[#ADD132]/40" />
+
+                  <div className="contact-map-ring-two absolute inset-4 rounded-full border border-[#ADD132]/30" />
 
                   <div className="absolute inset-3 rounded-full border border-[#6F8D08]/20 dark:border-[#ADD132]/20" />
 
-                  <div className="absolute inset-0 animate-ping rounded-full border border-[#ADD132]/20" />
-
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ADD132] shadow-[0_0_35px_rgba(173,209,50,0.35)]">
+                  <div className="contact-pulse relative flex h-12 w-12 items-center justify-center rounded-full bg-[#ADD132]">
                     <MapPin
                       size={23}
                       className="text-black"
@@ -600,12 +515,12 @@ function Contact() {
                 <div className="absolute left-1/2 top-[115%] -translate-x-1/2 whitespace-nowrap border border-[#253125]/10 bg-white/90 px-4 py-2 text-xs font-semibold text-[#536053] shadow-lg backdrop-blur-xl dark:border-white/[0.08] dark:bg-[#0A0E0A]/90 dark:text-white/60">
                   Coimbatore, India
                 </div>
+
               </div>
 
-              {/* Location Label */}
+              {/* LOCATION LABEL */}
 
               <div className="absolute bottom-5 left-5 border border-[#253125]/10 bg-white/85 px-4 py-3 backdrop-blur-xl dark:border-white/[0.08] dark:bg-[#0A0E0A]/90 sm:bottom-7 sm:left-7">
-
                 <p className="text-[8px] uppercase tracking-[0.18em] text-[#7D877D] dark:text-white/25 sm:text-[9px]">
                   Location
                 </p>
@@ -615,8 +530,9 @@ function Contact() {
                 </p>
               </div>
 
-              <div className="absolute right-5 top-5 hidden border border-[#253125]/10 bg-white/70 px-3 py-2 backdrop-blur-xl dark:border-white/[0.08] dark:bg-[#0A0E0A]/80 sm:block">
+              {/* DIGITAL PROTECTION */}
 
+              <div className="absolute right-5 top-5 hidden border border-[#253125]/10 bg-white/70 px-3 py-2 backdrop-blur-xl dark:border-white/[0.08] dark:bg-[#0A0E0A]/80 sm:block">
                 <p className="text-[8px] uppercase tracking-[0.15em] text-[#7D877D] dark:text-white/25">
                   Digital Protection
                 </p>
@@ -624,7 +540,6 @@ function Contact() {
                 <p className="mt-1 text-[10px] font-bold text-[#6F8D08] dark:text-[#ADD132]">
                   GLOBAL
                 </p>
-
               </div>
             </div>
           </div>
@@ -633,63 +548,5 @@ function Contact() {
     </div>
   );
 }
-
-/* =========================================================
-   FORM FIELD
-========================================================= */
-
-function FormField({ label, htmlFor, children }) {
-  return (
-    <div>
-      <label htmlFor={htmlFor} className={labelClass}>
-        {label}
-      </label>
-
-      {children}
-    </div>
-  );
-}
-
-/* =========================================================
-   SHARED FORM STYLES
-========================================================= */
-
-const labelClass = `
-  mb-2
-  block
-  text-[9px]
-  font-semibold
-  text-[#536053]
-  dark:text-slate-300
-  sm:text-xs
-  md:text-sm
-`;
-
-const inputClass = `
-  w-full
-  rounded-none
-  border
-  border-[#253125]/10
-  bg-[#F8FAF5]
-  px-4
-  py-3
-  text-[11px]
-  text-[#172017]
-  outline-none
-  transition-all
-  duration-300
-  placeholder:text-[#A0AAA0]
-  focus:border-[#6F8D08]/50
-  focus:ring-2
-  focus:ring-[#ADD132]/10
-  dark:border-white/[0.08]
-  dark:bg-[#070A07]
-  dark:text-white
-  dark:placeholder:text-white/20
-  dark:focus:border-[#ADD132]/50
-  sm:px-4
-  sm:py-3.5
-  sm:text-sm
-`;
 
 export default Contact;

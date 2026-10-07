@@ -349,20 +349,28 @@ export default function Navbar() {
                 WIDER / NO BOX / NO TEXT
             ================================================= */}
 
-            <div
-              className="
-                flex
-                h-full
-                w-[150px]
-                shrink-0
-                items-center
-                sm:w-[185px]
-                lg:w-[200px]
-                xl:w-[215px]
-              "
-            >
-              <TrackOwlsLogo />
-            </div>
+            {/* =================================================
+    LOGO
+================================================= */}
+
+<div
+  className="
+    relative
+    flex
+    h-full
+    w-[174px]
+    shrink-0
+    items-center
+    overflow-visible
+    sm:w-[205px]
+    md:w-[220px]
+    lg:w-[250px]
+    xl:w-[275px]
+    2xl:w-[290px]
+  "
+>
+  <TrackOwlsLogo />
+</div>
 
             {/* =================================================
                 DESKTOP NAVIGATION
